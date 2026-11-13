@@ -54,9 +54,9 @@ bridge:
     stheta: 0.0
 
     # opp starting pose on map
-    sx1: 9.5
-    sy1: 8.5
-    stheta1: 3.14
+    sx: 0.0
+    sy: 0.0
+    stheta: 0.086
 
     # teleop
     kb_teleop: True

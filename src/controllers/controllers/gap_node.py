@@ -3,9 +3,11 @@ import math
 import numpy as np
 import rclpy
 from ackermann_msgs.msg import AckermannDriveStamped
+from geometry_msgs.msg import Point
 from nav_msgs.msg import Odometry
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
+from visualization_msgs.msg import Marker
 
 
 class ReactiveFollowGap(Node):
@@ -54,9 +56,14 @@ class ReactiveFollowGap(Node):
         # ---------------- Lap parameters ----------------
         self.declare_parameter('target_laps', 10)
         self.declare_parameter('stop_when_done', True)
-        self.declare_parameter('lap_leave_dist', 5.0)   # m the car must move away from the start
-        self.declare_parameter('lap_enter_dist', 1.0)   # m to the start point to count a lap
+        # Start/finish line, in map coordinates
+        self.declare_parameter('start_x', 0.0)          # m, center of the line (map frame)
+        self.declare_parameter('start_y', 0.0)          # m, center of the line (map frame)
+        self.declare_parameter('start_yaw', 0.0)        # rad, driving direction across the line
+        self.declare_parameter('start_line_length', 3.0)  # m, should span the track width
+        self.declare_parameter('min_lap_distance', 20.0)  # m, ignores accidental double crossings
         self.declare_parameter('collision_dist', 0.20)  # m, minimum reading treated as a near-collision
+        self.declare_parameter('status_period', 1.0)    # s, how often the live status line is printed
 
         p = self.get_parameter
         self.fov = math.radians(p('fov_deg').value)
@@ -76,9 +83,13 @@ class ReactiveFollowGap(Node):
         self.front_cone_deg = p('front_cone_deg').value
         self.target_laps = int(p('target_laps').value)
         self.stop_when_done = p('stop_when_done').value
-        self.lap_leave_dist = p('lap_leave_dist').value
-        self.lap_enter_dist = p('lap_enter_dist').value
+        self.start_x = p('start_x').value
+        self.start_y = p('start_y').value
+        self.start_yaw = p('start_yaw').value
+        self.start_line_length = p('start_line_length').value
+        self.min_lap_distance = p('min_lap_distance').value
         self.collision_dist = p('collision_dist').value
+        self.status_period = p('status_period').value
 
         # ---------------- State ----------------
         self.steer = 0.0
@@ -86,13 +97,21 @@ class ReactiveFollowGap(Node):
         self.fov_angles = None        # angles of those beams
         self.angle_increment = None
 
-        self.start_pose = None
-        self.left_start = False
+        self.prev_s = 0.0             # previous position along the driving direction
         self.lap_count = 0
         self.lap_start_time = None
         self.finished = False
         self.near_collision_count = 0
         self.in_collision = False
+
+        # Chronometer and distance tracking
+        self.race_start_time = None   # time of the first odometry message
+        self.prev_position = None     # last (x, y), used to integrate distance
+        self.lap_distance = 0.0       # m traveled in the current lap
+        self.total_distance = 0.0     # m traveled in the whole run
+        self.current_speed = 0.0      # m/s, from odometry
+        self.best_lap_time = None
+        self.lap_records = []         # (lap_time, lap_distance) per completed lap
 
         # ---------------- Subscribe to LIDAR / publish to drive ----------------
         self.drive_pub = self.create_publisher(
@@ -102,43 +121,145 @@ class ReactiveFollowGap(Node):
         self.create_subscription(
             Odometry, p('odom_topic').value, self.odom_callback, 10)
 
+        # Start line marker for RViz (add a Marker display on /start_line)
+        self.marker_pub = self.create_publisher(Marker, '/start_line', 10)
+        self.marker_timer = self.create_timer(1.0, self.publish_start_line)
+
+        # Live chronometer / distance status line
+        self.status_timer = self.create_timer(self.status_period, self.status_callback)
+
         self.get_logger().info(
             f'Follow the Gap ready. Target: {self.target_laps} laps.')
 
     # ======================================================
     #  Odometry: lap counting
     # ======================================================
+    def line_coordinates(self, x, y):
+        """Express (x, y) in the start-line frame.
+        along_track: distance along the driving direction (0 on the line, + after it)
+        cross_track: lateral offset along the line (0 at its center)
+        """
+        dx = x - self.start_x
+        dy = y - self.start_y
+        along_track = dx * math.cos(self.start_yaw) + dy * math.sin(self.start_yaw)
+        cross_track = -dx * math.sin(self.start_yaw) + dy * math.cos(self.start_yaw)
+        return along_track, cross_track
+
     def odom_callback(self, msg: Odometry):
         x = msg.pose.pose.position.x
         y = msg.pose.pose.position.y
         now = self.get_clock().now()
+        self.current_speed = msg.twist.twist.linear.x
 
-        # The first odometry message defines the start/finish point
-        if self.start_pose is None:
-            self.start_pose = (x, y)
-            self.lap_start_time = now
-            self.get_logger().info(f'Start point: x={x:.2f}, y={y:.2f}')
-            return
+        along_track, cross_track = self.line_coordinates(x, y)
 
-        dist_to_start = math.hypot(x - self.start_pose[0], y - self.start_pose[1])
-
-        # The car must leave the start area before a new lap can be counted
-        if dist_to_start > self.lap_leave_dist:
-            self.left_start = True
-
-        if self.left_start and dist_to_start < self.lap_enter_dist and not self.finished:
-            self.lap_count += 1
-            self.left_start = False
-            lap_time = (now - self.lap_start_time).nanoseconds * 1e-9
+        # The first odometry message starts the chronometer
+        if self.prev_position is None:
+            self.prev_position = (x, y)
+            self.prev_s = along_track
+            self.race_start_time = now
             self.lap_start_time = now
             self.get_logger().info(
-                f'Lap {self.lap_count}/{self.target_laps} completed in '
-                f'{lap_time:.1f} s | near-collisions: {self.near_collision_count}')
-            if self.lap_count >= self.target_laps:
-                self.finished = True
-                self.get_logger().info(
-                    f'*** {self.target_laps} laps completed. '
-                    f'Near-collisions: {self.near_collision_count} ***')
+                f'Start line at x={self.start_x:.2f}, y={self.start_y:.2f}, '
+                f'yaw={self.start_yaw:.2f} rad | car at x={x:.2f}, y={y:.2f}')
+            return
+
+        # Integrate the distance traveled between consecutive odometry samples
+        if not self.finished:
+            step = math.hypot(x - self.prev_position[0], y - self.prev_position[1])
+            self.lap_distance += step
+            self.total_distance += step
+        self.prev_position = (x, y)
+
+        # The line is crossed in the driving direction when the along-track
+        # coordinate goes from negative to non-negative inside the line length
+        crossed = (self.prev_s < 0.0 <= along_track
+                   and abs(cross_track) <= self.start_line_length / 2.0)
+        self.prev_s = along_track
+
+        if not crossed or self.finished:
+            return
+
+        # Crossing the line before completing a real lap (car starting just
+        # behind the line): restart the clocks exactly at the line
+        if self.lap_count == 0 and self.lap_distance < self.min_lap_distance:
+            self.race_start_time = now
+            self.lap_start_time = now
+            self.lap_distance = 0.0
+            self.total_distance = 0.0
+            self.get_logger().info('Start line crossed: timing started.')
+            return
+
+        # Ignore accidental double crossings (jitter around the line)
+        if self.lap_distance < self.min_lap_distance:
+            return
+
+        self.lap_count += 1
+        lap_time = (now - self.lap_start_time).nanoseconds * 1e-9
+        lap_distance = self.lap_distance
+        avg_speed = lap_distance / lap_time if lap_time > 0.0 else 0.0
+        self.lap_records.append((lap_time, lap_distance))
+        if self.best_lap_time is None or lap_time < self.best_lap_time:
+            self.best_lap_time = lap_time
+        self.get_logger().info(
+            f'LAP {self.lap_count}/{self.target_laps} DONE | '
+            f'time: {lap_time:.2f} s | distance: {lap_distance:.2f} m | '
+            f'avg speed: {avg_speed:.2f} m/s | best: {self.best_lap_time:.2f} s | '
+            f'near-collisions: {self.near_collision_count}')
+
+        # Start the next lap
+        self.lap_start_time = now
+        self.lap_distance = 0.0
+        if self.lap_count >= self.target_laps:
+            self.finished = True
+            total_time = (now - self.race_start_time).nanoseconds * 1e-9
+            self.get_logger().info(
+                f'*** {self.target_laps} laps completed | '
+                f'total time: {total_time:.2f} s | '
+                f'total distance: {self.total_distance:.2f} m | '
+                f'best lap: {self.best_lap_time:.2f} s | '
+                f'near-collisions: {self.near_collision_count} ***')
+
+    def publish_start_line(self):
+        """Publish the start/finish line as a marker (frame 'map') for RViz."""
+        half = self.start_line_length / 2.0
+        # Unit vector along the line (perpendicular to the driving direction)
+        ux, uy = -math.sin(self.start_yaw), math.cos(self.start_yaw)
+
+        marker = Marker()
+        marker.header.frame_id = 'map'
+        marker.header.stamp = self.get_clock().now().to_msg()
+        marker.ns = 'start_line'
+        marker.id = 0
+        marker.type = Marker.LINE_STRIP
+        marker.action = Marker.ADD
+        marker.scale.x = 0.08                     # line thickness (m)
+        marker.color.r, marker.color.g, marker.color.b, marker.color.a = 0.1, 1.0, 0.2, 1.0
+        marker.pose.orientation.w = 1.0
+        marker.points = [
+            Point(x=self.start_x - half * ux, y=self.start_y - half * uy, z=0.05),
+            Point(x=self.start_x + half * ux, y=self.start_y + half * uy, z=0.05),
+        ]
+        self.marker_pub.publish(marker)
+
+    # ======================================================
+    #  Live chronometer
+    # ======================================================
+    def status_callback(self):
+        """Print the running lap time, lap distance and speed once per status_period."""
+        if self.finished:
+            self.status_timer.cancel()
+            return
+        if self.prev_position is None:
+            return
+        now = self.get_clock().now()
+        lap_elapsed = (now - self.lap_start_time).nanoseconds * 1e-9
+        total_elapsed = (now - self.race_start_time).nanoseconds * 1e-9
+        self.get_logger().info(
+            f'[Lap {self.lap_count + 1}/{self.target_laps}] '
+            f'lap time: {lap_elapsed:6.1f} s | lap distance: {self.lap_distance:7.2f} m | '
+            f'speed: {self.current_speed:4.1f} m/s | '
+            f'total time: {total_elapsed:6.1f} s | total distance: {self.total_distance:8.2f} m')
 
     # ======================================================
     #  Follow the Gap
