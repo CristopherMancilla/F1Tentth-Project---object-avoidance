@@ -241,6 +241,19 @@ Visualization Manager:
       Topic: /planned_path
       Unreliable: false
       Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: LapMarkers
+      Namespaces:
+        start_line: true
+        trajectory: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /lap_markers
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48

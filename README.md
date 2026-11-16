@@ -1,312 +1,457 @@
-# F1TENTH Simulator for Autonomous Vehicle Competitions
-The F1TENTH simulator for ROS 2 is a simulation environment designed to test control, navigation, and planning algorithms on a 1/10 scale autonomous vehicle.
+# F1Tenth-Repository
 
-**Features of the F1TENTH Simulator in ROS 2**
-- Publishes and subscribes to ROS 2 topics, enabling interaction with virtual sensors and actuators.
-- Simulates sensors such as LiDAR and odometry.
-- Compatible with autonomous navigation algorithms.
-- Supports 1 or 2 vehicles simultaneously.
-- For a Spanish version of this file, click [here](README_es.md).
+**[English](#english) | [Español](#español)**
 
-## 1. Simulator Installation
+---
 
-### 1.1 Install Dependencies and Simulator
-- **ROS 2 Humble**: Follow the instructions [here](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
-- **F1TENTH Gym**
-```bash
-  git clone https://github.com/f1tenth/f1tenth_gym
-  sudo apt install python3-pip
-  cd f1tenth_gym && pip3 install -e .
+<a name="english"></a>
+# English
+
+ROS 2 Humble workspace with the F1TENTH gym simulator, the **Sepang** track and a reactive **Follow the Gap** controller (`gap_node`). Tested on **Ubuntu 22.04**.
+
+- The controller drives the car around Sepang using only the LiDAR. It uses a *disparity extender*: every wall edge is widened by half the car width plus a safety margin, so the car does not cut corners or hit the walls.
+- Each lap targets **60 s** and must not take more than **75 s**.
+- After **10 laps** the car stops and the terminal prints a table with the data of every lap and the **winning (fastest) lap**.
+- RViz shows the **start line in green** and the **car trajectory in red**. The red line is erased and starts again every time the car crosses the start line.
+
+## Repository layout
+
+```
+F1Tenth-Repository/                        # this repository = the colcon workspace
+└── src/
+    ├── controllers/
+    │   └── controllers/gap_node.py         # Follow the Gap controller (also pid, ttc, purepursuit, rrt, mpc nodes)
+    ├── f1tenth_gym_ros/
+    │   ├── config/sim.yaml                 # simulator settings (map, start pose)
+    │   ├── f1tenth_gym_ros/lap_visualizer.py  # green start line + red trajectory in RViz
+    │   ├── launch/gym_bridge_launch.py     # starts the simulator, RViz and lap_visualizer
+    │   └── maps/Sepang_map.png / .yaml     # Sepang map
+    ├── path_planning/
+    └── waypoints/
 ```
 
-Install the simulator:
+## 1. Requirements
+
+- Ubuntu 22.04
+- ROS 2 Humble (desktop install, includes RViz). Follow the official guide:
+  <https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html>
+
+Install the tools used in the next steps:
+
+```bash
+sudo apt update
+sudo apt install -y git python3-pip python3-colcon-common-extensions python3-rosdep \
+  ros-humble-nav2-map-server ros-humble-nav2-lifecycle-manager \
+  ros-humble-ackermann-msgs ros-humble-joint-state-publisher ros-humble-xacro
+```
+
+Load ROS 2 automatically in every new terminal (once):
+
+```bash
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
+
+## 2. Install the F1TENTH gym
+
+The simulator core is a Python package that `f1tenth_gym_ros` uses:
+
 ```bash
 cd $HOME
-git clone https://github.com/widegonz/F1Tenth-Repository.git
+git clone https://github.com/f1tenth/f1tenth_gym
+cd f1tenth_gym && pip3 install -e .
 ```
 
-https://github.com/user-attachments/assets/984a755c-6259-4271-9f88-51f68e425af5
+## 3. Download the repository
 
-#### 1.2. Installation of simulator dependencies
-Dependencies are installed using rosdep:
+The repository is already a colcon workspace (it contains `src/`), so clone it directly as the workspace folder:
 
 ```bash
-cd
-sudo apt install python3-rosdep2
+cd $HOME
+git clone https://github.com/CristopherMancilla/F1Tentth-Project---object-avoidance.git F1Tenth-Repository
+cd F1Tenth-Repository
+```
+
+The last word of `git clone` is the folder name; with `F1Tenth-Repository` the workspace is `~/F1Tenth-Repository`, the path used in this guide. Use the URL of your own repository or fork if it is different.
+
+Install the ROS dependencies of the packages:
+
+```bash
+sudo rosdep init        # only the first time; ignore the error if it was already initialized
 rosdep update
+rosdep install --from-paths src --ignore-src -r -y --rosdistro humble
+```
+
+## 4. Simulator settings (`sim.yaml`)
+
+File: `src/f1tenth_gym_ros/config/sim.yaml`. Set the **absolute** path of the map (replace `<your_user>`; run `echo $HOME` if you are not sure). The start pose must stay at `(0, 0)` pointing along the main straight, because the start line and the lap counter are placed there:
+
+```yaml
+map_path: '/home/<your_user>/F1Tenth-Repository/src/f1tenth_gym_ros/maps/Sepang_map'   # no extension
+map_img_ext: '.png'
+sx: 0.0
+sy: 0.0
+stheta: 0.0
+```
+
+The launch file reads the **installed** copy of `sim.yaml`, so build again (step 5) after every change.
+
+## 5. Build (first time and after any change)
+
+```bash
+cd ~/F1Tenth-Repository
 source /opt/ros/humble/setup.bash
-cd ~/F1Tenth-Repository
-rosdep install -i --from-path src --rosdistro humble -y
-```
-
-https://github.com/user-attachments/assets/4c3ea5fb-4486-459f-beb7-bb7e8efa2a34
-
-#### 1.3. Update Map Path in sim.yaml
-
-To ensure that the simulator can locate the maps correctly, we need to modify the default path in the `sim.yaml` file, which is as follows:
-
-`/home/your_user/F1Tenth-Repository/src/f1tenth_gym_ros/maps/levine`
-
-In this case, the part that says `your_user` will be replaced with the username that has been set on your computer. Here’s how to do it:
-
-https://github.com/user-attachments/assets/f66baff8-8d29-4306-a2e5-d5a50eb888f3
-
-With the path modified, all we have to do is navigate to the main folder and compile our workspace.
-
-```bash
-cd ~/F1Tenth-Repository
 colcon build
-```
-
-#### 1.4. Start the simulation
-
-To start the simulation, make sure you have run `source` in your workspace
-```bash
-cd ~/F1Tenth-Repository
 source install/setup.bash
 ```
 
-Then we use the following command to load the simulator:
+To start from scratch: `rm -rf build install log` and build again.
+
+## 6. Launch the simulator (Terminal 1)
 
 ```bash
+cd ~/F1Tenth-Repository
+source /opt/ros/humble/setup.bash
+source install/setup.bash
 ros2 launch f1tenth_gym_ros gym_bridge_launch.py
 ```
 
-The first time you run the command, the simulator will take a little while to load the robot model; subsequent times, it will start up more quickly.
+Wait until RViz shows the Sepang map, the car and the **green start line**. This also starts the map server, the gym bridge and `lap_visualizer`.
 
-https://github.com/user-attachments/assets/1791be99-73b6-4a22-acc2-6efa6fd40e5f
+## 7. Run the 10-lap test (Terminal 2)
 
-#### 1.4 Execution Issues
-If you encounter an error when running the simulator's `.launch` file, you can use the following command to remove a library that causes errors on certain computers:
-```bash
-python3 -m pip uninstall -y coverage
-sudo apt purge -y python3-coverage
-```
+1. Make sure the car is **on the green start line**. If it was moved or crashed in a previous run, use **2D Pose Estimate** in RViz: click on the green line and drag towards the main straight (+x, to the right). Or restart Terminal 1.
+2. In a new terminal:
 
-Once the library has been removed, we recompile the repository:
 ```bash
 cd ~/F1Tenth-Repository
-rm -rf build/ install/ log/
-colcon build --symlink-install
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+ros2 run controllers gap_node
+```
+
+The car drives 10 laps and then stops by itself. A full test takes about 10–12 minutes. Stop everything with `Ctrl+C`.
+
+### Passing criteria
+
+| Criterion | Target |
+|---|---|
+| Collisions | none (`near-collisions` must be 0 on every lap) |
+| Lap time | about 60 s, never more than 75 s |
+| Laps | 10, then the car stops |
+
+### Custom parameters
+
+```bash
+ros2 run controllers gap_node --ros-args -p target_laps:=3
+ros2 run controllers gap_node --ros-args -p target_lap_time:=65.0
+ros2 run controllers gap_node --ros-args -p v_max:=10.0 -p safety_margin:=0.30
+```
+
+Parameters are read when the node starts; to change one, stop the node (`Ctrl+C`) and run it again.
+
+| Parameter | Default | Meaning |
+|---|---|---|
+| `target_laps` | 10 | laps before the car stops |
+| `target_lap_time` | 60.0 s | desired lap time (`0` disables the regulator) |
+| `max_lap_time` | 75.0 s | laps slower than this are marked `TOO SLOW` |
+| `v_max` / `v_min` | 12.0 / 2.0 m/s | top speed / lowest speed |
+| `max_decel` | 8.0 m/s² | braking used to plan the speed before a wall |
+| `brake_margin` | 0.5 m | distance kept before a wall |
+| `max_lat_accel` | 10.0 m/s² | lateral acceleration limit in curves |
+| `safety_margin` | 0.25 m | extra clearance added to wall edges |
+| `side_clearance` | 0.30 m | the car does not turn towards a side wall closer than this |
+| `fov_deg` | 180 | field of view used to choose the direction |
+| `start_x`, `start_y`, `start_yaw` | 0.0, 0.0, 0.0 | start line position and driving direction |
+| `status_period` | 5.0 s | how often the live status line is printed |
+
+Higher `v_max`, `max_decel` or `max_lat_accel` give faster laps but can make the car hit a wall or turn around in the tight hairpins.
+
+## 8. What you will see
+
+During the run, a status line every 5 s and one line per completed lap:
+
+```
+[reactive_node]: [Lap 3/10]  21.0 s |  170.3 m | speed  8.1 m/s | cap 12.0 m/s
+[reactive_node]: LAP 3/10: 61.42 s | 487.9 m | avg 7.94 m/s | max 11.80 m/s | near-collisions 0
+```
+
+After lap 10, the summary (the numbers are an example):
+
+```
+==============================================================================
+  RACE FINISHED: 10 laps
+==============================================================================
+  Lap | Time (s) | Dist (m) | Avg (m/s) | Max (m/s) | Near-coll | Status
+  --------------------------------------------------------------------------
+    1 |    63.10 |    488.0 |      7.73 |     11.90 |         0 | OK (<= max)
+    2 |    60.85 |    487.6 |      8.01 |     11.95 |         0 | OK (<= max)
+  ...
+    7 |    59.92 |    487.8 |      8.14 |     11.97 |         0 | OK (<= target)  <-- FASTEST
+  ...
+  --------------------------------------------------------------------------
+  Total time: 610.40 s | total distance: 4878.5 m | average lap: 61.04 s
+  WINNING LAP (fastest): lap 7 with 59.92 s (8.14 m/s average)
+==============================================================================
+```
+
+`Status` is `OK (<= target)` for laps up to 60 s, `OK (<= max)` up to 75 s and `TOO SLOW` above 75 s.
+
+In RViz (display `LapMarkers`, topic `/lap_markers`, already in the RViz config):
+
+- **Green line**: start/finish line across the track.
+- **Red line**: trajectory of the current lap. It is erased and starts again each time the car crosses the start line. The terminal of Terminal 1 also prints `Lap N completed in X s`.
+
+Lap times are measured with the computer clock. If the PC is slow, the simulation runs slower than real time and the laps take longer.
+
+## Topics
+
+| Topic | Node | Direction | Type |
+|---|---|---|---|
+| `/scan` | gap_node | subscribes | `sensor_msgs/LaserScan` |
+| `/ego_racecar/odom` | gap_node, lap_visualizer | subscribes | `nav_msgs/Odometry` |
+| `/drive` | gap_node | publishes | `ackermann_msgs/AckermannDriveStamped` |
+| `/lap_markers` | lap_visualizer | publishes | `visualization_msgs/MarkerArray` |
+
+## Troubleshooting
+
+| Problem | Solution |
+|---|---|
+| `Package '...' not found` | run `source /opt/ros/humble/setup.bash` and `source install/setup.bash` in that terminal |
+| `executable 'gap_node' not found` | build and source again (step 5) |
+| The old map or old settings are used | you changed `sim.yaml` without building; run `colcon build` again |
+| `ModuleNotFoundError: f110_gym` | install the gym again: `cd ~/f1tenth_gym && pip3 install -e .` |
+| Missing ROS packages when launching | run the `rosdep install` command of step 3 again |
+| RViz closes right after opening | try software rendering: `export LIBGL_ALWAYS_SOFTWARE=1` before launching |
+| `libGL error` / `MESA` messages | no GPU access (e.g. inside a container); RViz still works with software rendering |
+| The car does not move or stays stuck in a wall | it was not on the start line; reset it with **2D Pose Estimate** and run `gap_node` again |
+| Laps are not counted | the car must cross the green line in the driving direction (+x) |
+| Laps take more than 75 s | the PC simulates slower than real time; close other programs, or raise `v_max` a little |
+| The car touches the walls | lower `v_max` or `max_lat_accel`, or raise `safety_margin` |
+
+---
+
+<a name="español"></a>
+# Español
+
+Workspace de ROS 2 Humble con el simulador F1TENTH gym, la pista **Sepang** y un controlador reactivo **Follow the Gap** (`gap_node`). Probado en **Ubuntu 22.04**.
+
+- El controlador conduce el carro por Sepang usando solo el LiDAR. Usa un *disparity extender*: cada borde de pared se ensancha medio ancho del carro más un margen de seguridad, para que el carro no corte las curvas ni choque con las paredes.
+- Cada vuelta busca durar **60 s** y no debe pasar de **75 s**.
+- Al terminar las **10 vueltas** el carro se detiene y la terminal muestra una tabla con los datos de cada vuelta y la **vuelta ganadora (la más rápida)**.
+- RViz muestra la **línea de inicio en verde** y la **trayectoria del carro en rojo**. La línea roja se borra y empieza de nuevo cada vez que el carro cruza la línea de inicio.
+
+## Estructura del repositorio
+
+```
+F1Tenth-Repository/                        # este repositorio = el workspace de colcon
+└── src/
+    ├── controllers/
+    │   └── controllers/gap_node.py         # controlador Follow the Gap (también nodos pid, ttc, purepursuit, rrt, mpc)
+    ├── f1tenth_gym_ros/
+    │   ├── config/sim.yaml                 # configuración del simulador (mapa, pose inicial)
+    │   ├── f1tenth_gym_ros/lap_visualizer.py  # línea de inicio verde + trayectoria roja en RViz
+    │   ├── launch/gym_bridge_launch.py     # inicia el simulador, RViz y lap_visualizer
+    │   └── maps/Sepang_map.png / .yaml     # mapa de Sepang
+    ├── path_planning/
+    └── waypoints/
+```
+
+## 1. Requisitos
+
+- Ubuntu 22.04
+- ROS 2 Humble (instalación de escritorio, incluye RViz). Sigue la guía oficial:
+  <https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html>
+
+Instala las herramientas que se usan en los siguientes pasos:
+
+```bash
+sudo apt update
+sudo apt install -y git python3-pip python3-colcon-common-extensions python3-rosdep \
+  ros-humble-nav2-map-server ros-humble-nav2-lifecycle-manager \
+  ros-humble-ackermann-msgs ros-humble-joint-state-publisher ros-humble-xacro
+```
+
+Carga ROS 2 automáticamente en cada terminal nueva (una sola vez):
+
+```bash
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
+
+## 2. Instalar el F1TENTH gym
+
+El núcleo del simulador es un paquete de Python que usa `f1tenth_gym_ros`:
+
+```bash
+cd $HOME
+git clone https://github.com/f1tenth/f1tenth_gym
+cd f1tenth_gym && pip3 install -e .
+```
+
+## 3. Descargar el repositorio
+
+El repositorio ya es un workspace de colcon (contiene `src/`), así que se clona directamente como la carpeta del workspace:
+
+```bash
+cd $HOME
+git clone https://github.com/CristopherMancilla/F1Tentth-Project---object-avoidance.git F1Tenth-Repository
+cd F1Tenth-Repository
+```
+
+La última palabra de `git clone` es el nombre de la carpeta; con `F1Tenth-Repository` el workspace queda en `~/F1Tenth-Repository`, la ruta que usa esta guía. Si tu repositorio o fork tiene otra URL, usa esa.
+
+Instala las dependencias de ROS de los paquetes:
+
+```bash
+sudo rosdep init        # solo la primera vez; ignora el error si ya estaba inicializado
+rosdep update
+rosdep install --from-paths src --ignore-src -r -y --rosdistro humble
+```
+
+## 4. Configuración del simulador (`sim.yaml`)
+
+Archivo: `src/f1tenth_gym_ros/config/sim.yaml`. Escribe la ruta **absoluta** del mapa (reemplaza `<tu_usuario>`; ejecuta `echo $HOME` si no estás seguro). La pose inicial debe quedar en `(0, 0)` apuntando por la recta principal, porque ahí están la línea de inicio y el contador de vueltas:
+
+```yaml
+map_path: '/home/<tu_usuario>/F1Tenth-Repository/src/f1tenth_gym_ros/maps/Sepang_map'   # sin extensión
+map_img_ext: '.png'
+sx: 0.0
+sy: 0.0
+stheta: 0.0
+```
+
+El launch lee la copia **instalada** de `sim.yaml`, así que vuelve a compilar (paso 5) después de cada cambio.
+
+## 5. Compilar (la primera vez y después de cualquier cambio)
+
+```bash
+cd ~/F1Tenth-Repository
+source /opt/ros/humble/setup.bash
+colcon build
 source install/setup.bash
 ```
 
-And the simulator is restarted:
+Para empezar de cero: `rm -rf build install log` y compila de nuevo.
+
+## 6. Lanzar el simulador (Terminal 1)
+
 ```bash
+cd ~/F1Tenth-Repository
+source /opt/ros/humble/setup.bash
+source install/setup.bash
 ros2 launch f1tenth_gym_ros gym_bridge_launch.py
 ```
 
-## 2. Repository Structure
+Espera a que RViz muestre el mapa de Sepang, el carro y la **línea de inicio verde**. Esto también inicia el servidor de mapas, el puente del gym y `lap_visualizer`.
 
-The repository provided was developed based on the various tasks that can be performed within the simulator. Additionally, it includes practical information provided by the competition organizers to help users learn key aspects of autonomous navigation.
+## 7. Ejecutar la prueba de 10 vueltas (Terminal 2)
 
-<p align="center">
-  <img src="img/repo.png" />
-  <br />
-  <em>Repository Contents</em>
-</p>
-
-#### 2.1. `Laboratories` Folder
-
-This folder contains exercises provided by the competition organizers to help students learn how to use the simulator and the actual robot. There are a total of 7 exercises, covering the following topics:
-- Lab 1: Introduction to ROS 2
-- Lab 2: Automatic Emergency Braking
-- Lab 3: Wall Follower (Control Algorithm)
-- Lab 4: Follow the Gap (Control Algorithm)
-- Lab 5: Pure Pursuit (Motion Planning)
-- Lab 6: Rapidly-exploring Random Tree (RRT)
-- Lab 7: Model Predictive Control (MPC)
-
-#### 2.2. `Controllers` Package
-As the name suggests, this folder is a ROS package containing several nodes designed to control the robot’s movement—that is, to send direction and speed messages to make the robot follow a specific behavior. It is important to note that these nodes are merely a set of basic functions and structures intended to serve as a guide for each student to write their own version of the code.
-
-<p align="center">
-  <img src="img/controllers.png" />
-  <br />
-  <em>Contents of the Controllers folder</em>
-</p>
-
-There are a total of 6 nodes, each corresponding to a lab exercise. The first lab exercise is an introduction to ROS, so it is not included in this folder.
-
-- `ttc_node.py`: A node designed to contain the code necessary to ensure automatic emergency braking.
-- `pid_node.py`: Node designed to contain a PID controller for tracking one of the walls on the map.
-- `gap_node.py`: Node designed to contain the reactive `Follow the Gap` control and allow the robot to avoid obstacles.
-- `purepursuit_node.py`: Node designed to contain the code necessary for the robot to follow a predefined path.
-- `rrt_node.py`: Node designed to contain the code necessary to use the RRT algorithm and generate local trajectories that allow the robot to move and avoid obstacles.
-- `mpc_node.py`: Node designed to contain the code necessary for the robot to use the `MPC` controller to move.
-
-#### 2.3. `f1tenth_gym_ros` Package
-
-This package contains everything needed for the `f1tenth_gym` simulator to work with ROS, allowing you to use the simulator with Rviz. Generally speaking, few changes will be made to this package, aside from the `maps` and `config` folders.
-
-<p align="center">
-  <img src="img/bridge.png" />
-  <br />
-  <em>Contents of the f1tenth_gym_ros folder</em>
-</p>
-
-**`maps` folder**
-
-As the name suggests, this is where we’ll add all the maps we need for simulation. To add a map, we basically need two files:
-- A `.png` file, which represents the image of our map.
-- A `.yaml` file, which is a map configuration file in ROS 2 used for autonomous navigation.
-
-Whenever a new map needs to be added, we need both files, which are generated using SLAM tools for simultaneous localization and mapping.
-
-A basic structure of a `.yaml` file used for the simulator is as follows:
+1. Verifica que el carro esté **sobre la línea de inicio verde**. Si se movió o chocó en una prueba anterior, usa **2D Pose Estimate** en RViz: haz clic sobre la línea verde y arrastra hacia la recta principal (+x, a la derecha). O reinicia la Terminal 1.
+2. En una terminal nueva:
 
 ```bash
-image: levineB.png
-resolution: 0.050000
-origin: [-25.0, -12.75, 0.000000]
-negate: 0
-occupied_thresh: 0.65
-free_thresh: 0.196 que es este arhivo .yaml?
+cd ~/F1Tenth-Repository
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+ros2 run controllers gap_node
 ```
 
-**Explanation of each parameter:**  
-1. **`image: levineB.png`**  
-   - This is the grayscale image representing the map of the environment.  
-   - It is typically generated using tools such as **SLAM Toolbox**, **gmapping**, or **map_server**.  
+El carro da 10 vueltas y luego se detiene solo. La prueba completa tarda unos 10–12 minutos. Detén todo con `Ctrl+C`.
 
-2. **`resolution: 0.050000`**  
-   - Defines the size of each pixel in **meters/pixel**.  
-   - In this case, each pixel corresponds to **5 cm** in the real world.  
+### Criterios de aprobación
 
-3. **`origin: [-25.0, -12.75, 0.000000]`**  
-   - Defines the position of the map’s origin in the global coordinate system (X, Y, Theta).  
-   - Here, the map origin is at (-25.0, -12.75) meters and **0 radians** of rotation.  
+| Criterio | Objetivo |
+|---|---|
+| Colisiones | ninguna (`near-collisions` debe ser 0 en cada vuelta) |
+| Tiempo por vuelta | unos 60 s, nunca más de 75 s |
+| Vueltas | 10, y luego el carro se detiene |
 
-4. **`negate: 0`**  
-   - Indicates whether the image color should be inverted.  
-   - `0` means that **dark values** represent obstacles and **light values** are clear areas.  
-
-5. **`occupied_thresh: 0.65`**  
-   - Threshold limit for considering a pixel **occupied** (obstacle).  
-   - If the pixel intensity is **greater than 65%**, it is considered an **obstacle**.  
-
-6. **`free_thresh: 0.196`**  
-   - Threshold limit for considering a pixel **free**.  
-   - If the pixel intensity is **less than 19.6%**, it is considered a **navigable area**.  
-
-**`config` folder**
-This folder contains a single file named `sim.yaml`. This file contains the settings required for the simulator to function properly. Specifically, we will only modify three sections:
-
-If you want to change the map being used, modify this line:
-```bash
-    map_path: '/home/israel/F1Tenth-Repository/src/f1tenth_gym_ros/maps/levine'
-```
-
-In this case, it uses the `levine.png` map. To ensure we use a different map, we need to place the PNG file in the maps folder and modify the end of the line mentioned above to include the name of our map.
-
-https://github.com/user-attachments/assets/d1302653-d5e6-4022-9df9-a0113e9bdb12
-
-The other section to be modified is:
-```bash
-    # opponent parameters
-    num_agent: 1
-```
-Depending on whether we want 1 or 2 robots to appear in our simulation.
-
-https://github.com/user-attachments/assets/a4a5d284-6bfa-42c0-ae58-5a4694da63ec
-
-And finally:
-```bash
-    # ego starting pose on map
-    sx: 0.0
-    sy: 0.0
-    stheta: 0.0
-
-    # opp starting pose on map
-    sx1: 9.5
-    sy1: 8.5
-    stheta1: 3.14
-```
-This defines the starting position of our robots on the map. If it is set to (0,0,0), the robot appears at the origin defined in the `.yaml` file. If we want it to appear at a different position, we assign values to `x` and `y` to change the position and to `tetha` to modify the orientation.
-
-https://github.com/user-attachments/assets/6269e319-5558-458c-a9b0-5b7240a9e0cd
-
-#### 2.4. `path_planning` Package
-
-When developing autonomous navigation algorithms, it is necessary to include those that, based on a map, generate a global path while minimizing various parameters such as distance traveled, speed, and vehicle dynamics, among others.
-
-This ROS package is designed to store all algorithms developed for the purpose of performing global route planning for our mobile robot.
-
-<p align="center">
-  <img src="img/path_planning.png" />
-  <br />
-  <em>Contents of the path_planning folder</em>
-</p>
-
-The package contains a file named `waypoint_recorder.py`, which serves as a template for a ROS 2 node for an odometry-based waypoint logger. Its purpose is to record the robot’s positions (x, y, orientation w) in a CSV file as it moves, with the goal of serving as the basis for developing a waypoint-based navigation system. It is one of the algorithms mentioned for the `Pure Pursuit` controller, which uses waypoints to follow a defined trajectory.
-
-#### 2.5. `Waypoints` Folder
-
-A folder designed to hold `.csv` files that represent the various waypoints needed to define an overall path for the mobile robot to follow.
-
-**What are Waypoints?**  
-**Waypoints** are reference points in space (generally expressed as (x, y, theta) coordinates) that indicate key positions a robot or vehicle must pass through during navigation.  
-
-In the context of robotics and ROS 2, a waypoint is typically defined as:  
-- **(x, y):** Position in the plane (or in 3D if aerial or underwater navigation is used).  
-- **(theta) or (w):** The robot’s orientation at that point (in radians or quaternions).  
-
-**Why are waypoints useful?**  
-Waypoints are fundamental in multiple robotics and navigation applications:  
-
-1. **Autonomous navigation:** They are used as waypoints to help a robot plan its path from a starting point to a destination.  
-
-2. **Mapping and exploration:** In SLAM (Simultaneous Localization and Mapping), waypoints can mark explored locations or points of interest.  
-
-3. **Trajectory tracking:** A drone or mobile robot can follow a series of predefined waypoints to move in a controlled manner.  
-
-4. **Motion recording and analysis:** Waypoints can be stored to analyze a robot’s trajectory after a simulation or real-world test. 
-
-## 3. Topics in the simulation
-When we run the simulation with a single vehicle and use the `ros2 topic list` command, we get the following topics:
-
-<p align="center">
-  <img src="img/single_agent.png" />
-  <br />
-  <em>Topics with only one vehicle simulated</em>
-</p>
-
-The most important of these are:
-- `/ego_racecar/odom`: This corresponds to the robot’s odometry, where we can obtain position and orientation data.
-- `/scan`: A topic that sends messages from the LIDAR sensor, which provides information about the environment.
-- `/map`: The simulation map, which contains `OccupancyGrip`-type messages.
-- `/tf` and `/tf_static`: Publish the static and dynamic transformation trees present in the simulation.
-- `/drive`: Where messages to move the robot are published, specifically `AckermannDriveStamped` messages.
-- `/initialpose`: Topic that allows resetting the vehicle's position.
-
-When we run the simulation with two vehicles and use the `ros2 topic list` command, we get the following topics:
-<p align="center">
-  <img src="img/two_agents.png" />
-  <br />
-  <em>Topics with 2 simulated vehicles</em>
-</p>
-
-In this case, we have the same topics as we did with a single vehicle in the simulation, and in addition, the topics for the opponent’s vehicle are added:
-- `/opp_scan`: Messages from the opponent’s LIDAR.
-- `/opp_racecar/odom`: The opponent’s odometry.
-- `/opp_drive`: Where messages are published to move the opponent’s robot, such as `AckermannDriveStamped` messages.
-- `/goal_pose`: A topic that allows you to reset the opponent’s vehicle position.
-
-**Note:** When using two agents—that is, two vehicles in the simulation—we must simultaneously publish driving messages to the `/drive` and `/opp_drive` topics. If this is not done and commands are published to only one topic, neither of the two vehicles will move. The simulator detects that messages are being posted to both vehicle movement topics simultaneously, and only then does it allow movement for both; otherwise, it does not.
-
-## 4. Keyboard Teleoperation
-The `teleop_twist_keyboard` keyboard teleoperation node is also installed as part of the simulation dependencies. To enable keyboard teleoperation, set `kb_teleop` to True in `sim.yaml`. After launching the simulation, in another terminal, run:
+### Parámetros personalizados
 
 ```bash
-ros2 run teleop_twist_keyboard teleop_twist_keyboard
+ros2 run controllers gap_node --ros-args -p target_laps:=3
+ros2 run controllers gap_node --ros-args -p target_lap_time:=65.0
+ros2 run controllers gap_node --ros-args -p v_max:=10.0 -p safety_margin:=0.30
 ```
-To move the vehicle in the simulator, use the following keys:
-- `i`: to move forward.
-- `u`: to move forward and to the left.
-- `o`: to move forward and to the right.
-- `k`: to stop all movement.
-- `,`: to move backward.
-- `m`: to move backward and to the left.
-- `.`: to move backward and to the right
 
-https://github.com/user-attachments/assets/1961d6bf-369a-4c58-9654-8d4c7cdefe19
+Los parámetros se leen al iniciar el nodo; para cambiar uno, detén el nodo (`Ctrl+C`) y vuelve a ejecutarlo.
+
+| Parámetro | Por defecto | Significado |
+|---|---|---|
+| `target_laps` | 10 | vueltas antes de que el carro se detenga |
+| `target_lap_time` | 60.0 s | tiempo deseado por vuelta (`0` desactiva el regulador) |
+| `max_lap_time` | 75.0 s | las vueltas más lentas se marcan `TOO SLOW` |
+| `v_max` / `v_min` | 12.0 / 2.0 m/s | velocidad máxima / mínima |
+| `max_decel` | 8.0 m/s² | frenado usado para planear la velocidad antes de una pared |
+| `brake_margin` | 0.5 m | distancia que se deja antes de una pared |
+| `max_lat_accel` | 10.0 m/s² | límite de aceleración lateral en curvas |
+| `safety_margin` | 0.25 m | holgura extra que se agrega a los bordes de pared |
+| `side_clearance` | 0.30 m | el carro no gira hacia una pared lateral más cercana que esto |
+| `fov_deg` | 180 | campo de visión usado para elegir la dirección |
+| `start_x`, `start_y`, `start_yaw` | 0.0, 0.0, 0.0 | posición de la línea de inicio y sentido de la marcha |
+| `status_period` | 5.0 s | cada cuánto se imprime la línea de estado |
+
+Subir `v_max`, `max_decel` o `max_lat_accel` da vueltas más rápidas, pero el carro puede chocar o dar la vuelta en las horquillas cerradas.
+
+## 8. Qué verás
+
+Durante la prueba, una línea de estado cada 5 s y una línea por cada vuelta completada:
+
+```
+[reactive_node]: [Lap 3/10]  21.0 s |  170.3 m | speed  8.1 m/s | cap 12.0 m/s
+[reactive_node]: LAP 3/10: 61.42 s | 487.9 m | avg 7.94 m/s | max 11.80 m/s | near-collisions 0
+```
+
+Al terminar la vuelta 10, el resumen (los números son un ejemplo):
+
+```
+==============================================================================
+  RACE FINISHED: 10 laps
+==============================================================================
+  Lap | Time (s) | Dist (m) | Avg (m/s) | Max (m/s) | Near-coll | Status
+  --------------------------------------------------------------------------
+    1 |    63.10 |    488.0 |      7.73 |     11.90 |         0 | OK (<= max)
+    2 |    60.85 |    487.6 |      8.01 |     11.95 |         0 | OK (<= max)
+  ...
+    7 |    59.92 |    487.8 |      8.14 |     11.97 |         0 | OK (<= target)  <-- FASTEST
+  ...
+  --------------------------------------------------------------------------
+  Total time: 610.40 s | total distance: 4878.5 m | average lap: 61.04 s
+  WINNING LAP (fastest): lap 7 with 59.92 s (8.14 m/s average)
+==============================================================================
+```
+
+`Status` es `OK (<= target)` para vueltas de hasta 60 s, `OK (<= max)` hasta 75 s y `TOO SLOW` por encima de 75 s.
+
+En RViz (display `LapMarkers`, tópico `/lap_markers`, ya incluido en la configuración de RViz):
+
+- **Línea verde**: línea de inicio/meta atravesando la pista.
+- **Línea roja**: trayectoria de la vuelta actual. Se borra y empieza de nuevo cada vez que el carro cruza la línea de inicio. La Terminal 1 también imprime `Lap N completed in X s`.
+
+Los tiempos de vuelta se miden con el reloj de la computadora. Si la PC es lenta, la simulación corre más lento que el tiempo real y las vueltas tardan más.
+
+## Tópicos
+
+| Tópico | Nodo | Dirección | Tipo |
+|---|---|---|---|
+| `/scan` | gap_node | se suscribe | `sensor_msgs/LaserScan` |
+| `/ego_racecar/odom` | gap_node, lap_visualizer | se suscribe | `nav_msgs/Odometry` |
+| `/drive` | gap_node | publica | `ackermann_msgs/AckermannDriveStamped` |
+| `/lap_markers` | lap_visualizer | publica | `visualization_msgs/MarkerArray` |
+
+## Solución de problemas
+
+| Problema | Solución |
+|---|---|
+| `Package '...' not found` | ejecuta `source /opt/ros/humble/setup.bash` y `source install/setup.bash` en esa terminal |
+| `executable 'gap_node' not found` | compila y haz `source` de nuevo (paso 5) |
+| Se usa el mapa o la configuración anterior | cambiaste `sim.yaml` sin compilar; ejecuta `colcon build` otra vez |
+| `ModuleNotFoundError: f110_gym` | instala de nuevo el gym: `cd ~/f1tenth_gym && pip3 install -e .` |
+| Faltan paquetes de ROS al lanzar | ejecuta otra vez el `rosdep install` del paso 3 |
+| RViz se cierra al abrir | prueba renderizado por software: `export LIBGL_ALWAYS_SOFTWARE=1` antes de lanzar |
+| Mensajes `libGL error` / `MESA` | no hay acceso a la GPU (por ejemplo, dentro de un contenedor); RViz funciona igual con renderizado por software |
+| El carro no se mueve o queda atascado en una pared | no estaba en la línea de inicio; reinícialo con **2D Pose Estimate** y vuelve a ejecutar `gap_node` |
+| No se cuentan las vueltas | el carro debe cruzar la línea verde en el sentido de la marcha (+x) |
+| Las vueltas pasan de 75 s | la PC simula más lento que el tiempo real; cierra otros programas o sube un poco `v_max` |
+| El carro toca las paredes | baja `v_max` o `max_lat_accel`, o sube `safety_margin` |

@@ -83,12 +83,24 @@ def generate_launch_description():
         remappings=[('/robot_description', 'opp_robot_description')]
     )
 
+    params = config_dict['bridge']['ros__parameters']
+    lap_visualizer_node = Node(
+        package='f1tenth_gym_ros',
+        executable='lap_visualizer',
+        name='lap_visualizer',
+        parameters=[{'sx': float(params['sx']),
+                     'sy': float(params['sy']),
+                     'stheta': float(params['stheta']),
+                     'odom_topic': '/' + params['ego_namespace'] + '/' + params['ego_odom_topic']}]
+    )
+
     # finalize
     ld.add_action(rviz_node)
     ld.add_action(bridge_node)
     ld.add_action(nav_lifecycle_node)
     ld.add_action(map_server_node)
     ld.add_action(ego_robot_publisher)
+    ld.add_action(lap_visualizer_node)
     if has_opp:
         ld.add_action(opp_robot_publisher)
 
