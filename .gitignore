@@ -52,3 +52,9 @@ qtcreator-*
 # Catkin custom files
 CATKIN_IGNORE
 
+
+# Credenciales locales: nunca subir a GitHub
+Project Githun Token
+*.token
+*token.txt
+.env
