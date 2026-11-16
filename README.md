@@ -9,9 +9,9 @@
 
 ROS 2 Humble workspace with the F1TENTH gym simulator, the **Sepang** track and a reactive **Follow the Gap** controller (`gap_node`). Tested on **Ubuntu 22.04**.
 
-- The controller drives the car around Sepang using only the LiDAR. It uses a *disparity extender*: every wall edge is widened by half the car width plus a safety margin, so the car does not cut corners or hit the walls.
+- The controller drives the car around Sepang using only the LiDAR. It uses a *disparity extender*: every wall edge is widened by half the car width plus a safety margin, so the car does not cut corners or hit the walls. Steering aims at a point that moves further ahead with speed, and speed changes are gradual (hard braking at high speed makes the car spin).
 - Each lap targets **60 s** and must not take more than **75 s**.
-- After **10 laps** the car stops and the terminal prints a table with the data of every lap and the **winning (fastest) lap**.
+- After **10 laps** the car stops and the terminal prints a summary: the data of every lap, the **winning (fastest) lap**, the **slowest lap**, total time, total distance, average and top speed, and total near-collisions.
 - RViz shows the **start line in green** and the **car trajectory in red**. The red line is erased and starts again every time the car crosses the start line.
 
 ## Repository layout
@@ -155,28 +155,30 @@ Parameters are read when the node starts; to change one, stop the node (`Ctrl+C`
 | `target_laps` | 10 | laps before the car stops |
 | `target_lap_time` | 60.0 s | desired lap time (`0` disables the regulator) |
 | `max_lap_time` | 75.0 s | laps slower than this are marked `TOO SLOW` |
-| `v_max` / `v_min` | 12.0 / 2.0 m/s | top speed / lowest speed |
-| `max_decel` | 8.0 m/s² | braking used to plan the speed before a wall |
+| `v_max` / `v_min` | 14.0 / 2.0 m/s | top speed / lowest speed |
+| `max_decel` | 4.0 m/s² | braking used to plan the speed before a wall |
 | `brake_margin` | 0.5 m | distance kept before a wall |
-| `max_lat_accel` | 10.0 m/s² | lateral acceleration limit in curves |
+| `max_lat_accel` | 12.0 m/s² | lateral acceleration limit in curves |
+| `accel_rate` / `decel_rate` | 4.5 / 4.0 m/s² | how fast the speed command may rise / fall |
+| `lookahead_min` / `lookahead_gain` / `lookahead_max` | 1.0 m / 0.3 s / 4.0 m | steering aim point: `min + gain × speed`, up to `max` |
 | `safety_margin` | 0.25 m | extra clearance added to wall edges |
 | `side_clearance` | 0.30 m | the car does not turn towards a side wall closer than this |
 | `fov_deg` | 180 | field of view used to choose the direction |
 | `start_x`, `start_y`, `start_yaw` | 0.0, 0.0, 0.0 | start line position and driving direction |
 | `status_period` | 5.0 s | how often the live status line is printed |
 
-Higher `v_max`, `max_decel` or `max_lat_accel` give faster laps but can make the car hit a wall or turn around in the tight hairpins.
+Higher `v_max`, `max_decel`, `max_lat_accel` or `decel_rate` give faster laps but can make the car spin, hit a wall or turn around in the tight hairpins.
 
 ## 8. What you will see
 
 During the run, a status line every 5 s and one line per completed lap:
 
 ```
-[reactive_node]: [Lap 3/10]  21.0 s |  170.3 m | speed  8.1 m/s | cap 12.0 m/s
-[reactive_node]: LAP 3/10: 61.42 s | 487.9 m | avg 7.94 m/s | max 11.80 m/s | near-collisions 0
+[reactive_node]: [Lap 3/10] lap  21.0 s /  124.6 m | total  181.6 s /  1075.0 m | speed  7.1 m/s | cap 14.0 m/s
+[reactive_node]: LAP 3/10: 80.19 s | 475.1 m | avg 5.92 m/s | max 8.95 m/s | near-collisions 0
 ```
 
-After lap 10, the summary (the numbers are an example):
+After lap 10, the summary. Laps 1–4 are real times measured in the container used for development; the rest of the numbers are an example:
 
 ```
 ==============================================================================
@@ -184,14 +186,23 @@ After lap 10, the summary (the numbers are an example):
 ==============================================================================
   Lap | Time (s) | Dist (m) | Avg (m/s) | Max (m/s) | Near-coll | Status
   --------------------------------------------------------------------------
-    1 |    63.10 |    488.0 |      7.73 |     11.90 |         0 | OK (<= max)
-    2 |    60.85 |    487.6 |      8.01 |     11.95 |         0 | OK (<= max)
+    1 |    81.23 |    475.2 |      5.85 |      8.90 |         0 | TOO SLOW  <-- SLOWEST
+    2 |    80.41 |    475.2 |      5.91 |      8.96 |         0 | TOO SLOW
   ...
-    7 |    59.92 |    487.8 |      8.14 |     11.97 |         0 | OK (<= target)  <-- FASTEST
+    6 |    79.63 |    475.2 |      5.97 |      9.10 |         0 | TOO SLOW  <-- FASTEST
   ...
   --------------------------------------------------------------------------
-  Total time: 610.40 s | total distance: 4878.5 m | average lap: 61.04 s
-  WINNING LAP (fastest): lap 7 with 59.92 s (8.14 m/s average)
+  Total time:          804.06 s (13.40 min)
+  Total distance:      4751.2 m (4.751 km)
+  Average speed:       5.91 m/s
+  Top speed:           9.10 m/s (lap 6)
+  Average lap:         80.41 s (std dev 0.56 s) | average lap distance: 475.1 m
+  Laps <= 60 s: 0/10 | laps <= 75 s: 0/10
+  Near-collisions:     0
+  --------------------------------------------------------------------------
+  WINNING LAP (fastest):  lap 6 with 79.63 s (475.2 m, 5.97 m/s average)
+  SLOWEST LAP (longest):  lap 1 with 81.23 s (475.2 m, 5.85 m/s average)
+  Difference slowest - fastest: 1.60 s
 ==============================================================================
 ```
 
@@ -202,7 +213,7 @@ In RViz (display `LapMarkers`, topic `/lap_markers`, already in the RViz config)
 - **Green line**: start/finish line across the track.
 - **Red line**: trajectory of the current lap. It is erased and starts again each time the car crosses the start line. The terminal of Terminal 1 also prints `Lap N completed in X s`.
 
-Lap times are measured with the computer clock. If the PC is slow, the simulation runs slower than real time and the laps take longer.
+Lap times are measured with the computer clock. If the PC is slow, the simulation runs slower than real time and the laps take longer. In the development container the simulator runs at about 0.72× real time: laps take about 80 s on the clock (about 58 s of simulated time), so they are marked `TOO SLOW` against the 75 s limit even though the car does not collide. On a faster PC the same laps are shorter.
 
 ## Topics
 
@@ -227,7 +238,7 @@ Lap times are measured with the computer clock. If the PC is slow, the simulatio
 | The car does not move or stays stuck in a wall | it was not on the start line; reset it with **2D Pose Estimate** and run `gap_node` again |
 | Laps are not counted | the car must cross the green line in the driving direction (+x) |
 | Laps take more than 75 s | the PC simulates slower than real time; close other programs, or raise `v_max` a little |
-| The car touches the walls | lower `v_max` or `max_lat_accel`, or raise `safety_margin` |
+| The car touches the walls or spins | lower `v_max`, `max_lat_accel` or `decel_rate`, or raise `safety_margin` |
 
 ---
 
@@ -236,9 +247,9 @@ Lap times are measured with the computer clock. If the PC is slow, the simulatio
 
 Workspace de ROS 2 Humble con el simulador F1TENTH gym, la pista **Sepang** y un controlador reactivo **Follow the Gap** (`gap_node`). Probado en **Ubuntu 22.04**.
 
-- El controlador conduce el carro por Sepang usando solo el LiDAR. Usa un *disparity extender*: cada borde de pared se ensancha medio ancho del carro más un margen de seguridad, para que el carro no corte las curvas ni choque con las paredes.
+- El controlador conduce el carro por Sepang usando solo el LiDAR. Usa un *disparity extender*: cada borde de pared se ensancha medio ancho del carro más un margen de seguridad, para que el carro no corte las curvas ni choque con las paredes. La dirección apunta a un punto que se aleja con la velocidad, y los cambios de velocidad son graduales (frenar fuerte a alta velocidad hace que el carro trompee).
 - Cada vuelta busca durar **60 s** y no debe pasar de **75 s**.
-- Al terminar las **10 vueltas** el carro se detiene y la terminal muestra una tabla con los datos de cada vuelta y la **vuelta ganadora (la más rápida)**.
+- Al terminar las **10 vueltas** el carro se detiene y la terminal muestra un resumen: los datos de cada vuelta, la **vuelta ganadora (la más rápida)**, la **vuelta más lenta**, tiempo total, distancia total, velocidad promedio y máxima, y total de casi-colisiones.
 - RViz muestra la **línea de inicio en verde** y la **trayectoria del carro en rojo**. La línea roja se borra y empieza de nuevo cada vez que el carro cruza la línea de inicio.
 
 ## Estructura del repositorio
@@ -382,28 +393,30 @@ Los parámetros se leen al iniciar el nodo; para cambiar uno, detén el nodo (`C
 | `target_laps` | 10 | vueltas antes de que el carro se detenga |
 | `target_lap_time` | 60.0 s | tiempo deseado por vuelta (`0` desactiva el regulador) |
 | `max_lap_time` | 75.0 s | las vueltas más lentas se marcan `TOO SLOW` |
-| `v_max` / `v_min` | 12.0 / 2.0 m/s | velocidad máxima / mínima |
-| `max_decel` | 8.0 m/s² | frenado usado para planear la velocidad antes de una pared |
+| `v_max` / `v_min` | 14.0 / 2.0 m/s | velocidad máxima / mínima |
+| `max_decel` | 4.0 m/s² | frenado usado para planear la velocidad antes de una pared |
 | `brake_margin` | 0.5 m | distancia que se deja antes de una pared |
-| `max_lat_accel` | 10.0 m/s² | límite de aceleración lateral en curvas |
+| `max_lat_accel` | 12.0 m/s² | límite de aceleración lateral en curvas |
+| `accel_rate` / `decel_rate` | 4.5 / 4.0 m/s² | qué tan rápido puede subir / bajar la velocidad pedida |
+| `lookahead_min` / `lookahead_gain` / `lookahead_max` | 1.0 m / 0.3 s / 4.0 m | punto al que apunta la dirección: `min + gain × velocidad`, hasta `max` |
 | `safety_margin` | 0.25 m | holgura extra que se agrega a los bordes de pared |
 | `side_clearance` | 0.30 m | el carro no gira hacia una pared lateral más cercana que esto |
 | `fov_deg` | 180 | campo de visión usado para elegir la dirección |
 | `start_x`, `start_y`, `start_yaw` | 0.0, 0.0, 0.0 | posición de la línea de inicio y sentido de la marcha |
 | `status_period` | 5.0 s | cada cuánto se imprime la línea de estado |
 
-Subir `v_max`, `max_decel` o `max_lat_accel` da vueltas más rápidas, pero el carro puede chocar o dar la vuelta en las horquillas cerradas.
+Subir `v_max`, `max_decel`, `max_lat_accel` o `decel_rate` da vueltas más rápidas, pero el carro puede trompear, chocar o dar la vuelta en las horquillas cerradas.
 
 ## 8. Qué verás
 
 Durante la prueba, una línea de estado cada 5 s y una línea por cada vuelta completada:
 
 ```
-[reactive_node]: [Lap 3/10]  21.0 s |  170.3 m | speed  8.1 m/s | cap 12.0 m/s
-[reactive_node]: LAP 3/10: 61.42 s | 487.9 m | avg 7.94 m/s | max 11.80 m/s | near-collisions 0
+[reactive_node]: [Lap 3/10] lap  21.0 s /  124.6 m | total  181.6 s /  1075.0 m | speed  7.1 m/s | cap 14.0 m/s
+[reactive_node]: LAP 3/10: 80.19 s | 475.1 m | avg 5.92 m/s | max 8.95 m/s | near-collisions 0
 ```
 
-Al terminar la vuelta 10, el resumen (los números son un ejemplo):
+Al terminar la vuelta 10, el resumen. Las vueltas 1–4 son tiempos reales medidos en el contenedor de desarrollo; el resto de los números es un ejemplo:
 
 ```
 ==============================================================================
@@ -411,14 +424,23 @@ Al terminar la vuelta 10, el resumen (los números son un ejemplo):
 ==============================================================================
   Lap | Time (s) | Dist (m) | Avg (m/s) | Max (m/s) | Near-coll | Status
   --------------------------------------------------------------------------
-    1 |    63.10 |    488.0 |      7.73 |     11.90 |         0 | OK (<= max)
-    2 |    60.85 |    487.6 |      8.01 |     11.95 |         0 | OK (<= max)
+    1 |    81.23 |    475.2 |      5.85 |      8.90 |         0 | TOO SLOW  <-- SLOWEST
+    2 |    80.41 |    475.2 |      5.91 |      8.96 |         0 | TOO SLOW
   ...
-    7 |    59.92 |    487.8 |      8.14 |     11.97 |         0 | OK (<= target)  <-- FASTEST
+    6 |    79.63 |    475.2 |      5.97 |      9.10 |         0 | TOO SLOW  <-- FASTEST
   ...
   --------------------------------------------------------------------------
-  Total time: 610.40 s | total distance: 4878.5 m | average lap: 61.04 s
-  WINNING LAP (fastest): lap 7 with 59.92 s (8.14 m/s average)
+  Total time:          804.06 s (13.40 min)
+  Total distance:      4751.2 m (4.751 km)
+  Average speed:       5.91 m/s
+  Top speed:           9.10 m/s (lap 6)
+  Average lap:         80.41 s (std dev 0.56 s) | average lap distance: 475.1 m
+  Laps <= 60 s: 0/10 | laps <= 75 s: 0/10
+  Near-collisions:     0
+  --------------------------------------------------------------------------
+  WINNING LAP (fastest):  lap 6 with 79.63 s (475.2 m, 5.97 m/s average)
+  SLOWEST LAP (longest):  lap 1 with 81.23 s (475.2 m, 5.85 m/s average)
+  Difference slowest - fastest: 1.60 s
 ==============================================================================
 ```
 
@@ -429,7 +451,7 @@ En RViz (display `LapMarkers`, tópico `/lap_markers`, ya incluido en la configu
 - **Línea verde**: línea de inicio/meta atravesando la pista.
 - **Línea roja**: trayectoria de la vuelta actual. Se borra y empieza de nuevo cada vez que el carro cruza la línea de inicio. La Terminal 1 también imprime `Lap N completed in X s`.
 
-Los tiempos de vuelta se miden con el reloj de la computadora. Si la PC es lenta, la simulación corre más lento que el tiempo real y las vueltas tardan más.
+Los tiempos de vuelta se miden con el reloj de la computadora. Si la PC es lenta, la simulación corre más lento que el tiempo real y las vueltas tardan más. En el contenedor de desarrollo el simulador corre a unas 0.72× del tiempo real: las vueltas tardan unos 80 s de reloj (unos 58 s de tiempo simulado), así que se marcan `TOO SLOW` frente al límite de 75 s aunque el carro no choque. En una PC más rápida las mismas vueltas duran menos.
 
 ## Tópicos
 
@@ -454,4 +476,4 @@ Los tiempos de vuelta se miden con el reloj de la computadora. Si la PC es lenta
 | El carro no se mueve o queda atascado en una pared | no estaba en la línea de inicio; reinícialo con **2D Pose Estimate** y vuelve a ejecutar `gap_node` |
 | No se cuentan las vueltas | el carro debe cruzar la línea verde en el sentido de la marcha (+x) |
 | Las vueltas pasan de 75 s | la PC simula más lento que el tiempo real; cierra otros programas o sube un poco `v_max` |
-| El carro toca las paredes | baja `v_max` o `max_lat_accel`, o sube `safety_margin` |
+| El carro toca las paredes o trompea | baja `v_max`, `max_lat_accel` o `decel_rate`, o sube `safety_margin` |

@@ -42,6 +42,16 @@ class GapFollower:
         self.max_lat_accel = kw.get('max_lat_accel', 6.0)
         self.wheelbase = kw.get('wheelbase', 0.3302)
         self.front_cone_deg = kw.get('front_cone_deg', 4.0)
+        # Pure-pursuit style steering towards the chosen direction. The aim
+        # point moves further away with speed, which damps oscillations when
+        # the commands arrive late (ROS latency).
+        self.lookahead_min = kw.get('lookahead_min', 1.0)   # m
+        self.lookahead_gain = kw.get('lookahead_gain', 0.3)  # s (m per m/s)
+        self.lookahead_max = kw.get('lookahead_max', 4.0)   # m
+        # Smooth speed changes: sudden braking at high speed makes the car spin
+        self.accel_rate = kw.get('accel_rate', 4.0)    # m/s^2, max speed increase
+        self.decel_rate = kw.get('decel_rate', 5.0)    # m/s^2, max speed decrease
+        self.last_speed = 0.0
         self.angles = None
 
     def _init_geometry(self, n, angle_min, angle_inc):
@@ -69,7 +79,9 @@ class GapFollower:
             np.minimum(seg, d, out=seg)
         return out
 
-    def compute(self, ranges, angle_min, angle_inc, speed_cap):
+    def compute(self, ranges, angle_min, angle_inc, speed_cap, speed=None, dt=0.01):
+        if speed is None:
+            speed = self.last_speed
         r = np.asarray(ranges, dtype=np.float64)
         if self.angles is None or len(self.angles) != len(r):
             self._init_geometry(len(r), angle_min, angle_inc)
@@ -86,7 +98,11 @@ class GapFollower:
         idx = candidates[np.argmin(np.abs(candidates - np.median(candidates)))]
         target = float(fov_a[idx])
 
-        steer = float(np.clip(self.steer_gain * target, -self.max_steer, self.max_steer))
+        lookahead = float(np.clip(self.lookahead_min + self.lookahead_gain * abs(speed),
+                                  self.lookahead_min, self.lookahead_max))
+        lookahead = min(lookahead, max(float(fov_r[idx]), self.lookahead_min))
+        steer = math.atan2(2.0 * self.wheelbase * math.sin(target), lookahead)
+        steer = float(np.clip(self.steer_gain * steer, -self.max_steer, self.max_steer))
         # Do not turn into a wall that is right next to the car
         if steer > 0.0 and np.min(r[self.left_idx]) < self.side_clearance:
             steer = 0.0
@@ -100,6 +116,9 @@ class GapFollower:
         curvature = math.tan(abs(steer)) / self.wheelbase
         v_curve = math.sqrt(self.max_lat_accel / max(curvature, 1e-3))
         speed = float(np.clip(min(v_brake, v_curve, speed_cap), self.v_min, speed_cap))
+        speed = float(np.clip(speed, self.last_speed - self.decel_rate * dt,
+                              self.last_speed + self.accel_rate * dt))
+        self.last_speed = speed
         return steer, speed
 
 
@@ -120,17 +139,25 @@ class ReactiveFollowGap(Node):
         self.declare_parameter('max_steer', 0.4189)          # rad
         self.declare_parameter('side_clearance', 0.30)       # m
         self.declare_parameter('v_min', 2.0)                 # m/s
-        self.declare_parameter('v_max', 12.0)                # m/s, top speed
-        self.declare_parameter('max_decel', 8.0)             # m/s^2, used to plan braking
+        self.declare_parameter('v_max', 14.0)                # m/s, top speed
+        self.declare_parameter('max_decel', 4.0)             # m/s^2, used to plan braking (gentle: hard braking spins the car)
         self.declare_parameter('brake_margin', 0.5)          # m
-        self.declare_parameter('max_lat_accel', 10.0)        # m/s^2
+        self.declare_parameter('max_lat_accel', 12.0)        # m/s^2
+        # Speed rate limits, per second of computer clock. The simulator runs
+        # slower than real time (~0.7x), so in simulated time they are ~40% higher.
+        self.declare_parameter('accel_rate', 4.5)            # m/s^2
+        self.declare_parameter('decel_rate', 4.0)            # m/s^2
+        # Pure-pursuit steering: aim point at lookahead_min + lookahead_gain * speed
+        self.declare_parameter('lookahead_min', 1.0)         # m
+        self.declare_parameter('lookahead_gain', 0.3)        # s
+        self.declare_parameter('lookahead_max', 4.0)         # m
 
         # ---------------- Lap pace ----------------
         # The speed cap is adapted so each lap lasts about target_lap_time
         self.declare_parameter('target_lap_time', 60.0)      # s
         self.declare_parameter('max_lap_time', 75.0)         # s, limit shown in the report
         self.declare_parameter('track_length', 488.0)        # m, Sepang lap; re-learned every lap
-        self.declare_parameter('pace_initial_cap', 12.0)     # m/s
+        self.declare_parameter('pace_initial_cap', 14.0)     # m/s
         self.declare_parameter('pace_kp', 0.05)              # m/s per meter ahead/behind schedule
 
         # ---------------- Laps ----------------
@@ -149,7 +176,11 @@ class ReactiveFollowGap(Node):
             car_half_width=p('car_half_width'), safety_margin=p('safety_margin'),
             max_steer=p('max_steer'), side_clearance=p('side_clearance'),
             v_min=p('v_min'), max_decel=p('max_decel'),
-            brake_margin=p('brake_margin'), max_lat_accel=p('max_lat_accel'))
+            brake_margin=p('brake_margin'), max_lat_accel=p('max_lat_accel'),
+            accel_rate=p('accel_rate'), decel_rate=p('decel_rate'),
+            lookahead_min=p('lookahead_min'), lookahead_gain=p('lookahead_gain'),
+            lookahead_max=p('lookahead_max'))
+        self.last_scan_time = None
         self.v_max = p('v_max')
         self.v_min = p('v_min')
         self.target_lap_time = p('target_lap_time')
@@ -168,6 +199,8 @@ class ReactiveFollowGap(Node):
 
         # ---------------- State ----------------
         self.prev_pos = None
+        self.race_start = None
+        self.total_distance = 0.0     # m, whole race
         self.prev_along = 0.0
         self.lap_start = None
         self.lap_distance = 0.0
@@ -203,11 +236,14 @@ class ReactiveFollowGap(Node):
 
         if self.prev_pos is None:
             self.prev_pos, self.prev_along, self.lap_start = (x, y), along, t
+            self.race_start = t
             return
         if self.finished:
             return
 
-        self.lap_distance += math.hypot(x - self.prev_pos[0], y - self.prev_pos[1])
+        step = math.hypot(x - self.prev_pos[0], y - self.prev_pos[1])
+        self.lap_distance += step
+        self.total_distance += step
         self.lap_max_speed = max(self.lap_max_speed, self.current_speed)
         self.prev_pos = (x, y)
 
@@ -262,14 +298,22 @@ class ReactiveFollowGap(Node):
             return
         self.get_logger().info(
             f'[Lap {len(self.laps) + 1}/{self.target_laps}] '
-            f'{self.now() - self.lap_start:5.1f} s | {self.lap_distance:6.1f} m | '
+            f'lap {self.now() - self.lap_start:5.1f} s / {self.lap_distance:6.1f} m | '
+            f'total {self.now() - self.race_start:6.1f} s / {self.total_distance:7.1f} m | '
             f'speed {self.current_speed:4.1f} m/s | cap {self.speed_cap:4.1f} m/s')
 
     # --------------------------------------------------------------- report
     def print_summary(self):
         best = min(self.laps, key=lambda lap: lap['time'])
+        worst = max(self.laps, key=lambda lap: lap['time'])
+        n = len(self.laps)
         total_time = sum(lap['time'] for lap in self.laps)
         total_dist = sum(lap['distance'] for lap in self.laps)
+        times = np.array([lap['time'] for lap in self.laps])
+        top_speed = max(self.laps, key=lambda lap: lap['max_speed'])
+        total_near = sum(lap['near_collisions'] for lap in self.laps)
+        n_target = sum(1 for lap in self.laps if lap['time'] <= self.target_lap_time)
+        n_max = sum(1 for lap in self.laps if lap['time'] <= self.max_lap_time)
         lines = [
             '',
             '=' * 78,
@@ -286,17 +330,32 @@ class ReactiveFollowGap(Node):
                 status = 'OK (<= max)'
             else:
                 status = 'TOO SLOW'
-            mark = '  <-- FASTEST' if lap is best else ''
+            mark = ''
+            if lap is best:
+                mark = '  <-- FASTEST'
+            elif lap is worst:
+                mark = '  <-- SLOWEST'
             lines.append(
                 f"  {lap['lap']:>3} | {lap['time']:8.2f} | {lap['distance']:8.1f} | "
                 f"{lap['avg_speed']:9.2f} | {lap['max_speed']:9.2f} | "
                 f"{lap['near_collisions']:>9} | {status}{mark}")
         lines += [
             '  ' + '-' * 74,
-            f'  Total time: {total_time:.2f} s | total distance: {total_dist:.1f} m | '
-            f'average lap: {total_time / len(self.laps):.2f} s',
-            f"  WINNING LAP (fastest): lap {best['lap']} with {best['time']:.2f} s "
-            f"({best['avg_speed']:.2f} m/s average)",
+            f'  Total time:          {total_time:.2f} s ({total_time / 60.0:.2f} min)',
+            f'  Total distance:      {total_dist:.1f} m ({total_dist / 1000.0:.3f} km)',
+            f'  Average speed:       {total_dist / total_time:.2f} m/s',
+            f"  Top speed:           {top_speed['max_speed']:.2f} m/s (lap {top_speed['lap']})",
+            f'  Average lap:         {times.mean():.2f} s (std dev {times.std():.2f} s) | '
+            f'average lap distance: {total_dist / n:.1f} m',
+            f'  Laps <= {self.target_lap_time:.0f} s: {n_target}/{n} | '
+            f'laps <= {self.max_lap_time:.0f} s: {n_max}/{n}',
+            f'  Near-collisions:     {total_near}',
+            '  ' + '-' * 74,
+            f"  WINNING LAP (fastest):  lap {best['lap']} with {best['time']:.2f} s "
+            f"({best['distance']:.1f} m, {best['avg_speed']:.2f} m/s average)",
+            f"  SLOWEST LAP (longest):  lap {worst['lap']} with {worst['time']:.2f} s "
+            f"({worst['distance']:.1f} m, {worst['avg_speed']:.2f} m/s average)",
+            f"  Difference slowest - fastest: {worst['time'] - best['time']:.2f} s",
             '=' * 78,
         ]
         self.get_logger().info('\n'.join(lines))
@@ -316,8 +375,11 @@ class ReactiveFollowGap(Node):
         if self.finished:
             self.publish_drive(0.0, 0.0)
             return
+        t = self.now()
+        dt = 0.01 if self.last_scan_time is None else min(max(t - self.last_scan_time, 0.001), 0.02)
+        self.last_scan_time = t
         steer, speed = self.ctrl.compute(r, data.angle_min, data.angle_increment,
-                                         self.speed_cap)
+                                         self.speed_cap, dt=dt)
         self.publish_drive(steer, speed)
 
     def publish_drive(self, steer, speed):
