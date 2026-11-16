@@ -1,9 +1,6 @@
 /devel
-**/log
-**/build
 /bin
 /lib
-**/install
 **/.vscode
 msg_gen/
 srv_gen/
@@ -58,3 +55,9 @@ Project Githun Token
 *.token
 *token.txt
 .env
+
+# Material by widegonz kept only locally, not uploaded
+Laboratories/
+img/
+videos/
+README_es.md

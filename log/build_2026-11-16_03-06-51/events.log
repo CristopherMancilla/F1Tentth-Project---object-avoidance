@@ -1,0 +1,84 @@
+[0.000000] (-) TimerEvent: {}
+[0.000205] (-) JobUnselected: {'identifier': 'f1tenth_gym_ros'}
+[0.000305] (-) JobUnselected: {'identifier': 'path_planning'}
+[0.000421] (controllers) JobQueued: {'identifier': 'controllers', 'dependencies': OrderedDict()}
+[0.000539] (controllers) JobStarted: {'identifier': 'controllers'}
+[0.096759] (-) TimerEvent: {}
+[0.197185] (-) TimerEvent: {}
+[0.297571] (-) TimerEvent: {}
+[0.397970] (-) TimerEvent: {}
+[0.498363] (-) TimerEvent: {}
+[0.598754] (-) TimerEvent: {}
+[0.699171] (-) TimerEvent: {}
+[0.799577] (-) TimerEvent: {}
+[0.899945] (-) TimerEvent: {}
+[1.000348] (-) TimerEvent: {}
+[1.100665] (-) TimerEvent: {}
+[1.201036] (-) TimerEvent: {}
+[1.301413] (-) TimerEvent: {}
+[1.402151] (-) TimerEvent: {}
+[1.502966] (-) TimerEvent: {}
+[1.603373] (-) TimerEvent: {}
+[1.703763] (-) TimerEvent: {}
+[1.804189] (-) TimerEvent: {}
+[1.904557] (-) TimerEvent: {}
+[2.004930] (-) TimerEvent: {}
+[2.105308] (-) TimerEvent: {}
+[2.205694] (-) TimerEvent: {}
+[2.306107] (-) TimerEvent: {}
+[2.406516] (-) TimerEvent: {}
+[2.506862] (-) TimerEvent: {}
+[2.607274] (-) TimerEvent: {}
+[2.707696] (-) TimerEvent: {}
+[2.808075] (-) TimerEvent: {}
+[2.908409] (-) TimerEvent: {}
+[3.008807] (-) TimerEvent: {}
+[3.109201] (-) TimerEvent: {}
+[3.209655] (-) TimerEvent: {}
+[3.218856] (controllers) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/controllers', 'build', '--build-base', '/home/ros/F1Tenth-Repository/build/controllers/build', 'install', '--record', '/home/ros/F1Tenth-Repository/build/controllers/install.log', '--install-scripts', '$base/lib/controllers', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/ros/F1Tenth-Repository/src/controllers', 'env': {'NVIDIA_CTK_LIBCUDA_DIR': '/usr/lib/x86_64-linux-gnu', 'AI_AGENT': 'claude-code_2-1-325_agent', 'CLAUDE_CODE_ENTRYPOINT': 'cli', 'GIT_EDITOR': 'true', 'HOSTNAME': 'ASUS-EXPERTBOOK', 'CLAUDE_CODE_SESSION_ATTENDED': '1', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/ros/dev_ws/install/xarm_controller/lib:/home/ros/dev_ws/install/xarm_api/lib:/home/ros/dev_ws/install/xarm_sdk/lib:/home/ros/dev_ws/install/xarm_msgs/lib:/home/ros/dev_ws/install/realsense_gazebo_plugin/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'CLAUDE_CODE_MESSAGING_TOKEN': 'ea4deccd8f8ebab66c2ebf478f8efe62', 'HOME': '/home/ros', 'OLDPWD': '/home/ros/F1Tenth-Repository', 'ROS_PYTHON_VERSION': '3', 'CLAUDE_CODE_CHILD_SESSION': '1', 'COLCON_PREFIX_PATH': '/home/ros/F1Tenth-Repository/install:/home/ros/dev_ws/install', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'NVIDIA_DRIVER_CAPABILITIES': 'all', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'QT_X11_NO_MITSHM': '1', 'PATH': '/home/ros/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'COREPACK_ENABLE_AUTO_PIN': '0', 'CLAUDE_EFFORT': 'medium', 'DISPLAY': ':1', 'CLAUDE_PID': '636', 'NoDefaultCurrentDirectoryInExePath': '1', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/ros/F1Tenth-Repository/install/path_planning:/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros:/home/ros/F1Tenth-Repository/install/controllers:/home/ros/dev_ws/install/xarm_controller:/home/ros/dev_ws/install/xarm_api:/home/ros/dev_ws/install/xarm_sdk:/home/ros/dev_ws/install/xarm_msgs:/home/ros/dev_ws/install/xarm_description:/home/ros/dev_ws/install/mbot_demo:/home/ros/dev_ws/install/uf_ros_lib:/home/ros/dev_ws/install/turtle_controller:/home/ros/dev_ws/install/realsense_gazebo_plugin:/opt/ros/humble', 'SHELL': '/bin/bash', 'CLAUDE_CODE_SESSION_ID': '1e850852-912f-4768-9a95-51397d3fce37', 'CLAUDECODE': '1', 'PWD': '/home/ros/F1Tenth-Repository/build/controllers', 'LC_ALL': 'C.UTF-8', 'CLAUDE_CODE_EXECPATH': '/home/ros/.local/share/claude/versions/2.1.325', 'PYTHONPATH': '/home/ros/F1Tenth-Repository/build/controllers/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages:/home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages:/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages:/home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages:/home/ros/dev_ws/install/xarm_msgs/local/lib/python3.10/dist-packages:/home/ros/dev_ws/build/uf_ros_lib:/home/ros/dev_ws/install/uf_ros_lib/lib/python3.10/site-packages:/home/ros/dev_ws/install/turtle_controller/lib/python3.12/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'NVIDIA_VISIBLE_DEVICES': 'void', 'COLCON': '1', 'CLAUDE_CODE_MESSAGING_SOCKET': '/tmp/cc-socks/636.sock', 'CMAKE_PREFIX_PATH': '/home/ros/dev_ws/install/xarm_controller:/home/ros/dev_ws/install/xarm_api:/home/ros/dev_ws/install/xarm_sdk:/home/ros/dev_ws/install/xarm_msgs:/home/ros/dev_ws/install/xarm_description:/home/ros/dev_ws/install/mbot_demo:/home/ros/dev_ws/install/realsense_gazebo_plugin'}, 'shell': False}
+[3.309807] (-) TimerEvent: {}
+[3.410198] (-) TimerEvent: {}
+[3.510547] (-) TimerEvent: {}
+[3.610945] (-) TimerEvent: {}
+[3.711290] (-) TimerEvent: {}
+[3.811613] (-) TimerEvent: {}
+[3.912015] (-) TimerEvent: {}
+[4.012382] (-) TimerEvent: {}
+[4.112764] (-) TimerEvent: {}
+[4.213169] (-) TimerEvent: {}
+[4.313565] (-) TimerEvent: {}
+[4.414017] (-) TimerEvent: {}
+[4.469310] (controllers) StdoutLine: {'line': b'running egg_info\n'}
+[4.472425] (controllers) StdoutLine: {'line': b'writing ../../build/controllers/controllers.egg-info/PKG-INFO\n'}
+[4.473489] (controllers) StdoutLine: {'line': b'writing dependency_links to ../../build/controllers/controllers.egg-info/dependency_links.txt\n'}
+[4.474461] (controllers) StdoutLine: {'line': b'writing entry points to ../../build/controllers/controllers.egg-info/entry_points.txt\n'}
+[4.475424] (controllers) StdoutLine: {'line': b'writing requirements to ../../build/controllers/controllers.egg-info/requires.txt\n'}
+[4.475933] (controllers) StdoutLine: {'line': b'writing top-level names to ../../build/controllers/controllers.egg-info/top_level.txt\n'}
+[4.483548] (controllers) StdoutLine: {'line': b"reading manifest file '../../build/controllers/controllers.egg-info/SOURCES.txt'\n"}
+[4.487296] (controllers) StdoutLine: {'line': b"writing manifest file '../../build/controllers/controllers.egg-info/SOURCES.txt'\n"}
+[4.488323] (controllers) StdoutLine: {'line': b'running build\n'}
+[4.489042] (controllers) StdoutLine: {'line': b'running build_py\n'}
+[4.490373] (controllers) StdoutLine: {'line': b'copying controllers/gap_node.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers\n'}
+[4.491856] (controllers) StdoutLine: {'line': b'running install\n'}
+[4.493257] (controllers) StdoutLine: {'line': b'running install_lib\n'}
+[4.497118] (controllers) StdoutLine: {'line': b'copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/gap_node.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers\n'}
+[4.500099] (controllers) StdoutLine: {'line': b'byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/gap_node.py to gap_node.cpython-310.pyc\n'}
+[4.514170] (-) TimerEvent: {}
+[4.520935] (controllers) StdoutLine: {'line': b'running install_data\n'}
+[4.521785] (controllers) StdoutLine: {'line': b'running install_egg_info\n'}
+[4.529613] (controllers) StdoutLine: {'line': b"removing '/home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[4.530943] (controllers) StdoutLine: {'line': b'Copying ../../build/controllers/controllers.egg-info to /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers-0.0.0-py3.10.egg-info\n'}
+[4.534891] (controllers) StdoutLine: {'line': b'running install_scripts\n'}
+[4.614373] (-) TimerEvent: {}
+[4.636249] (controllers) StdoutLine: {'line': b'Installing gap_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[4.637430] (controllers) StdoutLine: {'line': b'Installing mpc_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[4.637940] (controllers) StdoutLine: {'line': b'Installing pid_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[4.638963] (controllers) StdoutLine: {'line': b'Installing purepursuit_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[4.639299] (controllers) StdoutLine: {'line': b'Installing rrt_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[4.639538] (controllers) StdoutLine: {'line': b'Installing ttc_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[4.640366] (controllers) StdoutLine: {'line': b"writing list of installed files to '/home/ros/F1Tenth-Repository/build/controllers/install.log'\n"}
+[4.714564] (-) TimerEvent: {}
+[4.733535] (controllers) CommandEnded: {'returncode': 0}
+[4.816063] (-) TimerEvent: {}
+[4.831269] (controllers) JobEnded: {'identifier': 'controllers', 'rc': 0}
+[4.834350] (-) EventReactorShutdown: {}

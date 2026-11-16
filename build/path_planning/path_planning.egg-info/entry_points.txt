@@ -1,0 +1,3 @@
+[console_scripts]
+waypoint_recorder = path_planning.waypoint_recorder:main
+

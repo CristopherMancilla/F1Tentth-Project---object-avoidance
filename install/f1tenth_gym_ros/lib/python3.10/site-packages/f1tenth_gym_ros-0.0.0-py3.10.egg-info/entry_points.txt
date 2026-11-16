@@ -1,0 +1,4 @@
+[console_scripts]
+gym_bridge = f1tenth_gym_ros.gym_bridge:main
+lap_visualizer = f1tenth_gym_ros.lap_visualizer:main
+

@@ -1,0 +1,160 @@
+[0.000000] (-) TimerEvent: {}
+[0.000204] (controllers) JobQueued: {'identifier': 'controllers', 'dependencies': OrderedDict()}
+[0.000312] (f1tenth_gym_ros) JobQueued: {'identifier': 'f1tenth_gym_ros', 'dependencies': OrderedDict()}
+[0.000388] (path_planning) JobQueued: {'identifier': 'path_planning', 'dependencies': OrderedDict()}
+[0.002875] (controllers) JobStarted: {'identifier': 'controllers'}
+[0.048341] (f1tenth_gym_ros) JobStarted: {'identifier': 'f1tenth_gym_ros'}
+[0.079952] (path_planning) JobStarted: {'identifier': 'path_planning'}
+[0.099845] (-) TimerEvent: {}
+[0.200269] (-) TimerEvent: {}
+[0.300616] (-) TimerEvent: {}
+[0.401036] (-) TimerEvent: {}
+[0.501370] (-) TimerEvent: {}
+[0.601772] (-) TimerEvent: {}
+[0.702106] (-) TimerEvent: {}
+[0.802508] (-) TimerEvent: {}
+[0.902888] (-) TimerEvent: {}
+[1.003306] (-) TimerEvent: {}
+[1.103696] (-) TimerEvent: {}
+[1.204155] (-) TimerEvent: {}
+[1.304596] (-) TimerEvent: {}
+[1.405004] (-) TimerEvent: {}
+[1.505400] (-) TimerEvent: {}
+[1.605780] (-) TimerEvent: {}
+[1.706200] (-) TimerEvent: {}
+[1.806592] (-) TimerEvent: {}
+[1.907013] (-) TimerEvent: {}
+[2.007390] (-) TimerEvent: {}
+[2.107768] (-) TimerEvent: {}
+[2.208110] (-) TimerEvent: {}
+[2.308538] (-) TimerEvent: {}
+[2.409187] (-) TimerEvent: {}
+[2.509575] (-) TimerEvent: {}
+[2.609944] (-) TimerEvent: {}
+[2.710334] (-) TimerEvent: {}
+[2.810685] (-) TimerEvent: {}
+[2.911064] (-) TimerEvent: {}
+[3.011401] (-) TimerEvent: {}
+[3.111760] (-) TimerEvent: {}
+[3.212134] (-) TimerEvent: {}
+[3.312476] (-) TimerEvent: {}
+[3.412869] (-) TimerEvent: {}
+[3.513279] (-) TimerEvent: {}
+[3.613737] (-) TimerEvent: {}
+[3.714200] (-) TimerEvent: {}
+[3.814604] (-) TimerEvent: {}
+[3.915041] (-) TimerEvent: {}
+[4.015421] (-) TimerEvent: {}
+[4.115837] (-) TimerEvent: {}
+[4.217872] (-) TimerEvent: {}
+[4.324392] (-) TimerEvent: {}
+[4.426110] (-) TimerEvent: {}
+[4.526471] (-) TimerEvent: {}
+[4.626808] (-) TimerEvent: {}
+[4.727193] (-) TimerEvent: {}
+[4.827582] (-) TimerEvent: {}
+[4.927960] (-) TimerEvent: {}
+[5.028350] (-) TimerEvent: {}
+[5.128723] (-) TimerEvent: {}
+[5.229215] (-) TimerEvent: {}
+[5.279420] (f1tenth_gym_ros) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/f1tenth_gym_ros', 'build', '--build-base', '/home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/build', 'install', '--record', '/home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/install.log', '--install-scripts', '$base/lib/f1tenth_gym_ros', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/ros/F1Tenth-Repository/src/f1tenth_gym_ros', 'env': {'NVIDIA_CTK_LIBCUDA_DIR': '/usr/lib/x86_64-linux-gnu', 'AI_AGENT': 'claude-code_2-1-325_agent', 'CLAUDE_CODE_ENTRYPOINT': 'cli', 'GIT_EDITOR': 'true', 'HOSTNAME': 'ASUS-EXPERTBOOK', 'CLAUDE_CODE_SESSION_ATTENDED': '1', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/ros/dev_ws/install/xarm_controller/lib:/home/ros/dev_ws/install/xarm_api/lib:/home/ros/dev_ws/install/xarm_sdk/lib:/home/ros/dev_ws/install/xarm_msgs/lib:/home/ros/dev_ws/install/realsense_gazebo_plugin/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'CLAUDE_CODE_MESSAGING_TOKEN': 'ea4deccd8f8ebab66c2ebf478f8efe62', 'HOME': '/home/ros', 'OLDPWD': '/home/ros/F1Tenth-Repository', 'ROS_PYTHON_VERSION': '3', 'CLAUDE_CODE_CHILD_SESSION': '1', 'COLCON_PREFIX_PATH': '/home/ros/F1Tenth-Repository/install:/home/ros/dev_ws/install', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'NVIDIA_DRIVER_CAPABILITIES': 'all', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'QT_X11_NO_MITSHM': '1', 'PATH': '/home/ros/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'COREPACK_ENABLE_AUTO_PIN': '0', 'CLAUDE_EFFORT': 'medium', 'DISPLAY': ':1', 'CLAUDE_PID': '636', 'NoDefaultCurrentDirectoryInExePath': '1', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/ros/F1Tenth-Repository/install/path_planning:/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros:/home/ros/F1Tenth-Repository/install/controllers:/home/ros/dev_ws/install/xarm_controller:/home/ros/dev_ws/install/xarm_api:/home/ros/dev_ws/install/xarm_sdk:/home/ros/dev_ws/install/xarm_msgs:/home/ros/dev_ws/install/xarm_description:/home/ros/dev_ws/install/mbot_demo:/home/ros/dev_ws/install/uf_ros_lib:/home/ros/dev_ws/install/turtle_controller:/home/ros/dev_ws/install/realsense_gazebo_plugin:/opt/ros/humble', 'SHELL': '/bin/bash', 'CLAUDE_CODE_SESSION_ID': '1e850852-912f-4768-9a95-51397d3fce37', 'CLAUDECODE': '1', 'PWD': '/home/ros/F1Tenth-Repository/build/f1tenth_gym_ros', 'LC_ALL': 'C.UTF-8', 'CLAUDE_CODE_EXECPATH': '/home/ros/.local/share/claude/versions/2.1.325', 'PYTHONPATH': '/home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages:/home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages:/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages:/home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages:/home/ros/dev_ws/install/xarm_msgs/local/lib/python3.10/dist-packages:/home/ros/dev_ws/build/uf_ros_lib:/home/ros/dev_ws/install/uf_ros_lib/lib/python3.10/site-packages:/home/ros/dev_ws/install/turtle_controller/lib/python3.12/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'NVIDIA_VISIBLE_DEVICES': 'void', 'COLCON': '1', 'CLAUDE_CODE_MESSAGING_SOCKET': '/tmp/cc-socks/636.sock', 'CMAKE_PREFIX_PATH': '/home/ros/dev_ws/install/xarm_controller:/home/ros/dev_ws/install/xarm_api:/home/ros/dev_ws/install/xarm_sdk:/home/ros/dev_ws/install/xarm_msgs:/home/ros/dev_ws/install/xarm_description:/home/ros/dev_ws/install/mbot_demo:/home/ros/dev_ws/install/realsense_gazebo_plugin'}, 'shell': False}
+[5.330095] (-) TimerEvent: {}
+[5.430472] (-) TimerEvent: {}
+[5.530913] (-) TimerEvent: {}
+[5.631360] (-) TimerEvent: {}
+[5.731769] (-) TimerEvent: {}
+[5.832150] (-) TimerEvent: {}
+[5.932549] (-) TimerEvent: {}
+[5.945448] (controllers) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/controllers', 'build', '--build-base', '/home/ros/F1Tenth-Repository/build/controllers/build', 'install', '--record', '/home/ros/F1Tenth-Repository/build/controllers/install.log', '--install-scripts', '$base/lib/controllers', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/ros/F1Tenth-Repository/src/controllers', 'env': {'NVIDIA_CTK_LIBCUDA_DIR': '/usr/lib/x86_64-linux-gnu', 'AI_AGENT': 'claude-code_2-1-325_agent', 'CLAUDE_CODE_ENTRYPOINT': 'cli', 'GIT_EDITOR': 'true', 'HOSTNAME': 'ASUS-EXPERTBOOK', 'CLAUDE_CODE_SESSION_ATTENDED': '1', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/ros/dev_ws/install/xarm_controller/lib:/home/ros/dev_ws/install/xarm_api/lib:/home/ros/dev_ws/install/xarm_sdk/lib:/home/ros/dev_ws/install/xarm_msgs/lib:/home/ros/dev_ws/install/realsense_gazebo_plugin/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'CLAUDE_CODE_MESSAGING_TOKEN': 'ea4deccd8f8ebab66c2ebf478f8efe62', 'HOME': '/home/ros', 'OLDPWD': '/home/ros/F1Tenth-Repository', 'ROS_PYTHON_VERSION': '3', 'CLAUDE_CODE_CHILD_SESSION': '1', 'COLCON_PREFIX_PATH': '/home/ros/F1Tenth-Repository/install:/home/ros/dev_ws/install', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'NVIDIA_DRIVER_CAPABILITIES': 'all', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'QT_X11_NO_MITSHM': '1', 'PATH': '/home/ros/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'COREPACK_ENABLE_AUTO_PIN': '0', 'CLAUDE_EFFORT': 'medium', 'DISPLAY': ':1', 'CLAUDE_PID': '636', 'NoDefaultCurrentDirectoryInExePath': '1', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/ros/F1Tenth-Repository/install/path_planning:/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros:/home/ros/F1Tenth-Repository/install/controllers:/home/ros/dev_ws/install/xarm_controller:/home/ros/dev_ws/install/xarm_api:/home/ros/dev_ws/install/xarm_sdk:/home/ros/dev_ws/install/xarm_msgs:/home/ros/dev_ws/install/xarm_description:/home/ros/dev_ws/install/mbot_demo:/home/ros/dev_ws/install/uf_ros_lib:/home/ros/dev_ws/install/turtle_controller:/home/ros/dev_ws/install/realsense_gazebo_plugin:/opt/ros/humble', 'SHELL': '/bin/bash', 'CLAUDE_CODE_SESSION_ID': '1e850852-912f-4768-9a95-51397d3fce37', 'CLAUDECODE': '1', 'PWD': '/home/ros/F1Tenth-Repository/build/controllers', 'LC_ALL': 'C.UTF-8', 'CLAUDE_CODE_EXECPATH': '/home/ros/.local/share/claude/versions/2.1.325', 'PYTHONPATH': '/home/ros/F1Tenth-Repository/build/controllers/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages:/home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages:/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages:/home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages:/home/ros/dev_ws/install/xarm_msgs/local/lib/python3.10/dist-packages:/home/ros/dev_ws/build/uf_ros_lib:/home/ros/dev_ws/install/uf_ros_lib/lib/python3.10/site-packages:/home/ros/dev_ws/install/turtle_controller/lib/python3.12/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'NVIDIA_VISIBLE_DEVICES': 'void', 'COLCON': '1', 'CLAUDE_CODE_MESSAGING_SOCKET': '/tmp/cc-socks/636.sock', 'CMAKE_PREFIX_PATH': '/home/ros/dev_ws/install/xarm_controller:/home/ros/dev_ws/install/xarm_api:/home/ros/dev_ws/install/xarm_sdk:/home/ros/dev_ws/install/xarm_msgs:/home/ros/dev_ws/install/xarm_description:/home/ros/dev_ws/install/mbot_demo:/home/ros/dev_ws/install/realsense_gazebo_plugin'}, 'shell': False}
+[5.958312] (path_planning) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/path_planning', 'build', '--build-base', '/home/ros/F1Tenth-Repository/build/path_planning/build', 'install', '--record', '/home/ros/F1Tenth-Repository/build/path_planning/install.log', '--install-scripts', '$base/lib/path_planning', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/ros/F1Tenth-Repository/src/path_planning', 'env': {'NVIDIA_CTK_LIBCUDA_DIR': '/usr/lib/x86_64-linux-gnu', 'AI_AGENT': 'claude-code_2-1-325_agent', 'CLAUDE_CODE_ENTRYPOINT': 'cli', 'GIT_EDITOR': 'true', 'HOSTNAME': 'ASUS-EXPERTBOOK', 'CLAUDE_CODE_SESSION_ATTENDED': '1', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/ros/dev_ws/install/xarm_controller/lib:/home/ros/dev_ws/install/xarm_api/lib:/home/ros/dev_ws/install/xarm_sdk/lib:/home/ros/dev_ws/install/xarm_msgs/lib:/home/ros/dev_ws/install/realsense_gazebo_plugin/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'CLAUDE_CODE_MESSAGING_TOKEN': 'ea4deccd8f8ebab66c2ebf478f8efe62', 'HOME': '/home/ros', 'OLDPWD': '/home/ros/F1Tenth-Repository', 'ROS_PYTHON_VERSION': '3', 'CLAUDE_CODE_CHILD_SESSION': '1', 'COLCON_PREFIX_PATH': '/home/ros/F1Tenth-Repository/install:/home/ros/dev_ws/install', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'NVIDIA_DRIVER_CAPABILITIES': 'all', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'QT_X11_NO_MITSHM': '1', 'PATH': '/home/ros/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'COREPACK_ENABLE_AUTO_PIN': '0', 'CLAUDE_EFFORT': 'medium', 'DISPLAY': ':1', 'CLAUDE_PID': '636', 'NoDefaultCurrentDirectoryInExePath': '1', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/ros/F1Tenth-Repository/install/path_planning:/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros:/home/ros/F1Tenth-Repository/install/controllers:/home/ros/dev_ws/install/xarm_controller:/home/ros/dev_ws/install/xarm_api:/home/ros/dev_ws/install/xarm_sdk:/home/ros/dev_ws/install/xarm_msgs:/home/ros/dev_ws/install/xarm_description:/home/ros/dev_ws/install/mbot_demo:/home/ros/dev_ws/install/uf_ros_lib:/home/ros/dev_ws/install/turtle_controller:/home/ros/dev_ws/install/realsense_gazebo_plugin:/opt/ros/humble', 'SHELL': '/bin/bash', 'CLAUDE_CODE_SESSION_ID': '1e850852-912f-4768-9a95-51397d3fce37', 'CLAUDECODE': '1', 'PWD': '/home/ros/F1Tenth-Repository/build/path_planning', 'LC_ALL': 'C.UTF-8', 'CLAUDE_CODE_EXECPATH': '/home/ros/.local/share/claude/versions/2.1.325', 'PYTHONPATH': '/home/ros/F1Tenth-Repository/build/path_planning/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages:/home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages:/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages:/home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages:/home/ros/dev_ws/install/xarm_msgs/local/lib/python3.10/dist-packages:/home/ros/dev_ws/build/uf_ros_lib:/home/ros/dev_ws/install/uf_ros_lib/lib/python3.10/site-packages:/home/ros/dev_ws/install/turtle_controller/lib/python3.12/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'NVIDIA_VISIBLE_DEVICES': 'void', 'COLCON': '1', 'CLAUDE_CODE_MESSAGING_SOCKET': '/tmp/cc-socks/636.sock', 'CMAKE_PREFIX_PATH': '/home/ros/dev_ws/install/xarm_controller:/home/ros/dev_ws/install/xarm_api:/home/ros/dev_ws/install/xarm_sdk:/home/ros/dev_ws/install/xarm_msgs:/home/ros/dev_ws/install/xarm_description:/home/ros/dev_ws/install/mbot_demo:/home/ros/dev_ws/install/realsense_gazebo_plugin'}, 'shell': False}
+[6.032726] (-) TimerEvent: {}
+[6.133130] (-) TimerEvent: {}
+[6.233522] (-) TimerEvent: {}
+[6.333941] (-) TimerEvent: {}
+[6.434815] (-) TimerEvent: {}
+[6.509794] (f1tenth_gym_ros) StdoutLine: {'line': b'running egg_info\n'}
+[6.513036] (f1tenth_gym_ros) StdoutLine: {'line': b'writing ../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/PKG-INFO\n'}
+[6.514744] (f1tenth_gym_ros) StdoutLine: {'line': b'writing dependency_links to ../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/dependency_links.txt\n'}
+[6.516070] (f1tenth_gym_ros) StdoutLine: {'line': b'writing entry points to ../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/entry_points.txt\n'}
+[6.516638] (f1tenth_gym_ros) StdoutLine: {'line': b'writing requirements to ../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/requires.txt\n'}
+[6.518440] (f1tenth_gym_ros) StdoutLine: {'line': b'writing top-level names to ../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/top_level.txt\n'}
+[6.524766] (f1tenth_gym_ros) StdoutLine: {'line': b"reading manifest file '../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/SOURCES.txt'\n"}
+[6.526259] (f1tenth_gym_ros) StdoutLine: {'line': b"adding license file 'LICENSE'\n"}
+[6.529501] (f1tenth_gym_ros) StdoutLine: {'line': b"writing manifest file '../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/SOURCES.txt'\n"}
+[6.530900] (f1tenth_gym_ros) StdoutLine: {'line': b'running build\n'}
+[6.531463] (f1tenth_gym_ros) StdoutLine: {'line': b'running build_py\n'}
+[6.532515] (f1tenth_gym_ros) StdoutLine: {'line': b'running install\n'}
+[6.534257] (f1tenth_gym_ros) StdoutLine: {'line': b'running install_lib\n'}
+[6.534819] (-) TimerEvent: {}
+[6.539623] (f1tenth_gym_ros) StdoutLine: {'line': b'running install_data\n'}
+[6.540999] (f1tenth_gym_ros) StdoutLine: {'line': b'running install_egg_info\n'}
+[6.548759] (f1tenth_gym_ros) StdoutLine: {'line': b"removing '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages/f1tenth_gym_ros-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[6.550111] (f1tenth_gym_ros) StdoutLine: {'line': b'Copying ../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info to /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages/f1tenth_gym_ros-0.0.0-py3.10.egg-info\n'}
+[6.554022] (f1tenth_gym_ros) StdoutLine: {'line': b'running install_scripts\n'}
+[6.635065] (-) TimerEvent: {}
+[6.643444] (f1tenth_gym_ros) StdoutLine: {'line': b'Installing gym_bridge script to /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/f1tenth_gym_ros\n'}
+[6.644603] (f1tenth_gym_ros) StdoutLine: {'line': b'Installing lap_visualizer script to /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/f1tenth_gym_ros\n'}
+[6.645829] (f1tenth_gym_ros) StdoutLine: {'line': b"writing list of installed files to '/home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/install.log'\n"}
+[6.727166] (f1tenth_gym_ros) CommandEnded: {'returncode': 0}
+[6.735228] (-) TimerEvent: {}
+[6.778647] (f1tenth_gym_ros) JobEnded: {'identifier': 'f1tenth_gym_ros', 'rc': 0}
+[6.835413] (-) TimerEvent: {}
+[6.935793] (-) TimerEvent: {}
+[7.036206] (-) TimerEvent: {}
+[7.136583] (-) TimerEvent: {}
+[7.236998] (-) TimerEvent: {}
+[7.337384] (-) TimerEvent: {}
+[7.384472] (controllers) StdoutLine: {'line': b'running egg_info\n'}
+[7.387731] (controllers) StdoutLine: {'line': b'writing ../../build/controllers/controllers.egg-info/PKG-INFO\n'}
+[7.388787] (controllers) StdoutLine: {'line': b'writing dependency_links to ../../build/controllers/controllers.egg-info/dependency_links.txt\n'}
+[7.390010] (controllers) StdoutLine: {'line': b'writing entry points to ../../build/controllers/controllers.egg-info/entry_points.txt\n'}
+[7.390881] (controllers) StdoutLine: {'line': b'writing requirements to ../../build/controllers/controllers.egg-info/requires.txt\n'}
+[7.391419] (controllers) StdoutLine: {'line': b'writing top-level names to ../../build/controllers/controllers.egg-info/top_level.txt\n'}
+[7.398364] (controllers) StdoutLine: {'line': b"reading manifest file '../../build/controllers/controllers.egg-info/SOURCES.txt'\n"}
+[7.402026] (controllers) StdoutLine: {'line': b"writing manifest file '../../build/controllers/controllers.egg-info/SOURCES.txt'\n"}
+[7.403141] (controllers) StdoutLine: {'line': b'running build\n'}
+[7.403679] (controllers) StdoutLine: {'line': b'running build_py\n'}
+[7.404618] (controllers) StdoutLine: {'line': b'copying controllers/gap_node.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers\n'}
+[7.405930] (controllers) StdoutLine: {'line': b'running install\n'}
+[7.407182] (controllers) StdoutLine: {'line': b'running install_lib\n'}
+[7.408415] (path_planning) StdoutLine: {'line': b'running egg_info\n'}
+[7.410494] (controllers) StdoutLine: {'line': b'copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/gap_node.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers\n'}
+[7.411546] (path_planning) StdoutLine: {'line': b'writing ../../build/path_planning/path_planning.egg-info/PKG-INFO\n'}
+[7.412556] (path_planning) StdoutLine: {'line': b'writing dependency_links to ../../build/path_planning/path_planning.egg-info/dependency_links.txt\n'}
+[7.414015] (path_planning) StdoutLine: {'line': b'writing entry points to ../../build/path_planning/path_planning.egg-info/entry_points.txt\n'}
+[7.414475] (path_planning) StdoutLine: {'line': b'writing requirements to ../../build/path_planning/path_planning.egg-info/requires.txt\n'}
+[7.414860] (controllers) StdoutLine: {'line': b'byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/gap_node.py to gap_node.cpython-310.pyc\n'}
+[7.415337] (path_planning) StdoutLine: {'line': b'writing top-level names to ../../build/path_planning/path_planning.egg-info/top_level.txt\n'}
+[7.421566] (path_planning) StdoutLine: {'line': b"reading manifest file '../../build/path_planning/path_planning.egg-info/SOURCES.txt'\n"}
+[7.425794] (path_planning) StdoutLine: {'line': b"writing manifest file '../../build/path_planning/path_planning.egg-info/SOURCES.txt'\n"}
+[7.426749] (path_planning) StdoutLine: {'line': b'running build\n'}
+[7.428055] (path_planning) StdoutLine: {'line': b'running build_py\n'}
+[7.428552] (controllers) StdoutLine: {'line': b'running install_data\n'}
+[7.429432] (controllers) StdoutLine: {'line': b'running install_egg_info\n'}
+[7.429879] (path_planning) StdoutLine: {'line': b'running install\n'}
+[7.430375] (path_planning) StdoutLine: {'line': b'running install_lib\n'}
+[7.434068] (path_planning) StdoutLine: {'line': b'running install_data\n'}
+[7.435327] (path_planning) StdoutLine: {'line': b'running install_egg_info\n'}
+[7.436316] (controllers) StdoutLine: {'line': b"removing '/home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[7.437303] (controllers) StdoutLine: {'line': b'Copying ../../build/controllers/controllers.egg-info to /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers-0.0.0-py3.10.egg-info\n'}
+[7.437815] (-) TimerEvent: {}
+[7.441421] (controllers) StdoutLine: {'line': b'running install_scripts\n'}
+[7.443663] (path_planning) StdoutLine: {'line': b"removing '/home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages/path_planning-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[7.444849] (path_planning) StdoutLine: {'line': b'Copying ../../build/path_planning/path_planning.egg-info to /home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages/path_planning-0.0.0-py3.10.egg-info\n'}
+[7.448783] (path_planning) StdoutLine: {'line': b'running install_scripts\n'}
+[7.535626] (controllers) StdoutLine: {'line': b'Installing gap_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[7.536955] (controllers) StdoutLine: {'line': b'Installing mpc_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[7.537947] (-) TimerEvent: {}
+[7.538165] (controllers) StdoutLine: {'line': b'Installing pid_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[7.538713] (controllers) StdoutLine: {'line': b'Installing purepursuit_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[7.540034] (controllers) StdoutLine: {'line': b'Installing rrt_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[7.540557] (controllers) StdoutLine: {'line': b'Installing ttc_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[7.540987] (controllers) StdoutLine: {'line': b"writing list of installed files to '/home/ros/F1Tenth-Repository/build/controllers/install.log'\n"}
+[7.560093] (path_planning) StdoutLine: {'line': b'Installing waypoint_recorder script to /home/ros/F1Tenth-Repository/install/path_planning/lib/path_planning\n'}
+[7.561807] (path_planning) StdoutLine: {'line': b"writing list of installed files to '/home/ros/F1Tenth-Repository/build/path_planning/install.log'\n"}
+[7.633786] (controllers) CommandEnded: {'returncode': 0}
+[7.638075] (-) TimerEvent: {}
+[7.661853] (controllers) JobEnded: {'identifier': 'controllers', 'rc': 0}
+[7.665813] (path_planning) CommandEnded: {'returncode': 0}
+[7.689981] (path_planning) JobEnded: {'identifier': 'path_planning', 'rc': 0}
+[7.693039] (-) EventReactorShutdown: {}

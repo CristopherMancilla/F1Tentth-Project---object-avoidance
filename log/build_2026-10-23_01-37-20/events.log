@@ -1,0 +1,181 @@
+[0.000000] (-) TimerEvent: {}
+[0.000121] (controllers) JobQueued: {'identifier': 'controllers', 'dependencies': OrderedDict()}
+[0.000154] (f1tenth_gym_ros) JobQueued: {'identifier': 'f1tenth_gym_ros', 'dependencies': OrderedDict()}
+[0.000176] (path_planning) JobQueued: {'identifier': 'path_planning', 'dependencies': OrderedDict()}
+[0.000194] (controllers) JobStarted: {'identifier': 'controllers'}
+[0.099607] (-) TimerEvent: {}
+[0.109962] (f1tenth_gym_ros) JobStarted: {'identifier': 'f1tenth_gym_ros'}
+[0.118084] (path_planning) JobStarted: {'identifier': 'path_planning'}
+[0.199720] (-) TimerEvent: {}
+[0.299960] (-) TimerEvent: {}
+[0.407527] (-) TimerEvent: {}
+[0.508459] (-) TimerEvent: {}
+[0.608739] (-) TimerEvent: {}
+[0.708968] (-) TimerEvent: {}
+[0.809243] (-) TimerEvent: {}
+[0.909516] (-) TimerEvent: {}
+[1.009892] (-) TimerEvent: {}
+[1.110244] (-) TimerEvent: {}
+[1.210688] (-) TimerEvent: {}
+[1.310995] (-) TimerEvent: {}
+[1.411462] (-) TimerEvent: {}
+[1.511951] (-) TimerEvent: {}
+[1.612659] (-) TimerEvent: {}
+[1.713147] (-) TimerEvent: {}
+[1.813928] (-) TimerEvent: {}
+[1.914461] (-) TimerEvent: {}
+[2.014760] (-) TimerEvent: {}
+[2.115192] (-) TimerEvent: {}
+[2.215674] (-) TimerEvent: {}
+[2.316051] (-) TimerEvent: {}
+[2.416641] (-) TimerEvent: {}
+[2.517215] (-) TimerEvent: {}
+[2.538308] (f1tenth_gym_ros) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/f1tenth_gym_ros', 'build', '--build-base', '/home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/build', 'install', '--record', '/home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/install.log', '--install-scripts', '$base/lib/f1tenth_gym_ros', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/ros/F1Tenth-Repository/src/f1tenth_gym_ros', 'env': {'NVIDIA_CTK_LIBCUDA_DIR': '/usr/lib/x86_64-linux-gnu', 'HOSTNAME': 'ASUS-EXPERTBOOK', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/ros/dev_ws/install/xarm_controller/lib:/home/ros/dev_ws/install/xarm_api/lib:/home/ros/dev_ws/install/xarm_sdk/lib:/home/ros/dev_ws/install/xarm_msgs/lib:/home/ros/dev_ws/install/realsense_gazebo_plugin/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/ros', 'OLDPWD': '/home/ros', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/home/ros/dev_ws/install', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'NVIDIA_DRIVER_CAPABILITIES': 'all', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'QT_X11_NO_MITSHM': '1', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'DISPLAY': ':1', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/ros/dev_ws/install/xarm_controller:/home/ros/dev_ws/install/xarm_api:/home/ros/dev_ws/install/xarm_sdk:/home/ros/dev_ws/install/xarm_msgs:/home/ros/dev_ws/install/xarm_description:/home/ros/dev_ws/install/mbot_demo:/home/ros/dev_ws/install/uf_ros_lib:/home/ros/dev_ws/install/turtle_controller:/home/ros/dev_ws/install/realsense_gazebo_plugin:/opt/ros/humble', 'PWD': '/home/ros/F1Tenth-Repository/build/f1tenth_gym_ros', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages:/home/ros/dev_ws/install/xarm_msgs/local/lib/python3.10/dist-packages:/home/ros/dev_ws/build/uf_ros_lib:/home/ros/dev_ws/install/uf_ros_lib/lib/python3.10/site-packages:/home/ros/dev_ws/install/turtle_controller/lib/python3.12/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'NVIDIA_VISIBLE_DEVICES': 'void', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/ros/dev_ws/install/xarm_controller:/home/ros/dev_ws/install/xarm_api:/home/ros/dev_ws/install/xarm_sdk:/home/ros/dev_ws/install/xarm_msgs:/home/ros/dev_ws/install/xarm_description:/home/ros/dev_ws/install/mbot_demo:/home/ros/dev_ws/install/realsense_gazebo_plugin'}, 'shell': False}
+[2.555441] (controllers) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/controllers', 'build', '--build-base', '/home/ros/F1Tenth-Repository/build/controllers/build', 'install', '--record', '/home/ros/F1Tenth-Repository/build/controllers/install.log', '--install-scripts', '$base/lib/controllers', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/ros/F1Tenth-Repository/src/controllers', 'env': {'NVIDIA_CTK_LIBCUDA_DIR': '/usr/lib/x86_64-linux-gnu', 'HOSTNAME': 'ASUS-EXPERTBOOK', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/ros/dev_ws/install/xarm_controller/lib:/home/ros/dev_ws/install/xarm_api/lib:/home/ros/dev_ws/install/xarm_sdk/lib:/home/ros/dev_ws/install/xarm_msgs/lib:/home/ros/dev_ws/install/realsense_gazebo_plugin/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/ros', 'OLDPWD': '/home/ros', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/home/ros/dev_ws/install', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'NVIDIA_DRIVER_CAPABILITIES': 'all', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'QT_X11_NO_MITSHM': '1', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'DISPLAY': ':1', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/ros/dev_ws/install/xarm_controller:/home/ros/dev_ws/install/xarm_api:/home/ros/dev_ws/install/xarm_sdk:/home/ros/dev_ws/install/xarm_msgs:/home/ros/dev_ws/install/xarm_description:/home/ros/dev_ws/install/mbot_demo:/home/ros/dev_ws/install/uf_ros_lib:/home/ros/dev_ws/install/turtle_controller:/home/ros/dev_ws/install/realsense_gazebo_plugin:/opt/ros/humble', 'PWD': '/home/ros/F1Tenth-Repository/build/controllers', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/home/ros/F1Tenth-Repository/build/controllers/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages:/home/ros/dev_ws/install/xarm_msgs/local/lib/python3.10/dist-packages:/home/ros/dev_ws/build/uf_ros_lib:/home/ros/dev_ws/install/uf_ros_lib/lib/python3.10/site-packages:/home/ros/dev_ws/install/turtle_controller/lib/python3.12/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'NVIDIA_VISIBLE_DEVICES': 'void', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/ros/dev_ws/install/xarm_controller:/home/ros/dev_ws/install/xarm_api:/home/ros/dev_ws/install/xarm_sdk:/home/ros/dev_ws/install/xarm_msgs:/home/ros/dev_ws/install/xarm_description:/home/ros/dev_ws/install/mbot_demo:/home/ros/dev_ws/install/realsense_gazebo_plugin'}, 'shell': False}
+[2.559553] (path_planning) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/path_planning', 'build', '--build-base', '/home/ros/F1Tenth-Repository/build/path_planning/build', 'install', '--record', '/home/ros/F1Tenth-Repository/build/path_planning/install.log', '--install-scripts', '$base/lib/path_planning', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/ros/F1Tenth-Repository/src/path_planning', 'env': {'NVIDIA_CTK_LIBCUDA_DIR': '/usr/lib/x86_64-linux-gnu', 'HOSTNAME': 'ASUS-EXPERTBOOK', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/ros/dev_ws/install/xarm_controller/lib:/home/ros/dev_ws/install/xarm_api/lib:/home/ros/dev_ws/install/xarm_sdk/lib:/home/ros/dev_ws/install/xarm_msgs/lib:/home/ros/dev_ws/install/realsense_gazebo_plugin/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/ros', 'OLDPWD': '/home/ros', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/home/ros/dev_ws/install', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'NVIDIA_DRIVER_CAPABILITIES': 'all', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'QT_X11_NO_MITSHM': '1', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'DISPLAY': ':1', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/ros/dev_ws/install/xarm_controller:/home/ros/dev_ws/install/xarm_api:/home/ros/dev_ws/install/xarm_sdk:/home/ros/dev_ws/install/xarm_msgs:/home/ros/dev_ws/install/xarm_description:/home/ros/dev_ws/install/mbot_demo:/home/ros/dev_ws/install/uf_ros_lib:/home/ros/dev_ws/install/turtle_controller:/home/ros/dev_ws/install/realsense_gazebo_plugin:/opt/ros/humble', 'PWD': '/home/ros/F1Tenth-Repository/build/path_planning', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/home/ros/F1Tenth-Repository/build/path_planning/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages:/home/ros/dev_ws/install/xarm_msgs/local/lib/python3.10/dist-packages:/home/ros/dev_ws/build/uf_ros_lib:/home/ros/dev_ws/install/uf_ros_lib/lib/python3.10/site-packages:/home/ros/dev_ws/install/turtle_controller/lib/python3.12/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'NVIDIA_VISIBLE_DEVICES': 'void', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/ros/dev_ws/install/xarm_controller:/home/ros/dev_ws/install/xarm_api:/home/ros/dev_ws/install/xarm_sdk:/home/ros/dev_ws/install/xarm_msgs:/home/ros/dev_ws/install/xarm_description:/home/ros/dev_ws/install/mbot_demo:/home/ros/dev_ws/install/realsense_gazebo_plugin'}, 'shell': False}
+[2.617338] (-) TimerEvent: {}
+[2.717652] (-) TimerEvent: {}
+[2.817943] (-) TimerEvent: {}
+[2.869658] (controllers) StdoutLine: {'line': b'running egg_info\n'}
+[2.870394] (controllers) StdoutLine: {'line': b'creating ../../build/controllers/controllers.egg-info\n'}
+[2.870615] (controllers) StdoutLine: {'line': b'writing ../../build/controllers/controllers.egg-info/PKG-INFO\n'}
+[2.870819] (f1tenth_gym_ros) StdoutLine: {'line': b'running egg_info\n'}
+[2.871028] (controllers) StdoutLine: {'line': b'writing dependency_links to ../../build/controllers/controllers.egg-info/dependency_links.txt\n'}
+[2.871231] (controllers) StdoutLine: {'line': b'writing entry points to ../../build/controllers/controllers.egg-info/entry_points.txt\n'}
+[2.871455] (controllers) StdoutLine: {'line': b'writing requirements to ../../build/controllers/controllers.egg-info/requires.txt\n'}
+[2.871696] (controllers) StdoutLine: {'line': b'writing top-level names to ../../build/controllers/controllers.egg-info/top_level.txt\n'}
+[2.871864] (controllers) StdoutLine: {'line': b"writing manifest file '../../build/controllers/controllers.egg-info/SOURCES.txt'\n"}
+[2.872060] (f1tenth_gym_ros) StdoutLine: {'line': b'creating ../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info\n'}
+[2.872229] (f1tenth_gym_ros) StdoutLine: {'line': b'writing ../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/PKG-INFO\n'}
+[2.872438] (f1tenth_gym_ros) StdoutLine: {'line': b'writing dependency_links to ../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/dependency_links.txt\n'}
+[2.872630] (f1tenth_gym_ros) StdoutLine: {'line': b'writing entry points to ../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/entry_points.txt\n'}
+[2.872793] (f1tenth_gym_ros) StdoutLine: {'line': b'writing requirements to ../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/requires.txt\n'}
+[2.872944] (f1tenth_gym_ros) StdoutLine: {'line': b'writing top-level names to ../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/top_level.txt\n'}
+[2.873133] (f1tenth_gym_ros) StdoutLine: {'line': b"writing manifest file '../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/SOURCES.txt'\n"}
+[2.874142] (controllers) StdoutLine: {'line': b"reading manifest file '../../build/controllers/controllers.egg-info/SOURCES.txt'\n"}
+[2.874913] (f1tenth_gym_ros) StdoutLine: {'line': b"reading manifest file '../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/SOURCES.txt'\n"}
+[2.875136] (f1tenth_gym_ros) StdoutLine: {'line': b"adding license file 'LICENSE'\n"}
+[2.875360] (controllers) StdoutLine: {'line': b"writing manifest file '../../build/controllers/controllers.egg-info/SOURCES.txt'\n"}
+[2.875556] (controllers) StdoutLine: {'line': b'running build\n'}
+[2.875807] (controllers) StdoutLine: {'line': b'running build_py\n'}
+[2.875959] (controllers) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/build/controllers/build\n'}
+[2.876133] (controllers) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/build/controllers/build/lib\n'}
+[2.876309] (controllers) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers\n'}
+[2.876453] (controllers) StdoutLine: {'line': b'copying controllers/mpc_node.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers\n'}
+[2.876783] (controllers) StdoutLine: {'line': b'copying controllers/pid_node.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers\n'}
+[2.877031] (f1tenth_gym_ros) StdoutLine: {'line': b"writing manifest file '../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/SOURCES.txt'\n"}
+[2.877248] (f1tenth_gym_ros) StdoutLine: {'line': b'running build\n'}
+[2.877411] (f1tenth_gym_ros) StdoutLine: {'line': b'running build_py\n'}
+[2.877559] (f1tenth_gym_ros) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/build\n'}
+[2.877727] (f1tenth_gym_ros) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/build/lib\n'}
+[2.877973] (controllers) StdoutLine: {'line': b'copying controllers/__init__.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers\n'}
+[2.878139] (f1tenth_gym_ros) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/build/lib/f1tenth_gym_ros\n'}
+[2.878281] (f1tenth_gym_ros) StdoutLine: {'line': b'copying f1tenth_gym_ros/__init__.py -> /home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/build/lib/f1tenth_gym_ros\n'}
+[2.878421] (controllers) StdoutLine: {'line': b'copying controllers/ttc_node.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers\n'}
+[2.878628] (controllers) StdoutLine: {'line': b'copying controllers/rrt_node.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers\n'}
+[2.878824] (controllers) StdoutLine: {'line': b'copying controllers/gap_node.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers\n'}
+[2.878998] (controllers) StdoutLine: {'line': b'copying controllers/purepursuit_node.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers\n'}
+[2.879482] (path_planning) StdoutLine: {'line': b'running egg_info\n'}
+[2.879721] (f1tenth_gym_ros) StdoutLine: {'line': b'copying f1tenth_gym_ros/gym_bridge.py -> /home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/build/lib/f1tenth_gym_ros\n'}
+[2.879988] (controllers) StdoutLine: {'line': b'running install\n'}
+[2.880208] (f1tenth_gym_ros) StdoutLine: {'line': b'running install\n'}
+[2.880361] (controllers) StdoutLine: {'line': b'running install_lib\n'}
+[2.880503] (f1tenth_gym_ros) StdoutLine: {'line': b'running install_lib\n'}
+[2.880647] (path_planning) StdoutLine: {'line': b'creating ../../build/path_planning/path_planning.egg-info\n'}
+[2.880847] (path_planning) StdoutLine: {'line': b'writing ../../build/path_planning/path_planning.egg-info/PKG-INFO\n'}
+[2.880990] (path_planning) StdoutLine: {'line': b'writing dependency_links to ../../build/path_planning/path_planning.egg-info/dependency_links.txt\n'}
+[2.881134] (f1tenth_gym_ros) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages/f1tenth_gym_ros\n'}
+[2.881292] (f1tenth_gym_ros) StdoutLine: {'line': b'copying /home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/build/lib/f1tenth_gym_ros/__init__.py -> /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages/f1tenth_gym_ros\n'}
+[2.881443] (f1tenth_gym_ros) StdoutLine: {'line': b'copying /home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/build/lib/f1tenth_gym_ros/gym_bridge.py -> /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages/f1tenth_gym_ros\n'}
+[2.881583] (controllers) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers\n'}
+[2.881751] (controllers) StdoutLine: {'line': b'copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/mpc_node.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers\n'}
+[2.881911] (controllers) StdoutLine: {'line': b'copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/pid_node.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers\n'}
+[2.882055] (path_planning) StdoutLine: {'line': b'writing entry points to ../../build/path_planning/path_planning.egg-info/entry_points.txt\n'}
+[2.882205] (controllers) StdoutLine: {'line': b'copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/__init__.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers\n'}
+[2.882352] (path_planning) StdoutLine: {'line': b'writing requirements to ../../build/path_planning/path_planning.egg-info/requires.txt\n'}
+[2.882496] (controllers) StdoutLine: {'line': b'copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/ttc_node.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers\n'}
+[2.882642] (path_planning) StdoutLine: {'line': b'writing top-level names to ../../build/path_planning/path_planning.egg-info/top_level.txt\n'}
+[2.882807] (controllers) StdoutLine: {'line': b'copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/rrt_node.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers\n'}
+[2.882955] (controllers) StdoutLine: {'line': b'copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/gap_node.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers\n'}
+[2.883081] (f1tenth_gym_ros) StdoutLine: {'line': b'byte-compiling /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages/f1tenth_gym_ros/__init__.py to __init__.cpython-310.pyc\n'}
+[2.883212] (path_planning) StdoutLine: {'line': b"writing manifest file '../../build/path_planning/path_planning.egg-info/SOURCES.txt'\n"}
+[2.883398] (controllers) StdoutLine: {'line': b'copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/purepursuit_node.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers\n'}
+[2.883556] (f1tenth_gym_ros) StdoutLine: {'line': b'byte-compiling /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages/f1tenth_gym_ros/gym_bridge.py to gym_bridge.cpython-310.pyc\n'}
+[2.883718] (controllers) StdoutLine: {'line': b'byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/mpc_node.py to mpc_node.cpython-310.pyc\n'}
+[2.883919] (path_planning) StdoutLine: {'line': b"reading manifest file '../../build/path_planning/path_planning.egg-info/SOURCES.txt'\n"}
+[2.884080] (f1tenth_gym_ros) StdoutLine: {'line': b'running install_data\n'}
+[2.884237] (f1tenth_gym_ros) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/ament_index\n'}
+[2.884463] (f1tenth_gym_ros) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/ament_index/resource_index\n'}
+[2.884652] (f1tenth_gym_ros) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/ament_index/resource_index/packages\n'}
+[2.885074] (f1tenth_gym_ros) StdoutLine: {'line': b'copying resource/f1tenth_gym_ros -> /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/ament_index/resource_index/packages\n'}
+[2.885273] (f1tenth_gym_ros) StdoutLine: {'line': b'copying package.xml -> /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros\n'}
+[2.885563] (f1tenth_gym_ros) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/launch\n'}
+[2.885822] (controllers) StdoutLine: {'line': b'byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/pid_node.py to pid_node.cpython-310.pyc\n'}
+[2.886016] (controllers) StdoutLine: {'line': b'byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/__init__.py to __init__.cpython-310.pyc\n'}
+[2.886163] (f1tenth_gym_ros) StdoutLine: {'line': b'copying launch/gym_bridge_launch.py -> /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/launch\n'}
+[2.886347] (f1tenth_gym_ros) StdoutLine: {'line': b'copying launch/opp_racecar.xacro -> /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/launch\n'}
+[2.886543] (path_planning) StdoutLine: {'line': b"writing manifest file '../../build/path_planning/path_planning.egg-info/SOURCES.txt'\n"}
+[2.886695] (f1tenth_gym_ros) StdoutLine: {'line': b'copying launch/ego_racecar.xacro -> /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/launch\n'}
+[2.886882] (controllers) StdoutLine: {'line': b'byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/ttc_node.py to ttc_node.cpython-310.pyc\n'}
+[2.887056] (path_planning) StdoutLine: {'line': b'running build\n'}
+[2.887199] (path_planning) StdoutLine: {'line': b'running build_py\n'}
+[2.887335] (f1tenth_gym_ros) StdoutLine: {'line': b'copying launch/gym_bridge.rviz -> /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/launch\n'}
+[2.887526] (path_planning) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/build/path_planning/build\n'}
+[2.887737] (f1tenth_gym_ros) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/config\n'}
+[2.887919] (controllers) StdoutLine: {'line': b'byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/rrt_node.py to rrt_node.cpython-310.pyc\n'}
+[2.888142] (f1tenth_gym_ros) StdoutLine: {'line': b'copying config/sim.yaml -> /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/config\n'}
+[2.888356] (path_planning) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/build/path_planning/build/lib\n'}
+[2.888565] (f1tenth_gym_ros) StdoutLine: {'line': b'running install_egg_info\n'}
+[2.888762] (path_planning) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/build/path_planning/build/lib/path_planning\n'}
+[2.888910] (path_planning) StdoutLine: {'line': b'copying path_planning/__init__.py -> /home/ros/F1Tenth-Repository/build/path_planning/build/lib/path_planning\n'}
+[2.889047] (path_planning) StdoutLine: {'line': b'copying path_planning/waypoint_recorder.py -> /home/ros/F1Tenth-Repository/build/path_planning/build/lib/path_planning\n'}
+[2.889192] (path_planning) StdoutLine: {'line': b'running install\n'}
+[2.889351] (controllers) StdoutLine: {'line': b'byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/gap_node.py to gap_node.cpython-310.pyc\n'}
+[2.889513] (path_planning) StdoutLine: {'line': b'running install_lib\n'}
+[2.889754] (controllers) StdoutLine: {'line': b'byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/purepursuit_node.py to purepursuit_node.cpython-310.pyc\n'}
+[2.889935] (controllers) StdoutLine: {'line': b'running install_data\n'}
+[2.890124] (controllers) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/install/controllers/share/ament_index\n'}
+[2.890282] (controllers) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/install/controllers/share/ament_index/resource_index\n'}
+[2.890429] (controllers) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/install/controllers/share/ament_index/resource_index/packages\n'}
+[2.890583] (controllers) StdoutLine: {'line': b'copying resource/controllers -> /home/ros/F1Tenth-Repository/install/controllers/share/ament_index/resource_index/packages\n'}
+[2.890761] (controllers) StdoutLine: {'line': b'copying package.xml -> /home/ros/F1Tenth-Repository/install/controllers/share/controllers\n'}
+[2.890971] (controllers) StdoutLine: {'line': b'running install_egg_info\n'}
+[2.891140] (path_planning) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages/path_planning\n'}
+[2.891315] (path_planning) StdoutLine: {'line': b'copying /home/ros/F1Tenth-Repository/build/path_planning/build/lib/path_planning/__init__.py -> /home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages/path_planning\n'}
+[2.891538] (path_planning) StdoutLine: {'line': b'copying /home/ros/F1Tenth-Repository/build/path_planning/build/lib/path_planning/waypoint_recorder.py -> /home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages/path_planning\n'}
+[2.891690] (f1tenth_gym_ros) StdoutLine: {'line': b'Copying ../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info to /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages/f1tenth_gym_ros-0.0.0-py3.10.egg-info\n'}
+[2.891924] (f1tenth_gym_ros) StdoutLine: {'line': b'running install_scripts\n'}
+[2.892057] (path_planning) StdoutLine: {'line': b'byte-compiling /home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages/path_planning/__init__.py to __init__.cpython-310.pyc\n'}
+[2.892184] (path_planning) StdoutLine: {'line': b'byte-compiling /home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages/path_planning/waypoint_recorder.py to waypoint_recorder.cpython-310.pyc\n'}
+[2.892331] (controllers) StdoutLine: {'line': b'Copying ../../build/controllers/controllers.egg-info to /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers-0.0.0-py3.10.egg-info\n'}
+[2.892478] (path_planning) StdoutLine: {'line': b'running install_data\n'}
+[2.892620] (path_planning) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/install/path_planning/share/ament_index\n'}
+[2.892784] (path_planning) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/install/path_planning/share/ament_index/resource_index\n'}
+[2.892933] (path_planning) StdoutLine: {'line': b'creating /home/ros/F1Tenth-Repository/install/path_planning/share/ament_index/resource_index/packages\n'}
+[2.893079] (path_planning) StdoutLine: {'line': b'copying resource/path_planning -> /home/ros/F1Tenth-Repository/install/path_planning/share/ament_index/resource_index/packages\n'}
+[2.893223] (path_planning) StdoutLine: {'line': b'copying package.xml -> /home/ros/F1Tenth-Repository/install/path_planning/share/path_planning\n'}
+[2.893363] (controllers) StdoutLine: {'line': b'running install_scripts\n'}
+[2.893513] (path_planning) StdoutLine: {'line': b'running install_egg_info\n'}
+[2.895144] (path_planning) StdoutLine: {'line': b'Copying ../../build/path_planning/path_planning.egg-info to /home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages/path_planning-0.0.0-py3.10.egg-info\n'}
+[2.896488] (path_planning) StdoutLine: {'line': b'running install_scripts\n'}
+[2.916366] (f1tenth_gym_ros) StdoutLine: {'line': b'Installing gym_bridge script to /home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/f1tenth_gym_ros\n'}
+[2.916791] (f1tenth_gym_ros) StdoutLine: {'line': b"writing list of installed files to '/home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/install.log'\n"}
+[2.918025] (-) TimerEvent: {}
+[2.918339] (controllers) StdoutLine: {'line': b'Installing gap_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[2.918565] (controllers) StdoutLine: {'line': b'Installing mpc_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[2.918758] (controllers) StdoutLine: {'line': b'Installing pid_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[2.918967] (controllers) StdoutLine: {'line': b'Installing purepursuit_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[2.919109] (controllers) StdoutLine: {'line': b'Installing rrt_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[2.919268] (controllers) StdoutLine: {'line': b'Installing ttc_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers\n'}
+[2.919588] (controllers) StdoutLine: {'line': b"writing list of installed files to '/home/ros/F1Tenth-Repository/build/controllers/install.log'\n"}
+[2.925751] (path_planning) StdoutLine: {'line': b'Installing waypoint_recorder script to /home/ros/F1Tenth-Repository/install/path_planning/lib/path_planning\n'}
+[2.926269] (path_planning) StdoutLine: {'line': b"writing list of installed files to '/home/ros/F1Tenth-Repository/build/path_planning/install.log'\n"}
+[2.954579] (f1tenth_gym_ros) CommandEnded: {'returncode': 0}
+[3.018211] (-) TimerEvent: {}
+[3.118726] (-) TimerEvent: {}
+[3.145350] (f1tenth_gym_ros) JobEnded: {'identifier': 'f1tenth_gym_ros', 'rc': 0}
+[3.147000] (controllers) CommandEnded: {'returncode': 0}
+[3.153691] (controllers) JobEnded: {'identifier': 'controllers', 'rc': 0}
+[3.154681] (path_planning) CommandEnded: {'returncode': 0}
+[3.160626] (path_planning) JobEnded: {'identifier': 'path_planning', 'rc': 0}
+[3.161244] (-) EventReactorShutdown: {}

@@ -1,0 +1,57 @@
+[2.558s] Invoking command in '/home/ros/F1Tenth-Repository/src/controllers': PYTHONPATH=/home/ros/F1Tenth-Repository/build/controllers/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/controllers build --build-base /home/ros/F1Tenth-Repository/build/controllers/build install --record /home/ros/F1Tenth-Repository/build/controllers/install.log --install-scripts $base/lib/controllers --single-version-externally-managed install_data
+[2.870s] running egg_info
+[2.870s] creating ../../build/controllers/controllers.egg-info
+[2.871s] writing ../../build/controllers/controllers.egg-info/PKG-INFO
+[2.871s] writing dependency_links to ../../build/controllers/controllers.egg-info/dependency_links.txt
+[2.871s] writing entry points to ../../build/controllers/controllers.egg-info/entry_points.txt
+[2.871s] writing requirements to ../../build/controllers/controllers.egg-info/requires.txt
+[2.872s] writing top-level names to ../../build/controllers/controllers.egg-info/top_level.txt
+[2.872s] writing manifest file '../../build/controllers/controllers.egg-info/SOURCES.txt'
+[2.874s] reading manifest file '../../build/controllers/controllers.egg-info/SOURCES.txt'
+[2.875s] writing manifest file '../../build/controllers/controllers.egg-info/SOURCES.txt'
+[2.876s] running build
+[2.876s] running build_py
+[2.876s] creating /home/ros/F1Tenth-Repository/build/controllers/build
+[2.876s] creating /home/ros/F1Tenth-Repository/build/controllers/build/lib
+[2.876s] creating /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers
+[2.876s] copying controllers/mpc_node.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers
+[2.877s] copying controllers/pid_node.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers
+[2.878s] copying controllers/__init__.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers
+[2.878s] copying controllers/ttc_node.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers
+[2.879s] copying controllers/rrt_node.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers
+[2.879s] copying controllers/gap_node.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers
+[2.879s] copying controllers/purepursuit_node.py -> /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers
+[2.880s] running install
+[2.880s] running install_lib
+[2.881s] creating /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers
+[2.882s] copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/mpc_node.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers
+[2.882s] copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/pid_node.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers
+[2.882s] copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/__init__.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers
+[2.882s] copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/ttc_node.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers
+[2.883s] copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/rrt_node.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers
+[2.883s] copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/gap_node.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers
+[2.883s] copying /home/ros/F1Tenth-Repository/build/controllers/build/lib/controllers/purepursuit_node.py -> /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers
+[2.884s] byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/mpc_node.py to mpc_node.cpython-310.pyc
+[2.886s] byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/pid_node.py to pid_node.cpython-310.pyc
+[2.886s] byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/__init__.py to __init__.cpython-310.pyc
+[2.887s] byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/ttc_node.py to ttc_node.cpython-310.pyc
+[2.888s] byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/rrt_node.py to rrt_node.cpython-310.pyc
+[2.889s] byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/gap_node.py to gap_node.cpython-310.pyc
+[2.890s] byte-compiling /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers/purepursuit_node.py to purepursuit_node.cpython-310.pyc
+[2.890s] running install_data
+[2.890s] creating /home/ros/F1Tenth-Repository/install/controllers/share/ament_index
+[2.890s] creating /home/ros/F1Tenth-Repository/install/controllers/share/ament_index/resource_index
+[2.890s] creating /home/ros/F1Tenth-Repository/install/controllers/share/ament_index/resource_index/packages
+[2.890s] copying resource/controllers -> /home/ros/F1Tenth-Repository/install/controllers/share/ament_index/resource_index/packages
+[2.891s] copying package.xml -> /home/ros/F1Tenth-Repository/install/controllers/share/controllers
+[2.891s] running install_egg_info
+[2.892s] Copying ../../build/controllers/controllers.egg-info to /home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages/controllers-0.0.0-py3.10.egg-info
+[2.893s] running install_scripts
+[2.918s] Installing gap_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers
+[2.918s] Installing mpc_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers
+[2.919s] Installing pid_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers
+[2.919s] Installing purepursuit_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers
+[2.919s] Installing rrt_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers
+[2.919s] Installing ttc_node script to /home/ros/F1Tenth-Repository/install/controllers/lib/controllers
+[2.920s] writing list of installed files to '/home/ros/F1Tenth-Repository/build/controllers/install.log'
+[3.147s] Invoked command in '/home/ros/F1Tenth-Repository/src/controllers' returned '0': PYTHONPATH=/home/ros/F1Tenth-Repository/build/controllers/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/controllers build --build-base /home/ros/F1Tenth-Repository/build/controllers/build install --record /home/ros/F1Tenth-Repository/build/controllers/install.log --install-scripts $base/lib/controllers --single-version-externally-managed install_data

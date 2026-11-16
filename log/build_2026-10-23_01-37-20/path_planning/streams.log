@@ -1,0 +1,37 @@
+[2.443s] Invoking command in '/home/ros/F1Tenth-Repository/src/path_planning': PYTHONPATH=/home/ros/F1Tenth-Repository/build/path_planning/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/path_planning build --build-base /home/ros/F1Tenth-Repository/build/path_planning/build install --record /home/ros/F1Tenth-Repository/build/path_planning/install.log --install-scripts $base/lib/path_planning --single-version-externally-managed install_data
+[2.761s] running egg_info
+[2.762s] creating ../../build/path_planning/path_planning.egg-info
+[2.762s] writing ../../build/path_planning/path_planning.egg-info/PKG-INFO
+[2.762s] writing dependency_links to ../../build/path_planning/path_planning.egg-info/dependency_links.txt
+[2.764s] writing entry points to ../../build/path_planning/path_planning.egg-info/entry_points.txt
+[2.764s] writing requirements to ../../build/path_planning/path_planning.egg-info/requires.txt
+[2.764s] writing top-level names to ../../build/path_planning/path_planning.egg-info/top_level.txt
+[2.765s] writing manifest file '../../build/path_planning/path_planning.egg-info/SOURCES.txt'
+[2.765s] reading manifest file '../../build/path_planning/path_planning.egg-info/SOURCES.txt'
+[2.768s] writing manifest file '../../build/path_planning/path_planning.egg-info/SOURCES.txt'
+[2.769s] running build
+[2.769s] running build_py
+[2.769s] creating /home/ros/F1Tenth-Repository/build/path_planning/build
+[2.770s] creating /home/ros/F1Tenth-Repository/build/path_planning/build/lib
+[2.770s] creating /home/ros/F1Tenth-Repository/build/path_planning/build/lib/path_planning
+[2.770s] copying path_planning/__init__.py -> /home/ros/F1Tenth-Repository/build/path_planning/build/lib/path_planning
+[2.771s] copying path_planning/waypoint_recorder.py -> /home/ros/F1Tenth-Repository/build/path_planning/build/lib/path_planning
+[2.771s] running install
+[2.771s] running install_lib
+[2.773s] creating /home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages/path_planning
+[2.773s] copying /home/ros/F1Tenth-Repository/build/path_planning/build/lib/path_planning/__init__.py -> /home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages/path_planning
+[2.773s] copying /home/ros/F1Tenth-Repository/build/path_planning/build/lib/path_planning/waypoint_recorder.py -> /home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages/path_planning
+[2.774s] byte-compiling /home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages/path_planning/__init__.py to __init__.cpython-310.pyc
+[2.774s] byte-compiling /home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages/path_planning/waypoint_recorder.py to waypoint_recorder.cpython-310.pyc
+[2.774s] running install_data
+[2.774s] creating /home/ros/F1Tenth-Repository/install/path_planning/share/ament_index
+[2.774s] creating /home/ros/F1Tenth-Repository/install/path_planning/share/ament_index/resource_index
+[2.774s] creating /home/ros/F1Tenth-Repository/install/path_planning/share/ament_index/resource_index/packages
+[2.775s] copying resource/path_planning -> /home/ros/F1Tenth-Repository/install/path_planning/share/ament_index/resource_index/packages
+[2.775s] copying package.xml -> /home/ros/F1Tenth-Repository/install/path_planning/share/path_planning
+[2.775s] running install_egg_info
+[2.777s] Copying ../../build/path_planning/path_planning.egg-info to /home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages/path_planning-0.0.0-py3.10.egg-info
+[2.778s] running install_scripts
+[2.807s] Installing waypoint_recorder script to /home/ros/F1Tenth-Repository/install/path_planning/lib/path_planning
+[2.808s] writing list of installed files to '/home/ros/F1Tenth-Repository/build/path_planning/install.log'
+[3.036s] Invoked command in '/home/ros/F1Tenth-Repository/src/path_planning' returned '0': PYTHONPATH=/home/ros/F1Tenth-Repository/build/path_planning/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/path_planning build --build-base /home/ros/F1Tenth-Repository/build/path_planning/build install --record /home/ros/F1Tenth-Repository/build/path_planning/install.log --install-scripts $base/lib/path_planning --single-version-externally-managed install_data

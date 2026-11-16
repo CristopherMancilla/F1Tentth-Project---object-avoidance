@@ -1,0 +1,297 @@
+[0.172s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.172s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=8, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x706970036230>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x706970035ba0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x706970035ba0>>, mixin_verb=('build',))
+[0.406s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.406s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.406s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.406s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.406s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.406s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.406s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/ros/F1Tenth-Repository'
+[0.406s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.406s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.406s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.406s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.407s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.407s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.407s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.407s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.407s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.424s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.424s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.424s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.424s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.424s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.424s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories) by extensions ['ignore', 'ignore_ament_install']
+[0.424s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories) by extension 'ignore'
+[0.424s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories) by extension 'ignore_ament_install'
+[0.424s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories) by extensions ['colcon_pkg']
+[0.424s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories) by extension 'colcon_pkg'
+[0.424s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories) by extensions ['colcon_meta']
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories) by extension 'colcon_meta'
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories) by extensions ['ros']
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories) by extension 'ros'
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories) by extensions ['cmake', 'python']
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories) by extension 'cmake'
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories) by extension 'python'
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories) by extensions ['python_setup_py']
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories) by extension 'python_setup_py'
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories/img) by extensions ['ignore', 'ignore_ament_install']
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories/img) by extension 'ignore'
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories/img) by extension 'ignore_ament_install'
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories/img) by extensions ['colcon_pkg']
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories/img) by extension 'colcon_pkg'
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories/img) by extensions ['colcon_meta']
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories/img) by extension 'colcon_meta'
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories/img) by extensions ['ros']
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories/img) by extension 'ros'
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories/img) by extensions ['cmake', 'python']
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories/img) by extension 'cmake'
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories/img) by extension 'python'
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories/img) by extensions ['python_setup_py']
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(Laboratories/img) by extension 'python_setup_py'
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(img) by extensions ['ignore', 'ignore_ament_install']
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(img) by extension 'ignore'
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(img) by extension 'ignore_ament_install'
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(img) by extensions ['colcon_pkg']
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(img) by extension 'colcon_pkg'
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(img) by extensions ['colcon_meta']
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(img) by extension 'colcon_meta'
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(img) by extensions ['ros']
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(img) by extension 'ros'
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(img) by extensions ['cmake', 'python']
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(img) by extension 'cmake'
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(img) by extension 'python'
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(img) by extensions ['python_setup_py']
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(img) by extension 'python_setup_py'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src/controllers) by extensions ['ignore', 'ignore_ament_install']
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src/controllers) by extension 'ignore'
+[0.430s] Level 1:colcon.colcon_core.package_identification:_identify(src/controllers) by extension 'ignore_ament_install'
+[0.430s] Level 1:colcon.colcon_core.package_identification:_identify(src/controllers) by extensions ['colcon_pkg']
+[0.430s] Level 1:colcon.colcon_core.package_identification:_identify(src/controllers) by extension 'colcon_pkg'
+[0.430s] Level 1:colcon.colcon_core.package_identification:_identify(src/controllers) by extensions ['colcon_meta']
+[0.430s] Level 1:colcon.colcon_core.package_identification:_identify(src/controllers) by extension 'colcon_meta'
+[0.430s] Level 1:colcon.colcon_core.package_identification:_identify(src/controllers) by extensions ['ros']
+[0.430s] Level 1:colcon.colcon_core.package_identification:_identify(src/controllers) by extension 'ros'
+[0.434s] DEBUG:colcon.colcon_core.package_identification:Package 'src/controllers' with type 'ros.ament_python' and name 'controllers'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(src/f1tenth_gym_ros) by extensions ['ignore', 'ignore_ament_install']
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(src/f1tenth_gym_ros) by extension 'ignore'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(src/f1tenth_gym_ros) by extension 'ignore_ament_install'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(src/f1tenth_gym_ros) by extensions ['colcon_pkg']
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(src/f1tenth_gym_ros) by extension 'colcon_pkg'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(src/f1tenth_gym_ros) by extensions ['colcon_meta']
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(src/f1tenth_gym_ros) by extension 'colcon_meta'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(src/f1tenth_gym_ros) by extensions ['ros']
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(src/f1tenth_gym_ros) by extension 'ros'
+[0.436s] DEBUG:colcon.colcon_core.package_identification:Package 'src/f1tenth_gym_ros' with type 'ros.ament_python' and name 'f1tenth_gym_ros'
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/path_planning) by extensions ['ignore', 'ignore_ament_install']
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/path_planning) by extension 'ignore'
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/path_planning) by extension 'ignore_ament_install'
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/path_planning) by extensions ['colcon_pkg']
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/path_planning) by extension 'colcon_pkg'
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/path_planning) by extensions ['colcon_meta']
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/path_planning) by extension 'colcon_meta'
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/path_planning) by extensions ['ros']
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/path_planning) by extension 'ros'
+[0.438s] DEBUG:colcon.colcon_core.package_identification:Package 'src/path_planning' with type 'ros.ament_python' and name 'path_planning'
+[0.439s] Level 1:colcon.colcon_core.package_identification:_identify(src/waypoints) by extensions ['ignore', 'ignore_ament_install']
+[0.439s] Level 1:colcon.colcon_core.package_identification:_identify(src/waypoints) by extension 'ignore'
+[0.439s] Level 1:colcon.colcon_core.package_identification:_identify(src/waypoints) by extension 'ignore_ament_install'
+[0.439s] Level 1:colcon.colcon_core.package_identification:_identify(src/waypoints) by extensions ['colcon_pkg']
+[0.439s] Level 1:colcon.colcon_core.package_identification:_identify(src/waypoints) by extension 'colcon_pkg'
+[0.439s] Level 1:colcon.colcon_core.package_identification:_identify(src/waypoints) by extensions ['colcon_meta']
+[0.439s] Level 1:colcon.colcon_core.package_identification:_identify(src/waypoints) by extension 'colcon_meta'
+[0.439s] Level 1:colcon.colcon_core.package_identification:_identify(src/waypoints) by extensions ['ros']
+[0.439s] Level 1:colcon.colcon_core.package_identification:_identify(src/waypoints) by extension 'ros'
+[0.439s] Level 1:colcon.colcon_core.package_identification:_identify(src/waypoints) by extensions ['cmake', 'python']
+[0.439s] Level 1:colcon.colcon_core.package_identification:_identify(src/waypoints) by extension 'cmake'
+[0.439s] Level 1:colcon.colcon_core.package_identification:_identify(src/waypoints) by extension 'python'
+[0.439s] Level 1:colcon.colcon_core.package_identification:_identify(src/waypoints) by extensions ['python_setup_py']
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(src/waypoints) by extension 'python_setup_py'
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(videos) by extensions ['ignore', 'ignore_ament_install']
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(videos) by extension 'ignore'
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(videos) by extension 'ignore_ament_install'
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(videos) by extensions ['colcon_pkg']
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(videos) by extension 'colcon_pkg'
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(videos) by extensions ['colcon_meta']
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(videos) by extension 'colcon_meta'
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(videos) by extensions ['ros']
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(videos) by extension 'ros'
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(videos) by extensions ['cmake', 'python']
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(videos) by extension 'cmake'
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(videos) by extension 'python'
+[0.441s] Level 1:colcon.colcon_core.package_identification:_identify(videos) by extensions ['python_setup_py']
+[0.441s] Level 1:colcon.colcon_core.package_identification:_identify(videos) by extension 'python_setup_py'
+[0.441s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.441s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.441s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.441s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.441s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.473s] Level 5:colcon.colcon_core.verb:set package 'controllers' build argument 'cmake_args' from command line to 'None'
+[0.473s] Level 5:colcon.colcon_core.verb:set package 'controllers' build argument 'cmake_target' from command line to 'None'
+[0.473s] Level 5:colcon.colcon_core.verb:set package 'controllers' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.473s] Level 5:colcon.colcon_core.verb:set package 'controllers' build argument 'cmake_clean_cache' from command line to 'False'
+[0.473s] Level 5:colcon.colcon_core.verb:set package 'controllers' build argument 'cmake_clean_first' from command line to 'False'
+[0.473s] Level 5:colcon.colcon_core.verb:set package 'controllers' build argument 'cmake_force_configure' from command line to 'False'
+[0.473s] Level 5:colcon.colcon_core.verb:set package 'controllers' build argument 'ament_cmake_args' from command line to 'None'
+[0.473s] Level 5:colcon.colcon_core.verb:set package 'controllers' build argument 'catkin_cmake_args' from command line to 'None'
+[0.473s] Level 5:colcon.colcon_core.verb:set package 'controllers' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.473s] DEBUG:colcon.colcon_core.verb:Building package 'controllers' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ros/F1Tenth-Repository/build/controllers', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ros/F1Tenth-Repository/install/controllers', 'merge_install': False, 'path': '/home/ros/F1Tenth-Repository/src/controllers', 'symlink_install': False, 'test_result_base': None}
+[0.474s] Level 5:colcon.colcon_core.verb:set package 'f1tenth_gym_ros' build argument 'cmake_args' from command line to 'None'
+[0.474s] Level 5:colcon.colcon_core.verb:set package 'f1tenth_gym_ros' build argument 'cmake_target' from command line to 'None'
+[0.474s] Level 5:colcon.colcon_core.verb:set package 'f1tenth_gym_ros' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.474s] Level 5:colcon.colcon_core.verb:set package 'f1tenth_gym_ros' build argument 'cmake_clean_cache' from command line to 'False'
+[0.474s] Level 5:colcon.colcon_core.verb:set package 'f1tenth_gym_ros' build argument 'cmake_clean_first' from command line to 'False'
+[0.474s] Level 5:colcon.colcon_core.verb:set package 'f1tenth_gym_ros' build argument 'cmake_force_configure' from command line to 'False'
+[0.474s] Level 5:colcon.colcon_core.verb:set package 'f1tenth_gym_ros' build argument 'ament_cmake_args' from command line to 'None'
+[0.474s] Level 5:colcon.colcon_core.verb:set package 'f1tenth_gym_ros' build argument 'catkin_cmake_args' from command line to 'None'
+[0.474s] Level 5:colcon.colcon_core.verb:set package 'f1tenth_gym_ros' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.474s] DEBUG:colcon.colcon_core.verb:Building package 'f1tenth_gym_ros' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ros/F1Tenth-Repository/build/f1tenth_gym_ros', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros', 'merge_install': False, 'path': '/home/ros/F1Tenth-Repository/src/f1tenth_gym_ros', 'symlink_install': False, 'test_result_base': None}
+[0.475s] Level 5:colcon.colcon_core.verb:set package 'path_planning' build argument 'cmake_args' from command line to 'None'
+[0.475s] Level 5:colcon.colcon_core.verb:set package 'path_planning' build argument 'cmake_target' from command line to 'None'
+[0.475s] Level 5:colcon.colcon_core.verb:set package 'path_planning' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.475s] Level 5:colcon.colcon_core.verb:set package 'path_planning' build argument 'cmake_clean_cache' from command line to 'False'
+[0.475s] Level 5:colcon.colcon_core.verb:set package 'path_planning' build argument 'cmake_clean_first' from command line to 'False'
+[0.475s] Level 5:colcon.colcon_core.verb:set package 'path_planning' build argument 'cmake_force_configure' from command line to 'False'
+[0.475s] Level 5:colcon.colcon_core.verb:set package 'path_planning' build argument 'ament_cmake_args' from command line to 'None'
+[0.475s] Level 5:colcon.colcon_core.verb:set package 'path_planning' build argument 'catkin_cmake_args' from command line to 'None'
+[0.475s] Level 5:colcon.colcon_core.verb:set package 'path_planning' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.475s] DEBUG:colcon.colcon_core.verb:Building package 'path_planning' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ros/F1Tenth-Repository/build/path_planning', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ros/F1Tenth-Repository/install/path_planning', 'merge_install': False, 'path': '/home/ros/F1Tenth-Repository/src/path_planning', 'symlink_install': False, 'test_result_base': None}
+[0.475s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.478s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.478s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/ros/F1Tenth-Repository/src/controllers' with build type 'ament_python'
+[0.478s] Level 1:colcon.colcon_core.shell:create_environment_hook('controllers', 'ament_prefix_path')
+[0.483s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.483s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros/F1Tenth-Repository/install/controllers/share/controllers/hook/ament_prefix_path.ps1'
+[0.485s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros/F1Tenth-Repository/install/controllers/share/controllers/hook/ament_prefix_path.dsv'
+[0.486s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros/F1Tenth-Repository/install/controllers/share/controllers/hook/ament_prefix_path.sh'
+[0.487s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.487s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.512s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/ros/F1Tenth-Repository/src/f1tenth_gym_ros' with build type 'ament_python'
+[0.512s] Level 1:colcon.colcon_core.shell:create_environment_hook('f1tenth_gym_ros', 'ament_prefix_path')
+[0.512s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/hook/ament_prefix_path.ps1'
+[0.513s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/hook/ament_prefix_path.dsv'
+[0.514s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/hook/ament_prefix_path.sh'
+[0.515s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.515s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.525s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/ros/F1Tenth-Repository/src/path_planning' with build type 'ament_python'
+[0.526s] Level 1:colcon.colcon_core.shell:create_environment_hook('path_planning', 'ament_prefix_path')
+[0.526s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros/F1Tenth-Repository/install/path_planning/share/path_planning/hook/ament_prefix_path.ps1'
+[0.527s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros/F1Tenth-Repository/install/path_planning/share/path_planning/hook/ament_prefix_path.dsv'
+[0.528s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros/F1Tenth-Repository/install/path_planning/share/path_planning/hook/ament_prefix_path.sh'
+[0.529s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.529s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.914s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/ros/F1Tenth-Repository/src/controllers'
+[0.914s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.915s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.308s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/ros/F1Tenth-Repository/src/f1tenth_gym_ros'
+[1.308s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.308s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.707s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/ros/F1Tenth-Repository/src/path_planning'
+[1.707s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.707s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.274s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: build_py, register, rotate, develop, update_catalog, install_egg_info, sdist, bdist_egg, bdist_rpm, alias, setopt, compile_catalog, extract_messages, upload_docs, bdist, easy_install, build_scripts, build_clib, clean, bdist_wheel, install_headers, check, install_lib, build, install, install_scripts, install_data, build_ext, init_catalog, bdist_dumb, egg_info, saveopts, symlink_data, upload, dist_info, test
+[2.278s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ros/F1Tenth-Repository/src/controllers': PYTHONPATH=/home/ros/F1Tenth-Repository/build/controllers/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/controllers build --build-base /home/ros/F1Tenth-Repository/build/controllers/build install --record /home/ros/F1Tenth-Repository/build/controllers/install.log --install-scripts $base/lib/controllers --single-version-externally-managed install_data
+[2.282s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: build_py, register, rotate, develop, update_catalog, install_egg_info, sdist, bdist_egg, bdist_rpm, alias, setopt, compile_catalog, extract_messages, upload_docs, bdist, easy_install, build_scripts, build_clib, clean, bdist_wheel, install_headers, check, install_lib, build, install, install_scripts, install_data, build_ext, init_catalog, bdist_dumb, egg_info, saveopts, symlink_data, upload, dist_info, test
+[2.285s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: build_py, register, rotate, develop, update_catalog, install_egg_info, sdist, bdist_egg, bdist_rpm, alias, setopt, compile_catalog, extract_messages, upload_docs, bdist, easy_install, build_scripts, build_clib, clean, bdist_wheel, install_headers, check, install_lib, build, install, install_scripts, install_data, build_ext, init_catalog, bdist_dumb, egg_info, saveopts, symlink_data, upload, dist_info, test
+[2.288s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ros/F1Tenth-Repository/src/f1tenth_gym_ros': PYTHONPATH=/home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/f1tenth_gym_ros build --build-base /home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/build install --record /home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/install.log --install-scripts $base/lib/f1tenth_gym_ros --single-version-externally-managed install_data
+[2.292s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ros/F1Tenth-Repository/src/path_planning': PYTHONPATH=/home/ros/F1Tenth-Repository/build/path_planning/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/path_planning build --build-base /home/ros/F1Tenth-Repository/build/path_planning/build install --record /home/ros/F1Tenth-Repository/build/path_planning/install.log --install-scripts $base/lib/path_planning --single-version-externally-managed install_data
+[2.743s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ros/F1Tenth-Repository/src/path_planning' returned '0': PYTHONPATH=/home/ros/F1Tenth-Repository/build/path_planning/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/path_planning build --build-base /home/ros/F1Tenth-Repository/build/path_planning/build install --record /home/ros/F1Tenth-Repository/build/path_planning/install.log --install-scripts $base/lib/path_planning --single-version-externally-managed install_data
+[2.747s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/path_planning' for CMake module files
+[2.748s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/path_planning' for CMake config files
+[2.749s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/path_planning/lib'
+[2.750s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/path_planning/bin'
+[2.750s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/path_planning/lib/pkgconfig/path_planning.pc'
+[2.750s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/path_planning/lib/python3.10/site-packages'
+[2.750s] Level 1:colcon.colcon_core.shell:create_environment_hook('path_planning', 'pythonpath')
+[2.751s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros/F1Tenth-Repository/install/path_planning/share/path_planning/hook/pythonpath.ps1'
+[2.752s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros/F1Tenth-Repository/install/path_planning/share/path_planning/hook/pythonpath.dsv'
+[2.752s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros/F1Tenth-Repository/install/path_planning/share/path_planning/hook/pythonpath.sh'
+[2.753s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/path_planning/bin'
+[2.754s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(path_planning)
+[2.754s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros/F1Tenth-Repository/install/path_planning/share/path_planning/package.ps1'
+[2.756s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ros/F1Tenth-Repository/install/path_planning/share/path_planning/package.dsv'
+[2.757s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros/F1Tenth-Repository/install/path_planning/share/path_planning/package.sh'
+[2.759s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros/F1Tenth-Repository/install/path_planning/share/path_planning/package.bash'
+[2.760s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros/F1Tenth-Repository/install/path_planning/share/path_planning/package.zsh'
+[2.761s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ros/F1Tenth-Repository/install/path_planning/share/colcon-core/packages/path_planning)
+[2.763s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros' for CMake module files
+[2.765s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ros/F1Tenth-Repository/src/f1tenth_gym_ros' returned '0': PYTHONPATH=/home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/f1tenth_gym_ros build --build-base /home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/build install --record /home/ros/F1Tenth-Repository/build/f1tenth_gym_ros/install.log --install-scripts $base/lib/f1tenth_gym_ros --single-version-externally-managed install_data
+[2.765s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros' for CMake config files
+[2.766s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib'
+[2.766s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/bin'
+[2.766s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/pkgconfig/f1tenth_gym_ros.pc'
+[2.767s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/lib/python3.10/site-packages'
+[2.767s] Level 1:colcon.colcon_core.shell:create_environment_hook('f1tenth_gym_ros', 'pythonpath')
+[2.768s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/hook/pythonpath.ps1'
+[2.769s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/hook/pythonpath.dsv'
+[2.769s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/hook/pythonpath.sh'
+[2.771s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/bin'
+[2.771s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(f1tenth_gym_ros)
+[2.771s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/package.ps1'
+[2.772s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/package.dsv'
+[2.773s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/package.sh'
+[2.774s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/package.bash'
+[2.774s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/f1tenth_gym_ros/package.zsh'
+[2.775s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ros/F1Tenth-Repository/install/f1tenth_gym_ros/share/colcon-core/packages/f1tenth_gym_ros)
+[2.776s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/controllers' for CMake module files
+[2.777s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ros/F1Tenth-Repository/src/controllers' returned '0': PYTHONPATH=/home/ros/F1Tenth-Repository/build/controllers/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/controllers build --build-base /home/ros/F1Tenth-Repository/build/controllers/build install --record /home/ros/F1Tenth-Repository/build/controllers/install.log --install-scripts $base/lib/controllers --single-version-externally-managed install_data
+[2.777s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/controllers' for CMake config files
+[2.778s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/controllers/lib'
+[2.778s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/controllers/bin'
+[2.779s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/controllers/lib/pkgconfig/controllers.pc'
+[2.779s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/controllers/lib/python3.10/site-packages'
+[2.779s] Level 1:colcon.colcon_core.shell:create_environment_hook('controllers', 'pythonpath')
+[2.779s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros/F1Tenth-Repository/install/controllers/share/controllers/hook/pythonpath.ps1'
+[2.780s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros/F1Tenth-Repository/install/controllers/share/controllers/hook/pythonpath.dsv'
+[2.780s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros/F1Tenth-Repository/install/controllers/share/controllers/hook/pythonpath.sh'
+[2.782s] Level 1:colcon.colcon_core.environment:checking '/home/ros/F1Tenth-Repository/install/controllers/bin'
+[2.782s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(controllers)
+[2.782s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros/F1Tenth-Repository/install/controllers/share/controllers/package.ps1'
+[2.783s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ros/F1Tenth-Repository/install/controllers/share/controllers/package.dsv'
+[2.784s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros/F1Tenth-Repository/install/controllers/share/controllers/package.sh'
+[2.785s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros/F1Tenth-Repository/install/controllers/share/controllers/package.bash'
+[2.785s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros/F1Tenth-Repository/install/controllers/share/controllers/package.zsh'
+[2.786s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ros/F1Tenth-Repository/install/controllers/share/colcon-core/packages/controllers)
+[2.786s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[2.787s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[2.787s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[2.788s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[2.796s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.notify_send': Could not find 'notify-send'
+[2.796s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[2.796s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[2.796s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[2.799s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.Spawn.ExecFailed: /usr/bin/dbus-launch terminated abnormally without any error message
+[2.799s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[2.800s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ros/F1Tenth-Repository/install/local_setup.ps1'
+[2.802s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/ros/F1Tenth-Repository/install/_local_setup_util_ps1.py'
+[2.804s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ros/F1Tenth-Repository/install/setup.ps1'
+[2.808s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ros/F1Tenth-Repository/install/local_setup.sh'
+[2.809s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/ros/F1Tenth-Repository/install/_local_setup_util_sh.py'
+[2.810s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ros/F1Tenth-Repository/install/setup.sh'
+[2.812s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ros/F1Tenth-Repository/install/local_setup.bash'
+[2.813s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ros/F1Tenth-Repository/install/setup.bash'
+[2.816s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ros/F1Tenth-Repository/install/local_setup.zsh'
+[2.817s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ros/F1Tenth-Repository/install/setup.zsh'
