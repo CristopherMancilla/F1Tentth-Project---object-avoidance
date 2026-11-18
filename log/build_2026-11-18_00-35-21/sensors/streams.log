@@ -1,0 +1,23 @@
+[3.637s] Invoking command in '/home/ros/F1Tenth-Repository/src/sensors': PYTHONPATH=/home/ros/F1Tenth-Repository/build/sensors/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/sensors/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/sensors build --build-base /home/ros/F1Tenth-Repository/build/sensors/build install --record /home/ros/F1Tenth-Repository/build/sensors/install.log --install-scripts $base/lib/sensors --single-version-externally-managed install_data
+[4.308s] running egg_info
+[4.309s] writing ../../build/sensors/sensors.egg-info/PKG-INFO
+[4.309s] writing dependency_links to ../../build/sensors/sensors.egg-info/dependency_links.txt
+[4.310s] writing entry points to ../../build/sensors/sensors.egg-info/entry_points.txt
+[4.310s] writing requirements to ../../build/sensors/sensors.egg-info/requires.txt
+[4.310s] writing top-level names to ../../build/sensors/sensors.egg-info/top_level.txt
+[4.315s] reading manifest file '../../build/sensors/sensors.egg-info/SOURCES.txt'
+[4.317s] writing manifest file '../../build/sensors/sensors.egg-info/SOURCES.txt'
+[4.318s] running build
+[4.318s] running build_py
+[4.320s] running install
+[4.320s] running install_lib
+[4.323s] byte-compiling /home/ros/F1Tenth-Repository/install/sensors/lib/python3.10/site-packages/sensors/__init__.py to __init__.cpython-310.pyc
+[4.326s] byte-compiling /home/ros/F1Tenth-Repository/install/sensors/lib/python3.10/site-packages/sensors/lidar_analysis_node.py to lidar_analysis_node.cpython-310.pyc
+[4.326s] running install_data
+[4.326s] running install_egg_info
+[4.331s] removing '/home/ros/F1Tenth-Repository/install/sensors/lib/python3.10/site-packages/sensors-0.0.0-py3.10.egg-info' (and everything under it)
+[4.333s] Copying ../../build/sensors/sensors.egg-info to /home/ros/F1Tenth-Repository/install/sensors/lib/python3.10/site-packages/sensors-0.0.0-py3.10.egg-info
+[4.336s] running install_scripts
+[4.388s] Installing lidar_analysis_node script to /home/ros/F1Tenth-Repository/install/sensors/lib/sensors
+[4.392s] writing list of installed files to '/home/ros/F1Tenth-Repository/build/sensors/install.log'
+[4.456s] Invoked command in '/home/ros/F1Tenth-Repository/src/sensors' returned '0': PYTHONPATH=/home/ros/F1Tenth-Repository/build/sensors/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/F1Tenth-Repository/install/sensors/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/sensors build --build-base /home/ros/F1Tenth-Repository/build/sensors/build install --record /home/ros/F1Tenth-Repository/build/sensors/install.log --install-scripts $base/lib/sensors --single-version-externally-managed install_data
