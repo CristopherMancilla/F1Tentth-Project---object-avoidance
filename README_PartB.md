@@ -78,6 +78,10 @@ sy1: 0.0
 stheta1: 0.0
 ```
 
+![Sepang with the two cars at their start positions](docs/sepang_two_cars.png)
+
+*Start positions: car 1 (red) on the start line at (0, 0) and car 2 (blue) 5 m ahead at (5, 0). Bottom: close-up of the main straight.*
+
 The second car runs the same `gap_node` on its own topics with a top speed of **2.3 m/s**, at least **60 % slower** than the first car (about 5.7 m/s average), so the first car catches and overtakes it several times. Use 3 terminals (`source install/setup.bash` in each):
 
 ```bash
@@ -306,6 +310,10 @@ sx1: 5.0
 sy1: 0.0
 stheta1: 0.0
 ```
+
+![Sepang con los dos carros en su posición inicial](docs/sepang_two_cars.png)
+
+*Posiciones iniciales: carro 1 (rojo) sobre la línea de inicio en (0, 0) y carro 2 (azul) 5 m delante en (5, 0). Abajo: detalle de la recta principal.*
 
 El segundo carro usa el mismo `gap_node`, con sus propios tópicos y una velocidad máxima de **2.3 m/s**, al menos un **60 % menor** que la del primer carro (unos 5.7 m/s de promedio). Así el primero lo alcanza y lo adelanta varias veces. Se necesitan 3 terminales (en cada una, `source install/setup.bash`):
 
