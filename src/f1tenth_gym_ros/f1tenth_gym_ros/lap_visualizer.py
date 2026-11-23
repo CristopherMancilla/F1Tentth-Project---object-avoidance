@@ -1,7 +1,11 @@
-"""Draws the start/finish line (green) and the ego car trajectory (red) in RViz.
+"""Draws the start/finish line and the trajectory of each car in RViz.
 
-The trajectory is cleared every time the car crosses the start line in the
-forward direction, so each lap is drawn from scratch.
+- Start/finish line: green.
+- First car (ego) trajectory: red.
+- Second car (opponent) trajectory: blue, only when opp_odom_topic is set.
+
+Each trajectory is cleared every time its car crosses the start line in the
+forward direction, so every lap is drawn from scratch.
 """
 import math
 
@@ -13,6 +17,20 @@ from geometry_msgs.msg import Point
 from visualization_msgs.msg import Marker, MarkerArray
 
 
+class CarTrack:
+    """Trajectory and lap counting of one car."""
+
+    def __init__(self, name, ns, color):
+        self.name = name
+        self.ns = ns
+        self.color = color
+        self.trajectory = []
+        self.prev_pos = None
+        self.dist_since_lap = 0.0
+        self.lap = 0
+        self.lap_start_time = None
+
+
 class LapVisualizer(Node):
     def __init__(self):
         super().__init__('lap_visualizer')
@@ -22,6 +40,8 @@ class LapVisualizer(Node):
         self.declare_parameter('sy', 0.0)
         self.declare_parameter('stheta', 0.0)
         self.declare_parameter('odom_topic', '/ego_racecar/odom')
+        # Second car; leave empty when there is only one car
+        self.declare_parameter('opp_odom_topic', '')
         self.declare_parameter('frame_id', 'map')
         # Half length of the start line used until the map arrives
         self.declare_parameter('default_half_width', 1.5)
@@ -48,18 +68,23 @@ class LapVisualizer(Node):
         self.left_hw = default_hw   # extent along +lat
         self.right_hw = default_hw  # extent along -lat
 
-        self.trajectory = []
-        self.prev_pos = None
-        self.dist_since_lap = 0.0
-        self.lap = 0
-        self.lap_start_time = None
-
         map_qos = QoSProfile(depth=1,
                              durability=DurabilityPolicy.TRANSIENT_LOCAL,
                              reliability=ReliabilityPolicy.RELIABLE)
         self.create_subscription(OccupancyGrid, '/map', self.map_cb, map_qos)
+
+        self.cars = []
+        ego = CarTrack('Car 1', 'trajectory', (1.0, 0.0, 0.0))
+        self.cars.append(ego)
         self.create_subscription(Odometry, self.get_parameter('odom_topic').value,
-                                 self.odom_cb, 10)
+                                 lambda msg, car=ego: self.odom_cb(car, msg), 10)
+        opp_topic = self.get_parameter('opp_odom_topic').value
+        if opp_topic:
+            opp = CarTrack('Car 2', 'trajectory_opp', (0.1, 0.4, 1.0))
+            self.cars.append(opp)
+            self.create_subscription(Odometry, opp_topic,
+                                     lambda msg, car=opp: self.odom_cb(car, msg), 10)
+
         self.marker_pub = self.create_publisher(MarkerArray, '/lap_markers', 10)
         self.create_timer(0.1, self.publish_markers)
 
@@ -90,45 +115,45 @@ class LapVisualizer(Node):
         return max(d, 0.5)
 
     # ----------------------------------------------------------------- odom
-    def odom_cb(self, msg: Odometry):
+    def odom_cb(self, car: CarTrack, msg: Odometry):
         x = msg.pose.pose.position.x
         y = msg.pose.pose.position.y
         now = self.get_clock().now()
 
-        if self.prev_pos is None:
-            self.prev_pos = (x, y)
-            self.trajectory = [(x, y)]
-            self.lap_start_time = now
+        if car.prev_pos is None:
+            car.prev_pos = (x, y)
+            car.trajectory = [(x, y)]
+            car.lap_start_time = now
             return
 
-        px, py = self.prev_pos
+        px, py = car.prev_pos
         step = math.hypot(x - px, y - py)
 
         if step > self.reset_jump:
             # Car was teleported (e.g. /initialpose); start over
-            self.get_logger().info('Car reset detected, clearing trajectory')
-            self.trajectory = [(x, y)]
-            self.dist_since_lap = 0.0
-            self.lap_start_time = now
-            self.prev_pos = (x, y)
+            self.get_logger().info(f'{car.name}: reset detected, clearing trajectory')
+            car.trajectory = [(x, y)]
+            car.dist_since_lap = 0.0
+            car.lap_start_time = now
+            car.prev_pos = (x, y)
             return
 
-        self.dist_since_lap += step
+        car.dist_since_lap += step
 
         if self.crossed_start_line((px, py), (x, y)) and \
-                self.dist_since_lap > self.min_lap_distance:
-            self.lap += 1
-            lap_time = (now - self.lap_start_time).nanoseconds * 1e-9
-            self.get_logger().info(f'Lap {self.lap} completed in {lap_time:.2f} s')
-            self.trajectory = [(x, y)]
-            self.dist_since_lap = 0.0
-            self.lap_start_time = now
+                car.dist_since_lap > self.min_lap_distance:
+            car.lap += 1
+            lap_time = (now - car.lap_start_time).nanoseconds * 1e-9
+            self.get_logger().info(f'{car.name}: lap {car.lap} completed in {lap_time:.2f} s')
+            car.trajectory = [(x, y)]
+            car.dist_since_lap = 0.0
+            car.lap_start_time = now
         else:
-            lx, ly = self.trajectory[-1]
+            lx, ly = car.trajectory[-1]
             if math.hypot(x - lx, y - ly) >= self.point_spacing:
-                self.trajectory.append((x, y))
+                car.trajectory.append((x, y))
 
-        self.prev_pos = (x, y)
+        car.prev_pos = (x, y)
 
     def local(self, p):
         dx, dy = p[0] - self.sx, p[1] - self.sy
@@ -165,21 +190,24 @@ class LapVisualizer(Node):
         ]
         arr.markers.append(line)
 
-        traj = Marker()
-        traj.header.frame_id = self.frame_id
-        traj.header.stamp = stamp
-        traj.ns = 'trajectory'
-        traj.id = 1
-        traj.pose.orientation.w = 1.0
-        if len(self.trajectory) >= 2:
-            traj.type = Marker.LINE_STRIP
-            traj.action = Marker.ADD
-            traj.scale.x = 0.08
-            traj.color.r, traj.color.g, traj.color.b, traj.color.a = 1.0, 0.0, 0.0, 1.0
-            traj.points = [Point(x=x, y=y, z=0.01) for x, y in self.trajectory]
-        else:
-            traj.action = Marker.DELETE
-        arr.markers.append(traj)
+        for i, car in enumerate(self.cars):
+            traj = Marker()
+            traj.header.frame_id = self.frame_id
+            traj.header.stamp = stamp
+            traj.ns = car.ns
+            traj.id = 1 + i
+            traj.pose.orientation.w = 1.0
+            if len(car.trajectory) >= 2:
+                traj.type = Marker.LINE_STRIP
+                traj.action = Marker.ADD
+                traj.scale.x = 0.08
+                traj.color.r, traj.color.g, traj.color.b = car.color
+                traj.color.a = 1.0
+                traj.points = [Point(x=x, y=y, z=0.01 + 0.005 * i)
+                               for x, y in car.trajectory]
+            else:
+                traj.action = Marker.DELETE
+            arr.markers.append(traj)
 
         self.marker_pub.publish(arr)
 

@@ -247,6 +247,7 @@ Visualization Manager:
       Namespaces:
         start_line: true
         trajectory: true
+        trajectory_opp: true
       Topic:
         Depth: 5
         Durability Policy: Volatile

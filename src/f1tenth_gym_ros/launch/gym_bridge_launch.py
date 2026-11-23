@@ -91,7 +91,9 @@ def generate_launch_description():
         parameters=[{'sx': float(params['sx']),
                      'sy': float(params['sy']),
                      'stheta': float(params['stheta']),
-                     'odom_topic': '/' + params['ego_namespace'] + '/' + params['ego_odom_topic']}]
+                     'odom_topic': '/' + params['ego_namespace'] + '/' + params['ego_odom_topic'],
+                     'opp_odom_topic': ('/' + params['opp_namespace'] + '/' + params['opp_odom_topic'])
+                                       if has_opp else ''}]
     )
 
     # finalize

@@ -240,6 +240,10 @@ Lap times are measured with the computer clock. If the PC is slow, the simulatio
 | Laps take more than 75 s | the PC simulates slower than real time; close other programs, or raise `v_max` a little |
 | The car touches the walls or spins | lower `v_max`, `max_lat_accel` or `decel_rate`, or raise `safety_margin` |
 
+## Video
+
+Simulation video: <https://www.youtube.com/watch?v=EfybXc3ta54>
+
 ---
 
 <a name="español"></a>
@@ -477,3 +481,7 @@ Los tiempos de vuelta se miden con el reloj de la computadora. Si la PC es lenta
 | No se cuentan las vueltas | el carro debe cruzar la línea verde en el sentido de la marcha (+x) |
 | Las vueltas pasan de 75 s | la PC simula más lento que el tiempo real; cierra otros programas o sube un poco `v_max` |
 | El carro toca las paredes o trompea | baja `v_max`, `max_lat_accel` o `decel_rate`, o sube `safety_margin` |
+
+## Video
+
+Video de la simulación: <https://www.youtube.com/watch?v=EfybXc3ta54>
