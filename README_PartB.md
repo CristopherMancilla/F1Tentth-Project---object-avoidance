@@ -15,6 +15,14 @@ Goal: add **5 obstacles** to the Sepang track and have the robot drive **10 cons
 
 Environment setup (ROS 2 Humble, F1TENTH gym, dependencies) is in the [main README](README.md), steps 1 to 3.
 
+![Sepang with the 5 obstacles](docs/sepang_obs_preview.png)
+
+*Obstacles in red circles; green line = start line.*
+
+![Close-up of the 5 obstacles](docs/sepang_obstacles_zoom.png)
+
+*Close-up of each obstacle (left to right: 1 to 5).*
+
 ## 1. How the obstacles were added
 
 1. One full Sepang lap was driven with `gap_node` and the car trajectory was recorded (475 m per lap).
@@ -134,55 +142,7 @@ RACE FINISHED: 10 laps
   Difference slowest - fastest: 13.46 s
 ```
 
-### 4.2 Two cars, car 2 4.5 m from the start line (Nov 20 2026)
-
-Full simulator test with the current map (2 cylinders and 3 rectangles) and the second car at 2.3 m/s as a moving obstacle. Car 1 runs `gap_node` with its default parameters.
-
-| Criterion | Result |
-|---|---|
-| Car 1 consecutive laps | **10/10** |
-| Near-collisions (LiDAR reading < 0.20 m) | **0** |
-| Contacts with walls or obstacles | **0** (checked by comparing the car position with the map during the whole test) |
-| Car-to-car collisions | **0** |
-| Average speed car 1 / car 2 | 5.55 m/s / 2.27 m/s (car 2 is ~60 % slower) |
-| Fastest lap | lap 10, 82.77 s |
-| Slowest lap | lap 1, 90.96 s |
-| Total time / distance | 856.67 s / 4757.2 m |
-
-Car 1 caught and overtook car 2 several times. The two closest moments were side-by-side passes, 0.60 m between centers (about 0.3 m of space between the cars): at 9 s on the main straight (18.0, 0.6), and at 158 s at (-30.5, 35.6). Laps 1 and 6, the slowest, are the overtaking laps; with the second car, laps take about 2.5 s longer on average.
-
-Summary printed by `gap_node` (car 1) at the end:
-
-```
-  Lap | Time (s) | Dist (m) | Avg (m/s) | Max (m/s) | Near-coll | Status
-  --------------------------------------------------------------------------
-    1 |    90.96 |    475.5 |      5.23 |      8.83 |         0 | TOO SLOW  <-- SLOWEST
-    2 |    86.52 |    475.1 |      5.49 |      8.71 |         0 | TOO SLOW
-    3 |    86.01 |    475.1 |      5.52 |      8.77 |         0 | TOO SLOW
-    4 |    85.60 |    476.7 |      5.57 |      8.64 |         0 | TOO SLOW
-    5 |    83.73 |    475.3 |      5.68 |      8.78 |         0 | TOO SLOW
-    6 |    88.68 |    475.4 |      5.36 |      8.77 |         0 | TOO SLOW
-    7 |    85.04 |    478.0 |      5.62 |      8.75 |         0 | TOO SLOW
-    8 |    84.30 |    475.4 |      5.64 |      8.75 |         0 | TOO SLOW
-    9 |    83.06 |    475.5 |      5.73 |      8.82 |         0 | TOO SLOW
-   10 |    82.77 |    475.2 |      5.74 |      8.87 |         0 | TOO SLOW  <-- FASTEST
-  --------------------------------------------------------------------------
-  Total time:          856.67 s (14.28 min)
-  Total distance:      4757.2 m (4.757 km)
-  Average speed:       5.55 m/s
-  Top speed:           8.87 m/s (lap 10)
-  Average lap:         85.67 s (std dev 2.43 s) | average lap distance: 475.7 m
-  Laps <= 60 s: 0/10 | laps <= 75 s: 0/10
-  Near-collisions:     0
-  --------------------------------------------------------------------------
-  WINNING LAP (fastest):  lap 10 with 82.77 s (475.2 m, 5.74 m/s average)
-  SLOWEST LAP (longest):  lap 1 with 90.96 s (475.5 m, 5.23 m/s average)
-  Difference slowest - fastest: 8.19 s
-```
-
-**Observed risk:** in the headless bench (same physics, no ROS) with the same speeds, 1 of 6 ten-lap runs ended with car 1 rear-ending car 2 in lap 6 on the main straight (18.4, 0.9) at 2.5 m/s. `gap_node` treats the other car as a fixed wall and does not account for its motion; when it catches it on the straight with no room to pass, it may not brake in time.
-
-### 4.3 One car, first version of the map (Nov 18 2026)
+### 4.2 One car, first version of the map (Nov 18 2026)
 
 Full simulator test (`Sepang_obs_map` with 5 squares of 0.5 × 0.5 m at the same positions, `gap_node` with its default parameters):
 
@@ -418,62 +378,7 @@ RACE FINISHED: 10 laps
   Difference slowest - fastest: 13.46 s
 ```
 
-### 5.2 Dos carros, carro 2 a 4.5 m de la línea de inicio (20-nov-2026)
-
-Prueba completa en el simulador con el mapa actual (2 cilindros y 3 rectángulos) y el segundo carro a 2.3 m/s como obstáculo en movimiento. Carro 1 con `gap_node` y sus parámetros por defecto.
-
-| Criterio | Resultado |
-|---|---|
-| Vueltas consecutivas del carro 1 | **10/10** |
-| Casi-colisiones (lectura del LiDAR < 0.20 m) | **0** |
-| Contactos con paredes u obstáculos | **0** (verificado comparando la posición del carro con el mapa durante toda la prueba) |
-| Choques entre los dos carros | **0** |
-| Velocidad promedio carro 1 / carro 2 | 5.55 m/s / 2.27 m/s (el carro 2 es ~60 % más lento) |
-| Vuelta más rápida | vuelta 10, 82.77 s |
-| Vuelta más lenta | vuelta 1, 90.96 s |
-| Tiempo / distancia total | 856.67 s / 4757.2 m |
-
-El carro 1 alcanzó y adelantó al carro 2 varias veces. Los dos momentos de mayor acercamiento fueron adelantamientos lado a lado, a 0.60 m entre centros (unos 0.3 m de espacio entre los carros):
-
-| Tiempo | Lugar (x, y) | Carro 1 | Carro 2 |
-|---|---|---|---|
-| 9 s | recta principal (18.0, 0.6) | 3.8 m/s | 2.3 m/s |
-| 158 s | (-30.5, 35.6) | 4.2 m/s | 2.3 m/s |
-
-Las vueltas 1 y 6, las más lentas, son las de los adelantamientos: con el segundo carro, las vueltas tardan en promedio unos 2.5 s más que sin él.
-
-Resumen impreso por `gap_node` (carro 1) al terminar:
-
-```
-  Lap | Time (s) | Dist (m) | Avg (m/s) | Max (m/s) | Near-coll | Status
-  --------------------------------------------------------------------------
-    1 |    90.96 |    475.5 |      5.23 |      8.83 |         0 | TOO SLOW  <-- SLOWEST
-    2 |    86.52 |    475.1 |      5.49 |      8.71 |         0 | TOO SLOW
-    3 |    86.01 |    475.1 |      5.52 |      8.77 |         0 | TOO SLOW
-    4 |    85.60 |    476.7 |      5.57 |      8.64 |         0 | TOO SLOW
-    5 |    83.73 |    475.3 |      5.68 |      8.78 |         0 | TOO SLOW
-    6 |    88.68 |    475.4 |      5.36 |      8.77 |         0 | TOO SLOW
-    7 |    85.04 |    478.0 |      5.62 |      8.75 |         0 | TOO SLOW
-    8 |    84.30 |    475.4 |      5.64 |      8.75 |         0 | TOO SLOW
-    9 |    83.06 |    475.5 |      5.73 |      8.82 |         0 | TOO SLOW
-   10 |    82.77 |    475.2 |      5.74 |      8.87 |         0 | TOO SLOW  <-- FASTEST
-  --------------------------------------------------------------------------
-  Total time:          856.67 s (14.28 min)
-  Total distance:      4757.2 m (4.757 km)
-  Average speed:       5.55 m/s
-  Top speed:           8.87 m/s (lap 10)
-  Average lap:         85.67 s (std dev 2.43 s) | average lap distance: 475.7 m
-  Laps <= 60 s: 0/10 | laps <= 75 s: 0/10
-  Near-collisions:     0
-  --------------------------------------------------------------------------
-  WINNING LAP (fastest):  lap 10 with 82.77 s (475.2 m, 5.74 m/s average)
-  SLOWEST LAP (longest):  lap 1 with 90.96 s (475.5 m, 5.23 m/s average)
-  Difference slowest - fastest: 8.19 s
-```
-
-**Riesgo observado:** en el banco de pruebas sin ROS (misma física), con las mismas velocidades, 1 de 6 corridas de 10 vueltas terminó con el carro 1 chocando por detrás al carro 2 en la vuelta 6, en la recta principal (18.4, 0.9), a 2.5 m/s. `gap_node` trata al otro carro como una pared fija y no tiene en cuenta que se mueve; cuando lo alcanza en la recta sin espacio para pasar, puede no frenar a tiempo.
-
-### 5.3 Un carro, primera versión del mapa (18-nov-2026)
+### 5.2 Un carro, primera versión del mapa (18-nov-2026)
 
 Prueba completa en el simulador (`Sepang_obs_map` con 5 cuadrados de 0.5 × 0.5 m en las mismas posiciones, `gap_node` con sus parámetros por defecto):
 

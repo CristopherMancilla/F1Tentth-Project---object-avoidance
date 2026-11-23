@@ -14,6 +14,10 @@ ROS 2 Humble workspace with the F1TENTH gym simulator, the **Sepang** track and 
 - After **10 laps** the car stops and the terminal prints a summary: the data of every lap, the **winning (fastest) lap**, the **slowest lap**, total time, total distance, average and top speed, and total near-collisions.
 - RViz shows the **start line in green** and the **car trajectory in red**. The red line is erased and starts again every time the car crosses the start line.
 
+![Sepang track](docs/sepang_map.png)
+
+*Sepang track (`Sepang_map`). Green line: start/finish line at (0, 0); red arrow: driving direction.*
+
 ## Repository layout
 
 ```
@@ -240,9 +244,10 @@ Lap times are measured with the computer clock. If the PC is slow, the simulatio
 | Laps take more than 75 s | the PC simulates slower than real time; close other programs, or raise `v_max` a little |
 | The car touches the walls or spins | lower `v_max`, `max_lat_accel` or `decel_rate`, or raise `safety_margin` |
 
-## Video
+## Videos
 
-Simulation video: <https://www.youtube.com/watch?v=EfybXc3ta54>
+- Part A, simulation video (Sepang, 10 laps): <https://www.youtube.com/watch?v=EfybXc3ta54>
+- Part B, simulation video (obstacles and a second robot as a dynamic obstacle): <https://youtu.be/u4fPRraASSs>. Details in [README_PartB.md](README_PartB.md).
 
 ---
 
@@ -255,6 +260,10 @@ Workspace de ROS 2 Humble con el simulador F1TENTH gym, la pista **Sepang** y un
 - Cada vuelta busca durar **60 s** y no debe pasar de **75 s**.
 - Al terminar las **10 vueltas** el carro se detiene y la terminal muestra un resumen: los datos de cada vuelta, la **vuelta ganadora (la más rápida)**, la **vuelta más lenta**, tiempo total, distancia total, velocidad promedio y máxima, y total de casi-colisiones.
 - RViz muestra la **línea de inicio en verde** y la **trayectoria del carro en rojo**. La línea roja se borra y empieza de nuevo cada vez que el carro cruza la línea de inicio.
+
+![Pista de Sepang](docs/sepang_map.png)
+
+*Pista de Sepang (`Sepang_map`). Línea verde: línea de inicio/meta en (0, 0); flecha roja: sentido de la marcha.*
 
 ## Estructura del repositorio
 
@@ -482,6 +491,7 @@ Los tiempos de vuelta se miden con el reloj de la computadora. Si la PC es lenta
 | Las vueltas pasan de 75 s | la PC simula más lento que el tiempo real; cierra otros programas o sube un poco `v_max` |
 | El carro toca las paredes o trompea | baja `v_max`, `max_lat_accel` o `decel_rate`, o sube `safety_margin` |
 
-## Video
+## Videos
 
-Video de la simulación: <https://www.youtube.com/watch?v=EfybXc3ta54>
+- Parte A, video de la simulación (Sepang, 10 vueltas): <https://www.youtube.com/watch?v=EfybXc3ta54>
+- Parte B, video de la simulación (obstáculos y un segundo robot como obstáculo dinámico): <https://youtu.be/u4fPRraASSs>. Detalles en [README_PartB.md](README_PartB.md).
