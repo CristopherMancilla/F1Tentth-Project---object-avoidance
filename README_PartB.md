@@ -91,46 +91,47 @@ With two cars the simulator only advances when **both** receive commands, so sta
 
 Full simulator test with the current map (2 cylinders and 3 rectangles). Car 2 starts **5 m ahead** of car 1, at (5.0, 0.0), with a top speed of 2.3 m/s. Both cars run `gap_node` from the first part. The test ends when car 1 completes its 10 laps.
 
+Video of the simulation: <https://youtu.be/u4fPRraASSs>
+
 | Criterion | Result |
 |---|---|
 | Car 1 consecutive laps | **10/10** |
-| Near-collisions (LiDAR reading < 0.20 m), car 1 and car 2 | **0** and **0** |
-| Contacts with walls or obstacles, car 1 and car 2 | **0** and **0** (checked by comparing each car's position with the map during the whole test) |
-| Car-to-car collisions | **0** |
-| Times car 1 overtook car 2 | **6** (the first 4 s after the start, then about every 140 s) |
-| Minimum center distance during the race | 0.68 m, overtaking at the start, at (9.4, 1.0) |
-| Average speed car 1 / car 2 | 5.74 m/s / 2.29 m/s (car 2 is 60 % slower) |
-| Car 2 laps in that time | 4 complete (about 203 s per lap) |
-| Fastest / slowest lap of car 1 | lap 7, 82.16 s / lap 1, 84.04 s |
-| Car 1 total time / distance | 829.02 s / 4754.6 m |
+| Near-collisions (LiDAR reading < 0.20 m) | **0** |
+| Fastest lap | lap 3, 93.79 s (5.08 m/s average) |
+| Slowest lap | lap 1, 107.25 s (4.45 m/s average) |
+| Average lap | 96.54 s (std dev 3.96 s) |
+| Total time / distance | 965.45 s (16.09 min) / 4767.4 m |
+| Average / top speed | 4.94 m/s / 8.89 m/s (lap 10) |
 
 Summary printed by `gap_node` (car 1) at the end:
 
 ```
+RACE FINISHED: 10 laps
+==============================================================================
   Lap | Time (s) | Dist (m) | Avg (m/s) | Max (m/s) | Near-coll | Status
   --------------------------------------------------------------------------
-    1 |    84.04 |    475.6 |      5.66 |      8.80 |         0 | TOO SLOW  <-- SLOWEST
-    2 |    83.65 |    476.2 |      5.69 |      8.82 |         0 | TOO SLOW
-    3 |    82.87 |    475.2 |      5.73 |      8.83 |         0 | TOO SLOW
-    4 |    82.36 |    475.6 |      5.77 |      8.77 |         0 | TOO SLOW
-    5 |    82.91 |    475.1 |      5.73 |      8.75 |         0 | TOO SLOW
-    6 |    82.52 |    475.6 |      5.76 |      8.78 |         0 | TOO SLOW
-    7 |    82.16 |    475.6 |      5.79 |      8.79 |         0 | TOO SLOW  <-- FASTEST
-    8 |    82.72 |    475.2 |      5.74 |      8.76 |         0 | TOO SLOW
-    9 |    83.00 |    475.2 |      5.73 |      8.85 |         0 | TOO SLOW
-   10 |    82.78 |    475.4 |      5.74 |      8.80 |         0 | TOO SLOW
+    1 |   107.25 |    477.6 |      4.45 |      8.73 |         0 | TOO SLOW  <-- SLOWEST
+    2 |    94.47 |    476.7 |      5.05 |      8.74 |         0 | TOO SLOW
+    3 |    93.79 |    476.3 |      5.08 |      8.71 |         0 | TOO SLOW  <-- FASTEST
+    4 |    94.46 |    477.2 |      5.05 |      8.75 |         0 | TOO SLOW
+    5 |    95.54 |    476.1 |      4.98 |      8.76 |         0 | TOO SLOW
+    6 |    95.13 |    476.3 |      5.01 |      8.70 |         0 | TOO SLOW
+    7 |   100.17 |    477.6 |      4.77 |      8.68 |         0 | TOO SLOW
+    8 |    93.94 |    476.4 |      5.07 |      8.76 |         0 | TOO SLOW
+    9 |    94.97 |    477.2 |      5.02 |      8.75 |         0 | TOO SLOW
+   10 |    95.73 |    476.1 |      4.97 |      8.89 |         0 | TOO SLOW
   --------------------------------------------------------------------------
-  Total time:          829.02 s (13.82 min)
-  Total distance:      4754.6 m (4.755 km)
-  Average speed:       5.74 m/s
-  Top speed:           8.85 m/s (lap 9)
-  Average lap:         82.90 s (std dev 0.54 s) | average lap distance: 475.5 m
+  Total time:          965.45 s (16.09 min)
+  Total distance:      4767.4 m (4.767 km)
+  Average speed:       4.94 m/s
+  Top speed:           8.89 m/s (lap 10)
+  Average lap:         96.54 s (std dev 3.96 s) | average lap distance: 476.7 m
   Laps <= 60 s: 0/10 | laps <= 75 s: 0/10
   Near-collisions:     0
   --------------------------------------------------------------------------
-  WINNING LAP (fastest):  lap 7 with 82.16 s (475.6 m, 5.79 m/s average)
-  SLOWEST LAP (longest):  lap 1 with 84.04 s (475.6 m, 5.66 m/s average)
-  Difference slowest - fastest: 1.88 s
+  WINNING LAP (fastest):  lap 3 with 93.79 s (476.3 m, 5.08 m/s average)
+  SLOWEST LAP (longest):  lap 1 with 107.25 s (477.6 m, 4.45 m/s average)
+  Difference slowest - fastest: 13.46 s
 ```
 
 ### 4.2 Two cars, car 2 4.5 m from the start line (Nov 20 2026)
@@ -374,46 +375,47 @@ Con dos carros, el simulador solo avanza cuando **ambos** reciben comandos, así
 
 Prueba completa en el simulador con el mapa actual (2 cilindros y 3 rectángulos). El carro 2 arranca **5 m delante** del carro 1, en (5.0, 0.0), y va a 2.3 m/s como máximo. Los dos carros usan `gap_node` de la primera parte. La prueba termina cuando el carro 1 completa sus 10 vueltas.
 
+Video de la simulación: <https://youtu.be/u4fPRraASSs>
+
 | Criterio | Resultado |
 |---|---|
 | Vueltas consecutivas del carro 1 | **10/10** |
-| Casi-colisiones (lectura del LiDAR < 0.20 m), carro 1 y carro 2 | **0** y **0** |
-| Contactos con paredes u obstáculos, carro 1 y carro 2 | **0** y **0** (verificado comparando la posición de cada carro con el mapa durante toda la prueba) |
-| Choques entre los dos carros | **0** |
-| Veces que el carro 1 rebasó al carro 2 | **6** (la primera a los 4 s de la salida; luego más o menos cada 140 s) |
-| Distancia mínima entre centros durante la carrera | 0.68 m, al rebasarlo en la salida, a (9.4, 1.0) |
-| Velocidad promedio carro 1 / carro 2 | 5.74 m/s / 2.29 m/s (el carro 2 es 60 % más lento) |
-| Vueltas del carro 2 en ese tiempo | 4 completas (unos 203 s por vuelta) |
-| Vuelta más rápida / más lenta del carro 1 | vuelta 7, 82.16 s / vuelta 1, 84.04 s |
-| Tiempo / distancia total del carro 1 | 829.02 s / 4754.6 m |
+| Casi-colisiones (lectura del LiDAR < 0.20 m) | **0** |
+| Vuelta más rápida | vuelta 3, 93.79 s (5.08 m/s de promedio) |
+| Vuelta más lenta | vuelta 1, 107.25 s (4.45 m/s de promedio) |
+| Vuelta promedio | 96.54 s (desviación estándar 3.96 s) |
+| Tiempo / distancia total | 965.45 s (16.09 min) / 4767.4 m |
+| Velocidad promedio / máxima | 4.94 m/s / 8.89 m/s (vuelta 10) |
 
 Resumen impreso por `gap_node` (carro 1) al terminar:
 
 ```
+RACE FINISHED: 10 laps
+==============================================================================
   Lap | Time (s) | Dist (m) | Avg (m/s) | Max (m/s) | Near-coll | Status
   --------------------------------------------------------------------------
-    1 |    84.04 |    475.6 |      5.66 |      8.80 |         0 | TOO SLOW  <-- SLOWEST
-    2 |    83.65 |    476.2 |      5.69 |      8.82 |         0 | TOO SLOW
-    3 |    82.87 |    475.2 |      5.73 |      8.83 |         0 | TOO SLOW
-    4 |    82.36 |    475.6 |      5.77 |      8.77 |         0 | TOO SLOW
-    5 |    82.91 |    475.1 |      5.73 |      8.75 |         0 | TOO SLOW
-    6 |    82.52 |    475.6 |      5.76 |      8.78 |         0 | TOO SLOW
-    7 |    82.16 |    475.6 |      5.79 |      8.79 |         0 | TOO SLOW  <-- FASTEST
-    8 |    82.72 |    475.2 |      5.74 |      8.76 |         0 | TOO SLOW
-    9 |    83.00 |    475.2 |      5.73 |      8.85 |         0 | TOO SLOW
-   10 |    82.78 |    475.4 |      5.74 |      8.80 |         0 | TOO SLOW
+    1 |   107.25 |    477.6 |      4.45 |      8.73 |         0 | TOO SLOW  <-- SLOWEST
+    2 |    94.47 |    476.7 |      5.05 |      8.74 |         0 | TOO SLOW
+    3 |    93.79 |    476.3 |      5.08 |      8.71 |         0 | TOO SLOW  <-- FASTEST
+    4 |    94.46 |    477.2 |      5.05 |      8.75 |         0 | TOO SLOW
+    5 |    95.54 |    476.1 |      4.98 |      8.76 |         0 | TOO SLOW
+    6 |    95.13 |    476.3 |      5.01 |      8.70 |         0 | TOO SLOW
+    7 |   100.17 |    477.6 |      4.77 |      8.68 |         0 | TOO SLOW
+    8 |    93.94 |    476.4 |      5.07 |      8.76 |         0 | TOO SLOW
+    9 |    94.97 |    477.2 |      5.02 |      8.75 |         0 | TOO SLOW
+   10 |    95.73 |    476.1 |      4.97 |      8.89 |         0 | TOO SLOW
   --------------------------------------------------------------------------
-  Total time:          829.02 s (13.82 min)
-  Total distance:      4754.6 m (4.755 km)
-  Average speed:       5.74 m/s
-  Top speed:           8.85 m/s (lap 9)
-  Average lap:         82.90 s (std dev 0.54 s) | average lap distance: 475.5 m
+  Total time:          965.45 s (16.09 min)
+  Total distance:      4767.4 m (4.767 km)
+  Average speed:       4.94 m/s
+  Top speed:           8.89 m/s (lap 10)
+  Average lap:         96.54 s (std dev 3.96 s) | average lap distance: 476.7 m
   Laps <= 60 s: 0/10 | laps <= 75 s: 0/10
   Near-collisions:     0
   --------------------------------------------------------------------------
-  WINNING LAP (fastest):  lap 7 with 82.16 s (475.6 m, 5.79 m/s average)
-  SLOWEST LAP (longest):  lap 1 with 84.04 s (475.6 m, 5.66 m/s average)
-  Difference slowest - fastest: 1.88 s
+  WINNING LAP (fastest):  lap 3 with 93.79 s (476.3 m, 5.08 m/s average)
+  SLOWEST LAP (longest):  lap 1 with 107.25 s (477.6 m, 4.45 m/s average)
+  Difference slowest - fastest: 13.46 s
 ```
 
 ### 5.2 Dos carros, carro 2 a 4.5 m de la línea de inicio (20-nov-2026)
