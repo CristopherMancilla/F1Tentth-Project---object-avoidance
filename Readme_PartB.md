@@ -112,13 +112,13 @@ En RViz, la trayectoria de la vuelta actual se dibuja en rojo y se reinicia en c
 
 ### Con un segundo carro (obstáculo en movimiento)
 
-En `src/f1tenth_gym_ros/config/sim.yaml` se activa el segundo carro y su pose inicial (4.5 m delante de la línea de inicio, en la recta principal). Después de cambiarlo, recompila:
+En `src/f1tenth_gym_ros/config/sim.yaml` se activa el segundo carro y su pose inicial: **5 m delante del carro original**, en la recta principal, con la misma orientación. Después de cambiarlo, recompila:
 
 ```yaml
 num_agent: 2
-sx1: 4.5
-sy1: 0.5
-stheta1: 0.01
+sx1: 5.0
+sy1: 0.0
+stheta1: 0.0
 ```
 
 El segundo carro usa el mismo `gap_node`, con sus propios tópicos y una velocidad máxima de **2.3 m/s**, al menos un **60 % menor** que la del primer carro (unos 5.7 m/s de promedio). Así el primero lo alcanza y lo adelanta varias veces. Se necesitan 3 terminales (en cada una, `source install/setup.bash`):
@@ -134,7 +134,7 @@ ros2 run controllers gap_node --ros-args -r __node:=opp_node \
   -p v_max:=2.3 -p v_min:=1.5 -p pace_initial_cap:=2.3
 ```
 
-Con dos carros, el simulador solo avanza cuando **ambos** reciben comandos, así que hay que iniciar los dos nodos. En RViz, la trayectoria del carro 1 se dibuja en **rojo** y la del carro 2 en **azul**; cada una se reinicia cuando su carro cruza la línea de inicio.
+Con dos carros, el simulador solo avanza cuando **ambos** reciben comandos, así que hay que iniciar los dos nodos. La prueba termina cuando el carro más rápido (carro 1) completa sus 10 vueltas; en ese momento se detiene y muestra su resumen. En RViz, la trayectoria del carro 1 se dibuja en **rojo** y la del carro 2 en **azul**; cada una se reinicia cuando su carro cruza la línea de inicio.
 
 ### Criterio de aprobación
 
@@ -145,7 +145,53 @@ Con dos carros, el simulador solo avanza cuando **ambos** reciben comandos, así
 
 ## 5. Resultados
 
-### 5.1 Dos carros, mapa con cilindros y rectángulos (20-nov-2026)
+### 5.1 Prueba final: carro 2 arranca 5 m delante (obstáculo dinámico)
+
+Prueba completa en el simulador con el mapa actual (2 cilindros y 3 rectángulos). El carro 2 arranca **5 m delante** del carro 1, en (5.0, 0.0), y va a 2.3 m/s como máximo. Los dos carros usan `gap_node` de la primera parte. La prueba termina cuando el carro 1 completa sus 10 vueltas.
+
+| Criterio | Resultado |
+|---|---|
+| Vueltas consecutivas del carro 1 | **10/10** |
+| Casi-colisiones (lectura del LiDAR < 0.20 m), carro 1 y carro 2 | **0** y **0** |
+| Contactos con paredes u obstáculos, carro 1 y carro 2 | **0** y **0** (verificado comparando la posición de cada carro con el mapa durante toda la prueba) |
+| Choques entre los dos carros | **0** |
+| Veces que el carro 1 rebasó al carro 2 | **6** (la primera a los 4 s de la salida; luego más o menos cada 140 s) |
+| Distancia mínima entre centros durante la carrera | 0.68 m, al rebasarlo en la salida, a (9.4, 1.0) |
+| Velocidad promedio carro 1 / carro 2 | 5.74 m/s / 2.29 m/s (el carro 2 es 60 % más lento) |
+| Vueltas del carro 2 en ese tiempo | 4 completas (unos 203 s por vuelta) |
+| Vuelta más rápida / más lenta del carro 1 | vuelta 7, 82.16 s / vuelta 1, 84.04 s |
+| Tiempo / distancia total del carro 1 | 829.02 s / 4754.6 m |
+
+Resumen impreso por `gap_node` (carro 1) al terminar:
+
+```
+  Lap | Time (s) | Dist (m) | Avg (m/s) | Max (m/s) | Near-coll | Status
+  --------------------------------------------------------------------------
+    1 |    84.04 |    475.6 |      5.66 |      8.80 |         0 | TOO SLOW  <-- SLOWEST
+    2 |    83.65 |    476.2 |      5.69 |      8.82 |         0 | TOO SLOW
+    3 |    82.87 |    475.2 |      5.73 |      8.83 |         0 | TOO SLOW
+    4 |    82.36 |    475.6 |      5.77 |      8.77 |         0 | TOO SLOW
+    5 |    82.91 |    475.1 |      5.73 |      8.75 |         0 | TOO SLOW
+    6 |    82.52 |    475.6 |      5.76 |      8.78 |         0 | TOO SLOW
+    7 |    82.16 |    475.6 |      5.79 |      8.79 |         0 | TOO SLOW  <-- FASTEST
+    8 |    82.72 |    475.2 |      5.74 |      8.76 |         0 | TOO SLOW
+    9 |    83.00 |    475.2 |      5.73 |      8.85 |         0 | TOO SLOW
+   10 |    82.78 |    475.4 |      5.74 |      8.80 |         0 | TOO SLOW
+  --------------------------------------------------------------------------
+  Total time:          829.02 s (13.82 min)
+  Total distance:      4754.6 m (4.755 km)
+  Average speed:       5.74 m/s
+  Top speed:           8.85 m/s (lap 9)
+  Average lap:         82.90 s (std dev 0.54 s) | average lap distance: 475.5 m
+  Laps <= 60 s: 0/10 | laps <= 75 s: 0/10
+  Near-collisions:     0
+  --------------------------------------------------------------------------
+  WINNING LAP (fastest):  lap 7 with 82.16 s (475.6 m, 5.79 m/s average)
+  SLOWEST LAP (longest):  lap 1 with 84.04 s (475.6 m, 5.66 m/s average)
+  Difference slowest - fastest: 1.88 s
+```
+
+### 5.2 Dos carros, carro 2 a 4.5 m de la línea de inicio (20-nov-2026)
 
 Prueba completa en el simulador con el mapa actual (2 cilindros y 3 rectángulos) y el segundo carro a 2.3 m/s como obstáculo en movimiento. Carro 1 con `gap_node` y sus parámetros por defecto.
 
@@ -200,7 +246,7 @@ Resumen impreso por `gap_node` (carro 1) al terminar:
 
 **Riesgo observado:** en el banco de pruebas sin ROS (misma física), con las mismas velocidades, 1 de 6 corridas de 10 vueltas terminó con el carro 1 chocando por detrás al carro 2 en la vuelta 6, en la recta principal (18.4, 0.9), a 2.5 m/s. `gap_node` trata al otro carro como una pared fija y no tiene en cuenta que se mueve; cuando lo alcanza en la recta sin espacio para pasar, puede no frenar a tiempo.
 
-### 5.2 Un carro, primera versión del mapa (18-nov-2026)
+### 5.3 Un carro, primera versión del mapa (18-nov-2026)
 
 Prueba completa en el simulador (`Sepang_obs_map` con 5 cuadrados de 0.5 × 0.5 m en las mismas posiciones, `gap_node` con sus parámetros por defecto):
 
@@ -317,13 +363,13 @@ The car drives 10 laps and stops by itself (about 14 minutes), then prints the s
 
 ### With a second car (moving obstacle)
 
-In `src/f1tenth_gym_ros/config/sim.yaml`, enable the second car and set its start pose (4.5 m ahead of the start line, on the main straight), then rebuild:
+In `src/f1tenth_gym_ros/config/sim.yaml`, enable the second car and set its start pose: **5 m ahead of the original car**, on the main straight, with the same heading, then rebuild:
 
 ```yaml
 num_agent: 2
-sx1: 4.5
-sy1: 0.5
-stheta1: 0.01
+sx1: 5.0
+sy1: 0.0
+stheta1: 0.0
 ```
 
 The second car runs the same `gap_node` on its own topics with a top speed of **2.3 m/s**, at least **60 % slower** than the first car (about 5.7 m/s average), so the first car catches and overtakes it several times. Use 3 terminals (`source install/setup.bash` in each):
@@ -339,11 +385,57 @@ ros2 run controllers gap_node --ros-args -r __node:=opp_node \
   -p v_max:=2.3 -p v_min:=1.5 -p pace_initial_cap:=2.3
 ```
 
-With two cars the simulator only advances when **both** receive commands, so start both nodes. In RViz, car 1's trajectory is **red** and car 2's is **blue**; each one restarts when its car crosses the start line.
+With two cars the simulator only advances when **both** receive commands, so start both nodes. The test ends when the faster car (car 1) completes its 10 laps; it then stops and prints its summary. In RViz, car 1's trajectory is **red** and car 2's is **blue**; each one restarts when its car crosses the start line.
 
 ## 4. Results
 
-### 4.1 Two cars, map with cylinders and rectangles (Nov 20 2026)
+### 4.1 Final test: car 2 starts 5 m ahead (dynamic obstacle)
+
+Full simulator test with the current map (2 cylinders and 3 rectangles). Car 2 starts **5 m ahead** of car 1, at (5.0, 0.0), with a top speed of 2.3 m/s. Both cars run `gap_node` from the first part. The test ends when car 1 completes its 10 laps.
+
+| Criterion | Result |
+|---|---|
+| Car 1 consecutive laps | **10/10** |
+| Near-collisions (LiDAR reading < 0.20 m), car 1 and car 2 | **0** and **0** |
+| Contacts with walls or obstacles, car 1 and car 2 | **0** and **0** (checked by comparing each car's position with the map during the whole test) |
+| Car-to-car collisions | **0** |
+| Times car 1 overtook car 2 | **6** (the first 4 s after the start, then about every 140 s) |
+| Minimum center distance during the race | 0.68 m, overtaking at the start, at (9.4, 1.0) |
+| Average speed car 1 / car 2 | 5.74 m/s / 2.29 m/s (car 2 is 60 % slower) |
+| Car 2 laps in that time | 4 complete (about 203 s per lap) |
+| Fastest / slowest lap of car 1 | lap 7, 82.16 s / lap 1, 84.04 s |
+| Car 1 total time / distance | 829.02 s / 4754.6 m |
+
+Summary printed by `gap_node` (car 1) at the end:
+
+```
+  Lap | Time (s) | Dist (m) | Avg (m/s) | Max (m/s) | Near-coll | Status
+  --------------------------------------------------------------------------
+    1 |    84.04 |    475.6 |      5.66 |      8.80 |         0 | TOO SLOW  <-- SLOWEST
+    2 |    83.65 |    476.2 |      5.69 |      8.82 |         0 | TOO SLOW
+    3 |    82.87 |    475.2 |      5.73 |      8.83 |         0 | TOO SLOW
+    4 |    82.36 |    475.6 |      5.77 |      8.77 |         0 | TOO SLOW
+    5 |    82.91 |    475.1 |      5.73 |      8.75 |         0 | TOO SLOW
+    6 |    82.52 |    475.6 |      5.76 |      8.78 |         0 | TOO SLOW
+    7 |    82.16 |    475.6 |      5.79 |      8.79 |         0 | TOO SLOW  <-- FASTEST
+    8 |    82.72 |    475.2 |      5.74 |      8.76 |         0 | TOO SLOW
+    9 |    83.00 |    475.2 |      5.73 |      8.85 |         0 | TOO SLOW
+   10 |    82.78 |    475.4 |      5.74 |      8.80 |         0 | TOO SLOW
+  --------------------------------------------------------------------------
+  Total time:          829.02 s (13.82 min)
+  Total distance:      4754.6 m (4.755 km)
+  Average speed:       5.74 m/s
+  Top speed:           8.85 m/s (lap 9)
+  Average lap:         82.90 s (std dev 0.54 s) | average lap distance: 475.5 m
+  Laps <= 60 s: 0/10 | laps <= 75 s: 0/10
+  Near-collisions:     0
+  --------------------------------------------------------------------------
+  WINNING LAP (fastest):  lap 7 with 82.16 s (475.6 m, 5.79 m/s average)
+  SLOWEST LAP (longest):  lap 1 with 84.04 s (475.6 m, 5.66 m/s average)
+  Difference slowest - fastest: 1.88 s
+```
+
+### 4.2 Two cars, car 2 4.5 m from the start line (Nov 20 2026)
 
 Full simulator test with the current map (2 cylinders and 3 rectangles) and the second car at 2.3 m/s as a moving obstacle. Car 1 runs `gap_node` with its default parameters.
 
@@ -391,7 +483,7 @@ Summary printed by `gap_node` (car 1) at the end:
 
 **Observed risk:** in the headless bench (same physics, no ROS) with the same speeds, 1 of 6 ten-lap runs ended with car 1 rear-ending car 2 in lap 6 on the main straight (18.4, 0.9) at 2.5 m/s. `gap_node` treats the other car as a fixed wall and does not account for its motion; when it catches it on the straight with no room to pass, it may not brake in time.
 
-### 4.2 One car, first version of the map (Nov 18 2026)
+### 4.3 One car, first version of the map (Nov 18 2026)
 
 Full simulator test (`Sepang_obs_map` with 5 squares of 0.5 × 0.5 m at the same positions, `gap_node` with its default parameters):
 
