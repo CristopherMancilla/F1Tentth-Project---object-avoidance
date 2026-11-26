@@ -117,8 +117,10 @@ To start from scratch: `rm -rf build install log` and build again.
 cd ~/F1Tenth-Repository
 source /opt/ros/humble/setup.bash
 source install/setup.bash
-ros2 launch f1tenth_gym_ros gym_bridge_launch.py
+ros2 launch f1tenth_gym_ros gym_bridge_launch.py config:=sim_partA.yaml
 ```
+
+`config:=sim_partA.yaml` loads the original Sepang map with one car (Part A). Without it, the launch uses `sim.yaml`, which is set up for Part B (obstacles and two cars, see [README_PartB.md](README_PartB.md)).
 
 Wait until RViz shows the Sepang map, the car and the **green start line**. This also starts the map server, the gym bridge and `lap_visualizer`.
 
@@ -218,6 +220,95 @@ In RViz (display `LapMarkers`, topic `/lap_markers`, already in the RViz config)
 - **Red line**: trajectory of the current lap. It is erased and starts again each time the car crosses the start line. The terminal of Terminal 1 also prints `Lap N completed in X s`.
 
 Lap times are measured with the computer clock. If the PC is slow, the simulation runs slower than real time and the laps take longer. In the development container the simulator runs at about 0.72× real time: laps take about 80 s on the clock (about 58 s of simulated time), so they are marked `TOO SLOW` against the 75 s limit even though the car does not collide. On a faster PC the same laps are shorter.
+
+## 9. Record the simulation in a rosbag (step by step)
+
+A rosbag saves the messages published on ROS topics while the simulation runs, so the run can be replayed or analyzed later. These steps record the car's position and velocities (odometry), the LiDAR data and the controller commands during the 10-lap test.
+
+Recorded topics:
+
+| Topic | Type | Data |
+|---|---|---|
+| `/ego_racecar/odom` | `nav_msgs/Odometry` | position (`pose.pose.position` x, y) and heading (`pose.pose.orientation`), linear velocity (`twist.twist.linear`) and angular velocity (`twist.twist.angular`, yaw rate in `z`) |
+| `/scan` | `sensor_msgs/LaserScan` | LiDAR: 1080 ranges over 270° (`ranges`, `angle_min`, `angle_increment`) |
+| `/drive` | `ackermann_msgs/AckermannDriveStamped` | `gap_node` commands: `drive.speed` and `drive.steering_angle` |
+
+You need **3 terminals**. Run these two lines first in each one:
+
+```bash
+cd ~/F1Tenth-Repository
+source /opt/ros/humble/setup.bash && source install/setup.bash
+```
+
+**Step 1. Launch the simulator (Terminal 1)**
+
+```bash
+ros2 launch f1tenth_gym_ros gym_bridge_launch.py config:=sim_partA.yaml
+```
+
+`config:=sim_partA.yaml` loads the original Sepang map with one car (Part A). Wait until RViz shows the map, the car and the green start line. The car must be on the start line; if not, use **2D Pose Estimate** in RViz.
+
+**Step 2. Check that the topics exist (Terminal 2)**
+
+```bash
+ros2 topic list | grep -E "scan|odom|drive"
+```
+
+`/scan` and `/ego_racecar/odom` must appear. `/drive` appears once `gap_node` is running (step 4).
+
+**Step 3. Start recording (Terminal 2)**
+
+Start the recording **before** the car moves, so the whole race is saved:
+
+```bash
+mkdir -p bags
+ros2 bag record -o bags/partA_run1 \
+  --compression-mode file --compression-format zstd \
+  /scan /ego_racecar/odom /drive
+```
+
+- `-o bags/partA_run1`: folder where the bag is saved. It must not exist; use a new name for every recording (`partA_run2`, …).
+- `--compression-mode file --compression-format zstd`: compresses the bag when the recording ends (about 4 times smaller). Remove these two options to save it uncompressed.
+- The terminal prints `Subscribed to topic ...` for each topic.
+
+**Step 4. Run the controller (Terminal 3)**
+
+```bash
+ros2 run controllers gap_node
+```
+
+The car drives 10 laps (about 14 minutes) and prints the summary with `RACE FINISHED` at the end. While it runs, you can check that messages are arriving from another terminal, for example with `ros2 topic hz /scan`.
+
+**Step 5. Stop recording (Terminal 2)**
+
+When `gap_node` prints the final summary, press `Ctrl+C` in **Terminal 2**. Wait until it finishes compressing (`Compressing file: ...`, about a minute) before closing the terminal; otherwise the bag is left incomplete. Then stop `gap_node` (Terminal 3) and the simulator (Terminal 1) with `Ctrl+C`.
+
+**Step 6. Check the bag**
+
+```bash
+ros2 bag info bags/partA_run1
+```
+
+It shows the duration, the number of messages per topic and the size. A full 10-lap run lasts about 830 s, has about 160 000 messages per topic and takes about 310 MiB compressed (about 0.9 GB uncompressed).
+
+**Step 7. Replay the bag (optional)**
+
+With the simulator **stopped**, so its topics do not mix with the replayed ones:
+
+```bash
+ros2 bag play bags/partA_run1
+# In another terminal, for example:
+ros2 topic echo /ego_racecar/odom
+```
+
+Replaying a compressed bag decompresses it into a temporary `.db3` file next to it. If playback is interrupted, that file can stay behind; delete it to free space (the `.db3.zstd` file is the original).
+
+**Variants**
+
+- Record every topic: replace the topic list with `-a` (much bigger bag).
+- Part B (obstacles and two cars): launch without `config:=sim_partA.yaml`, run both `gap_node` instances (see [README_PartB.md](README_PartB.md)) and add the second car's topics: `/opp_scan /opp_racecar/odom /opp_drive`.
+
+Bag data files are bigger than GitHub's 100 MB file limit, so `.gitignore` excludes them (`bags/**/*.db3`, `*.zstd`, `*.mcap`); keep them locally.
 
 ## Topics
 
@@ -364,8 +455,10 @@ Para empezar de cero: `rm -rf build install log` y compila de nuevo.
 cd ~/F1Tenth-Repository
 source /opt/ros/humble/setup.bash
 source install/setup.bash
-ros2 launch f1tenth_gym_ros gym_bridge_launch.py
+ros2 launch f1tenth_gym_ros gym_bridge_launch.py config:=sim_partA.yaml
 ```
+
+`config:=sim_partA.yaml` carga el mapa original de Sepang con un solo carro (Parte A). Sin él, el launch usa `sim.yaml`, que está configurado para la Parte B (obstáculos y dos carros, ver [README_PartB.md](README_PartB.md)).
 
 Espera a que RViz muestre el mapa de Sepang, el carro y la **línea de inicio verde**. Esto también inicia el servidor de mapas, el puente del gym y `lap_visualizer`.
 
@@ -465,6 +558,95 @@ En RViz (display `LapMarkers`, tópico `/lap_markers`, ya incluido en la configu
 - **Línea roja**: trayectoria de la vuelta actual. Se borra y empieza de nuevo cada vez que el carro cruza la línea de inicio. La Terminal 1 también imprime `Lap N completed in X s`.
 
 Los tiempos de vuelta se miden con el reloj de la computadora. Si la PC es lenta, la simulación corre más lento que el tiempo real y las vueltas tardan más. En el contenedor de desarrollo el simulador corre a unas 0.72× del tiempo real: las vueltas tardan unos 80 s de reloj (unos 58 s de tiempo simulado), así que se marcan `TOO SLOW` frente al límite de 75 s aunque el carro no choque. En una PC más rápida las mismas vueltas duran menos.
+
+## 9. Grabar la simulación en un rosbag (paso a paso)
+
+Un rosbag guarda los mensajes publicados en los tópicos de ROS mientras corre la simulación, para reproducirla o analizarla después. Estos pasos graban la posición y las velocidades del carro (odometría), los datos del LiDAR y los comandos del controlador durante la prueba de 10 vueltas.
+
+Tópicos grabados:
+
+| Tópico | Tipo | Datos |
+|---|---|---|
+| `/ego_racecar/odom` | `nav_msgs/Odometry` | posición (`pose.pose.position` x, y) y orientación (`pose.pose.orientation`), velocidad lineal (`twist.twist.linear`) y velocidad angular (`twist.twist.angular`, giro en `z`) |
+| `/scan` | `sensor_msgs/LaserScan` | LiDAR: 1080 distancias en 270° (`ranges`, `angle_min`, `angle_increment`) |
+| `/drive` | `ackermann_msgs/AckermannDriveStamped` | comandos de `gap_node`: `drive.speed` y `drive.steering_angle` |
+
+Se necesitan **3 terminales**. Ejecuta primero estas dos líneas en cada una:
+
+```bash
+cd ~/F1Tenth-Repository
+source /opt/ros/humble/setup.bash && source install/setup.bash
+```
+
+**Paso 1. Lanzar el simulador (Terminal 1)**
+
+```bash
+ros2 launch f1tenth_gym_ros gym_bridge_launch.py config:=sim_partA.yaml
+```
+
+`config:=sim_partA.yaml` carga el mapa original de Sepang con un solo carro (Parte A). Espera a que RViz muestre el mapa, el carro y la línea de inicio verde. El carro debe estar sobre la línea de inicio; si no, usa **2D Pose Estimate** en RViz.
+
+**Paso 2. Verificar que existen los tópicos (Terminal 2)**
+
+```bash
+ros2 topic list | grep -E "scan|odom|drive"
+```
+
+Deben aparecer `/scan` y `/ego_racecar/odom`. `/drive` aparece cuando `gap_node` está corriendo (paso 4).
+
+**Paso 3. Empezar a grabar (Terminal 2)**
+
+Empieza la grabación **antes** de que el carro se mueva, para guardar toda la carrera:
+
+```bash
+mkdir -p bags
+ros2 bag record -o bags/partA_run1 \
+  --compression-mode file --compression-format zstd \
+  /scan /ego_racecar/odom /drive
+```
+
+- `-o bags/partA_run1`: carpeta donde se guarda el bag. No debe existir; usa un nombre nuevo en cada grabación (`partA_run2`, …).
+- `--compression-mode file --compression-format zstd`: comprime el bag al terminar la grabación (unas 4 veces más pequeño). Quita estas dos opciones para guardarlo sin comprimir.
+- La terminal muestra `Subscribed to topic ...` por cada tópico.
+
+**Paso 4. Ejecutar el controlador (Terminal 3)**
+
+```bash
+ros2 run controllers gap_node
+```
+
+El carro da 10 vueltas (unos 14 minutos) y al final muestra el resumen con `RACE FINISHED`. Mientras corre, puedes comprobar que llegan mensajes desde otra terminal, por ejemplo con `ros2 topic hz /scan`.
+
+**Paso 5. Detener la grabación (Terminal 2)**
+
+Cuando `gap_node` muestre el resumen final, presiona `Ctrl+C` en la **Terminal 2**. Espera a que termine de comprimir (`Compressing file: ...`, alrededor de un minuto) antes de cerrar la terminal; si no, el bag queda incompleto. Luego detén `gap_node` (Terminal 3) y el simulador (Terminal 1) con `Ctrl+C`.
+
+**Paso 6. Revisar el bag**
+
+```bash
+ros2 bag info bags/partA_run1
+```
+
+Muestra la duración, la cantidad de mensajes por tópico y el tamaño. Una carrera completa de 10 vueltas dura unos 830 s, tiene unos 160 000 mensajes por tópico y ocupa unos 310 MiB comprimida (unos 0.9 GB sin comprimir).
+
+**Paso 7. Reproducir el bag (opcional)**
+
+Con el simulador **detenido**, para que sus tópicos no se mezclen con los reproducidos:
+
+```bash
+ros2 bag play bags/partA_run1
+# En otra terminal, por ejemplo:
+ros2 topic echo /ego_racecar/odom
+```
+
+Al reproducir un bag comprimido, se descomprime en un archivo temporal `.db3` junto a él. Si la reproducción se interrumpe, ese archivo puede quedar; bórralo para liberar espacio (el `.db3.zstd` es el original).
+
+**Variantes**
+
+- Grabar todos los tópicos: reemplaza la lista de tópicos por `-a` (el bag es mucho más grande).
+- Parte B (obstáculos y dos carros): lanza sin `config:=sim_partA.yaml`, ejecuta los dos `gap_node` (ver [README_PartB.md](README_PartB.md)) y agrega los tópicos del segundo carro: `/opp_scan /opp_racecar/odom /opp_drive`.
+
+Los archivos de datos de los bags superan el límite de 100 MB por archivo de GitHub, así que `.gitignore` los excluye (`bags/**/*.db3`, `*.zstd`, `*.mcap`); guárdalos localmente.
 
 ## Tópicos
 

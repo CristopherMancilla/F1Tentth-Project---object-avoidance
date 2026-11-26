@@ -61,3 +61,8 @@ Laboratories/
 img/
 videos/
 README_es.md
+
+# Rosbag data files are too big for GitHub (100 MB limit); metadata and logs are kept
+bags/**/*.db3
+bags/**/*.zstd
+bags/**/*.mcap

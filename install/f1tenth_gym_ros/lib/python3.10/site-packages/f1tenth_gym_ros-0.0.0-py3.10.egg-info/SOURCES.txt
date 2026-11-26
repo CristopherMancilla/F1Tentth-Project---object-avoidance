@@ -10,6 +10,7 @@ setup.py
 ../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/top_level.txt
 ../../build/f1tenth_gym_ros/f1tenth_gym_ros.egg-info/zip-safe
 config/sim.yaml
+config/sim_partA.yaml
 f1tenth_gym_ros/__init__.py
 f1tenth_gym_ros/gym_bridge.py
 f1tenth_gym_ros/lap_visualizer.py

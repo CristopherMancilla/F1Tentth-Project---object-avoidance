@@ -21,19 +21,30 @@
 # SOFTWARE.
 
 from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, OpaqueFunction
+from launch.substitutions import Command, LaunchConfiguration
 from launch_ros.actions import Node
-from launch.substitutions import Command
 from ament_index_python.packages import get_package_share_directory
 import os
 import yaml
 
+
 def generate_launch_description():
+    # config: file name inside this package's config/ folder, or an absolute path.
+    #   sim.yaml       -> Part B (default): Sepang with obstacles and two cars
+    #   sim_partA.yaml -> Part A: original Sepang map, one car
+    return LaunchDescription([
+        DeclareLaunchArgument('config', default_value='sim.yaml',
+                              description='Simulator config file (in config/ or an absolute path)'),
+        OpaqueFunction(function=launch_setup),
+    ])
+
+
+def launch_setup(context):
     ld = LaunchDescription()
-    config = os.path.join(
-        get_package_share_directory('f1tenth_gym_ros'),
-        'config',
-        'sim.yaml'
-        )
+    config = LaunchConfiguration('config').perform(context)
+    if not os.path.isabs(config):
+        config = os.path.join(get_package_share_directory('f1tenth_gym_ros'), 'config', config)
     config_dict = yaml.safe_load(open(config, 'r'))
     has_opp = config_dict['bridge']['ros__parameters']['num_agent'] > 1
     teleop = config_dict['bridge']['ros__parameters']['kb_teleop']
@@ -106,4 +117,4 @@ def generate_launch_description():
     if has_opp:
         ld.add_action(opp_robot_publisher)
 
-    return ld
+    return ld.entities
