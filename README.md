@@ -165,7 +165,7 @@ Parameters are read when the node starts; to change one, stop the node (`Ctrl+C`
 | `max_decel` | 4.0 m/s² | braking used to plan the speed before a wall |
 | `brake_margin` | 0.5 m | distance kept before a wall |
 | `max_lat_accel` | 12.0 m/s² | lateral acceleration limit in curves |
-| `accel_rate` / `decel_rate` | 4.5 / 4.0 m/s² | how fast the speed command may rise / fall |
+| `accel_rate` / `decel_rate` | 6.0 / 4.0 m/s² | how fast the speed command may rise / fall |
 | `lookahead_min` / `lookahead_gain` / `lookahead_max` | 1.0 m / 0.3 s / 4.0 m | steering aim point: `min + gain × speed`, up to `max` |
 | `safety_margin` | 0.25 m | extra clearance added to wall edges |
 | `side_clearance` | 0.30 m | the car does not turn towards a side wall closer than this |
@@ -503,7 +503,7 @@ Los parámetros se leen al iniciar el nodo; para cambiar uno, detén el nodo (`C
 | `max_decel` | 4.0 m/s² | frenado usado para planear la velocidad antes de una pared |
 | `brake_margin` | 0.5 m | distancia que se deja antes de una pared |
 | `max_lat_accel` | 12.0 m/s² | límite de aceleración lateral en curvas |
-| `accel_rate` / `decel_rate` | 4.5 / 4.0 m/s² | qué tan rápido puede subir / bajar la velocidad pedida |
+| `accel_rate` / `decel_rate` | 6.0 / 4.0 m/s² | qué tan rápido puede subir / bajar la velocidad pedida |
 | `lookahead_min` / `lookahead_gain` / `lookahead_max` | 1.0 m / 0.3 s / 4.0 m | punto al que apunta la dirección: `min + gain × velocidad`, hasta `max` |
 | `safety_margin` | 0.25 m | holgura extra que se agrega a los bordes de pared |
 | `side_clearance` | 0.30 m | el carro no gira hacia una pared lateral más cercana que esto |

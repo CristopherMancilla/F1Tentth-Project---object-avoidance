@@ -145,7 +145,7 @@ class ReactiveFollowGap(Node):
         self.declare_parameter('max_lat_accel', 12.0)        # m/s^2
         # Speed rate limits, per second of computer clock. The simulator runs
         # slower than real time (~0.7x), so in simulated time they are ~40% higher.
-        self.declare_parameter('accel_rate', 4.5)            # m/s^2
+        self.declare_parameter('accel_rate', 6.0)            # m/s^2 (faster exit from corners; 7.5+ caused crashes in tests)
         self.declare_parameter('decel_rate', 4.0)            # m/s^2
         # Pure-pursuit steering: aim point at lookahead_min + lookahead_gain * speed
         self.declare_parameter('lookahead_min', 1.0)         # m
