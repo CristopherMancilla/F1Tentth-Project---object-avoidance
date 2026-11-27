@@ -310,6 +310,12 @@ Replaying a compressed bag decompresses it into a temporary `.db3` file next to 
 
 Bag data files are bigger than GitHub's 100 MB file limit, so `.gitignore` excludes them (`bags/**/*.db3`, `*.zstd`, `*.mcap`); keep them locally.
 
+### Download the recorded bags
+
+The recorded rosbag files, with the information of the simulation topics (LiDAR, odometry and drive commands), are in this OneDrive folder: <https://1drv.ms/f/c/2f35172fc5338565/IgAqhQk1vH_aSaoRmRnlvGPbAQwkpdT5j_X8mT9KFZN1gPo?e=ILsada>
+
+After downloading, place each bag folder (with its `metadata.yaml` and data file) inside `bags/` and check it with `ros2 bag info bags/<folder>`.
+
 ## Topics
 
 | Topic | Node | Direction | Type |
@@ -337,7 +343,7 @@ Bag data files are bigger than GitHub's 100 MB file limit, so `.gitignore` exclu
 
 ## Videos
 
-- Part A, simulation video (Sepang, 10 laps): <https://www.youtube.com/watch?v=EfybXc3ta54>
+- Part A, simulation video (Sepang, 10 laps): <https://youtu.be/0oTz_tAV8ZI>
 - Part B, simulation video (obstacles and a second robot as a dynamic obstacle): <https://youtu.be/u4fPRraASSs>. Details in [README_PartB.md](README_PartB.md).
 
 ---
@@ -648,6 +654,12 @@ Al reproducir un bag comprimido, se descomprime en un archivo temporal `.db3` ju
 
 Los archivos de datos de los bags superan el límite de 100 MB por archivo de GitHub, así que `.gitignore` los excluye (`bags/**/*.db3`, `*.zstd`, `*.mcap`); guárdalos localmente.
 
+### Descargar los bags grabados
+
+Los archivos rosbag grabados, con la información de los tópicos de la simulación (LiDAR, odometría y comandos), están en esta carpeta de OneDrive: <https://1drv.ms/f/c/2f35172fc5338565/IgAqhQk1vH_aSaoRmRnlvGPbAQwkpdT5j_X8mT9KFZN1gPo?e=ILsada>
+
+Después de descargarlos, coloca cada carpeta del bag (con su `metadata.yaml` y su archivo de datos) dentro de `bags/` y revísala con `ros2 bag info bags/<carpeta>`.
+
 ## Tópicos
 
 | Tópico | Nodo | Dirección | Tipo |
@@ -675,5 +687,5 @@ Los archivos de datos de los bags superan el límite de 100 MB por archivo de Gi
 
 ## Videos
 
-- Parte A, video de la simulación (Sepang, 10 vueltas): <https://www.youtube.com/watch?v=EfybXc3ta54>
+- Parte A, video de la simulación (Sepang, 10 vueltas): <https://youtu.be/0oTz_tAV8ZI>
 - Parte B, video de la simulación (obstáculos y un segundo robot como obstáculo dinámico): <https://youtu.be/u4fPRraASSs>. Detalles en [README_PartB.md](README_PartB.md).

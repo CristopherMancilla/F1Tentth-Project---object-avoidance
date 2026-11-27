@@ -97,6 +97,54 @@ ros2 run controllers gap_node --ros-args -r __node:=opp_node \
 
 With two cars the simulator only advances when **both** receive commands, so start both nodes. The test ends when the faster car (car 1) completes its 10 laps; it then stops and prints its summary. In RViz, car 1's trajectory is **red** and car 2's is **blue**; each one restarts when its car crosses the start line.
 
+### Record a rosbag of the race
+
+A rosbag saves the LiDAR (`/scan`), odometry (position, linear and angular velocity) and command (`/drive`) topics while the race runs. In Part B there are two cars, so the three topics of each car are recorded:
+
+| Car | LiDAR | Odometry | Commands |
+|---|---|---|---|
+| Car 1 | `/scan` | `/ego_racecar/odom` | `/drive` |
+| Car 2 | `/opp_scan` | `/opp_racecar/odom` | `/opp_drive` |
+
+Use 4 terminals; in each one run first `cd ~/F1Tenth-Repository && source /opt/ros/humble/setup.bash && source install/setup.bash`.
+
+1. **Terminal 1, simulator** (Part B: obstacles and two cars; `sim.yaml` is the default):
+   ```bash
+   ros2 launch f1tenth_gym_ros gym_bridge_launch.py
+   ```
+2. **Terminal 2, start recording** before the cars move:
+   ```bash
+   mkdir -p bags
+   ros2 bag record -o bags/partB_run1 --compression-mode file --compression-format zstd \
+     /scan /ego_racecar/odom /drive \
+     /opp_scan /opp_racecar/odom /opp_drive
+   ```
+   `-o` is the output folder; it must not exist, so use a new name for each recording. The terminal prints `Subscribed to topic ...` for each topic.
+3. **Terminal 3, car 2** (slow):
+   ```bash
+   ros2 run controllers gap_node --ros-args -r __node:=opp_node \
+     -p scan_topic:=/opp_scan -p odom_topic:=/opp_racecar/odom -p drive_topic:=/opp_drive \
+     -p v_max:=2.3 -p v_min:=1.5 -p pace_initial_cap:=2.3
+   ```
+4. **Terminal 4, car 1**:
+   ```bash
+   ros2 run controllers gap_node
+   ```
+5. When car 1 prints `RACE FINISHED`, press `Ctrl+C` in **Terminal 2** and wait until it finishes compressing (`Compressing file: ...`) before closing it; otherwise the bag is left without `metadata.yaml`. Then stop both `gap_node` and the simulator with `Ctrl+C`.
+6. Check the bag:
+   ```bash
+   ros2 bag info bags/partB_run1
+   ```
+   It must list the 6 topics. To replay it (with the simulator stopped): `ros2 bag play bags/partB_run1`.
+
+To record only car 1, remove `/opp_scan /opp_racecar/odom /opp_drive` from the record command. If a recording was cut off and has no `metadata.yaml`, rebuild it with `ros2 bag reindex bags/partB_run1 -s sqlite3`. Bag data files are over GitHub's 100 MB limit, so `.gitignore` excludes them.
+
+### Download the recorded bags
+
+The recorded rosbag files, with the information of the simulation topics (LiDAR, odometry and drive commands), are in this OneDrive folder: <https://1drv.ms/f/c/2f35172fc5338565/IgAqhQk1vH_aSaoRmRnlvGPbAQwkpdT5j_X8mT9KFZN1gPo?e=ILsada>
+
+After downloading, place each bag folder (with its `metadata.yaml` and data file) inside `bags/` and check it with `ros2 bag info bags/<folder>`.
+
 ## 4. Results
 
 ### 4.1 Final test: car 2 starts 5 m ahead (dynamic obstacle)
@@ -336,6 +384,54 @@ Con dos carros, el simulador solo avanza cuando **ambos** reciben comandos, así
 |---|---|
 | Vueltas | 10 consecutivas |
 | Colisiones | ninguna (`Near-collisions: 0` en el resumen) |
+
+### Grabar un rosbag de la carrera
+
+Un rosbag guarda los tópicos del LiDAR (`/scan`), la odometría (posición, velocidad lineal y angular) y los comandos (`/drive`) mientras corre la carrera. En la Parte B hay dos carros, así que se graban los tres tópicos de cada uno:
+
+| Carro | LiDAR | Odometría | Comandos |
+|---|---|---|---|
+| Carro 1 | `/scan` | `/ego_racecar/odom` | `/drive` |
+| Carro 2 | `/opp_scan` | `/opp_racecar/odom` | `/opp_drive` |
+
+Usa 4 terminales; en cada una ejecuta primero `cd ~/F1Tenth-Repository && source /opt/ros/humble/setup.bash && source install/setup.bash`.
+
+1. **Terminal 1, simulador** (Parte B: obstáculos y dos carros; `sim.yaml` es el predeterminado):
+   ```bash
+   ros2 launch f1tenth_gym_ros gym_bridge_launch.py
+   ```
+2. **Terminal 2, empezar a grabar** antes de que los carros se muevan:
+   ```bash
+   mkdir -p bags
+   ros2 bag record -o bags/partB_run1 --compression-mode file --compression-format zstd \
+     /scan /ego_racecar/odom /drive \
+     /opp_scan /opp_racecar/odom /opp_drive
+   ```
+   `-o` es la carpeta de salida; no debe existir, así que usa un nombre nuevo en cada grabación. La terminal muestra `Subscribed to topic ...` por cada tópico.
+3. **Terminal 3, carro 2** (lento):
+   ```bash
+   ros2 run controllers gap_node --ros-args -r __node:=opp_node \
+     -p scan_topic:=/opp_scan -p odom_topic:=/opp_racecar/odom -p drive_topic:=/opp_drive \
+     -p v_max:=2.3 -p v_min:=1.5 -p pace_initial_cap:=2.3
+   ```
+4. **Terminal 4, carro 1**:
+   ```bash
+   ros2 run controllers gap_node
+   ```
+5. Cuando el carro 1 muestre `RACE FINISHED`, presiona `Ctrl+C` en la **Terminal 2** y espera a que termine de comprimir (`Compressing file: ...`) antes de cerrarla; si no, el bag queda sin `metadata.yaml`. Luego detén los dos `gap_node` y el simulador con `Ctrl+C`.
+6. Revisa el bag:
+   ```bash
+   ros2 bag info bags/partB_run1
+   ```
+   Debe listar los 6 tópicos. Para reproducirlo (con el simulador detenido): `ros2 bag play bags/partB_run1`.
+
+Para grabar solo el carro 1, quita `/opp_scan /opp_racecar/odom /opp_drive` del comando de grabación. Si una grabación se cortó y no tiene `metadata.yaml`, reconstrúyelo con `ros2 bag reindex bags/partB_run1 -s sqlite3`. Los archivos de datos de los bags superan el límite de 100 MB de GitHub, así que `.gitignore` los excluye.
+
+### Descargar los bags grabados
+
+Los archivos rosbag grabados, con la información de los tópicos de la simulación (LiDAR, odometría y comandos), están en esta carpeta de OneDrive: <https://1drv.ms/f/c/2f35172fc5338565/IgAqhQk1vH_aSaoRmRnlvGPbAQwkpdT5j_X8mT9KFZN1gPo?e=ILsada>
+
+Después de descargarlos, coloca cada carpeta del bag (con su `metadata.yaml` y su archivo de datos) dentro de `bags/` y revísala con `ros2 bag info bags/<carpeta>`.
 
 ## 5. Resultados
 
